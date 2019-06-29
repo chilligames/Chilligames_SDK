@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.UIElements;
-using System;
-using UnityEditor.EditorTools;
+using UnityEngine;
 
 /// <summary>
 /// playpref
@@ -295,7 +291,7 @@ public class App_Dashboard : EditorWindow
     int Tab_automantion;
     int Tab_analystic;
     int Tab_Setting;
-    int Tab_Admins;
+    int Tab_loges;
     int Tab_help;
     public static string Name_app { get; set; }
 
@@ -541,20 +537,60 @@ public class App_Dashboard : EditorWindow
                 break;
             case 10:
                 {
-                    
-
-
+                    Tab_Setting = GUILayout.Toolbar(Tab_Setting, new string[] { "General", "API setting", "secret keys", "realmassege setting", "Limits", "user setting", "Open id", "deta collection" });
+                    switch (Tab_Setting)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("General");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("APIsetting");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("ecret keys");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("real masseges");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("Limits");
+                            }
+                            break;
+                        case 5:
+                            {
+                                GUILayout.Label("user setting");
+                            }
+                            break;
+                        case 6:
+                            {
+                                GUILayout.Label("Open id");
+                            }
+                            break;
+                        case 7:
+                            {
+                                GUILayout.Label("data_collecton");
+                            }
+                            break;
+                    }
                 }
                 break;
             case 11:
                 {
-
-
+                    GUILayout.Label("logs");
                 }
                 break;
             case 12:
                 {
-
+                    GUILayout.Label("help");
                 }
 
                 break;
