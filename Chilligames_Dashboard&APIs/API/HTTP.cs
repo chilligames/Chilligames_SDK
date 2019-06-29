@@ -14,7 +14,7 @@ public class HTTP : MonoBehaviour
     {
 
         UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3333/reg_admin", requsts.body);
-
+         
         www.SetRequestHeader("Password", requsts.Password);
         www.SetRequestHeader("Email", requsts.Email);
 

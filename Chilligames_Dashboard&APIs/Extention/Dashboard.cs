@@ -12,6 +12,7 @@ using UnityEditor.EditorTools;
 /// </summary>
 public class Dashboard : EditorWindow
 {
+    
     int layer_select = 0;
     int select_tier = Entity_Admin.Active_Tier;
     string name_application_new;
@@ -24,7 +25,7 @@ public class Dashboard : EditorWindow
     string Website_new_application;
     Vector2 vertical_view_genre = new Vector2();
 
-
+    
     [MenuItem("Chilligames/Dashboard")]
     public static void Dashboard_show()
     {
@@ -123,14 +124,14 @@ public class Dashboard : EditorWindow
 
                     switch (select_tier)
                     {
-                        case 0:
+                        case 0: 
                             {
                                 GUILayout.Label("*The basic things every game needs");
                                 GUILayout.Space(30f);
                                 GUILayout.Label($"Price : {Entity_Admin.Prices[0]}T Enjoy!");
 
                                 GUILayout.Button("Select");
-                            }
+                            } 
                             break;
                         case 1:
                             {
@@ -433,7 +434,7 @@ public class App_Dashboard : EditorWindow
                 break;
             case 6:
                 {
-                    Tab_real_content = GUILayout.Toolbar(Tab_real_content,new string[6] {"","","","","","" });
+                    Tab_real_content = GUILayout.Toolbar(Tab_real_content,new string[5] {"Title real","title news","real files","Email collection","real massege(push notifaction)"});
                 }
                 break;
             case 7:
