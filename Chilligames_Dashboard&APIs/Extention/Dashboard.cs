@@ -31,9 +31,7 @@ public class Dashboard : EditorWindow
     {
         if (EditorPrefs.GetBool("Register"))
         {
-
             CreateInstance<Dashboard>().Show();
-
         }
         else
         {
@@ -296,7 +294,6 @@ public class App_Dashboard : EditorWindow
     int Tab_real_content;
     int Tab_automantion;
     int Tab_analystic;
-    int Tab_addons;
     int Tab_Setting;
     int Tab_Admins;
     int Tab_help;
@@ -311,13 +308,13 @@ public class App_Dashboard : EditorWindow
 
     private void OnGUI()
     {
-        Toolbar_selecter = GUILayout.Toolbar(Toolbar_selecter, new string[13] { "quick viwe", "Users", "Economy", "Tabels", "Real Data", "Teams", "Real content", "Automation", "analytics", "Add on", "Setting", "Admins", "Help" });
+        Toolbar_selecter = GUILayout.Toolbar(Toolbar_selecter, new string[] { "quick viwe", "Users", "Economy", "Tabels", "Real Data", "Teams", "Real content", "Automation", "analytics", "Add on", "Setting", "Admins", "Help" });
 
         switch (Toolbar_selecter)
         {
             case 0:
                 {
-                    Tab_quick_viwe = GUILayout.Toolbar(Tab_quick_viwe, new string[2] { "Overview", "Monitoring" });
+                    Tab_quick_viwe = GUILayout.Toolbar(Tab_quick_viwe, new string[] { "Overview", "Monitoring" });
                     switch (Tab_quick_viwe)
                     {
 
@@ -336,7 +333,7 @@ public class App_Dashboard : EditorWindow
                 break;
             case 1:
                 {
-                    Tab_Users = GUILayout.Toolbar(Tab_Users, new string[3] { "Users", "Segments", "Analyis users" });
+                    Tab_Users = GUILayout.Toolbar(Tab_Users, new string[] { "Users", "Segments", "Analyis users" });
                     switch (Tab_Users)
                     {
 
@@ -361,7 +358,7 @@ public class App_Dashboard : EditorWindow
                 break;
             case 2:
                 {
-                    Tab_Economy = GUILayout.Toolbar(Tab_Economy, new string[2] { "Catalog", "Curency" });
+                    Tab_Economy = GUILayout.Toolbar(Tab_Economy, new string[] { "Catalog", "Curency" });
                     switch (Tab_Economy)
                     {
                         case 0:
@@ -380,7 +377,7 @@ public class App_Dashboard : EditorWindow
                 break;
             case 3:
                 {
-                    Tab_Tabels = GUILayout.Toolbar(Tab_Tabels, new string[2] { "Static Tabel", "Dynamic" });
+                    Tab_Tabels = GUILayout.Toolbar(Tab_Tabels, new string[] { "Static Tabel", "Dynamic" });
                     switch (Tab_Tabels)
                     {
                         case 0:
@@ -434,26 +431,118 @@ public class App_Dashboard : EditorWindow
                 break;
             case 6:
                 {
-                    Tab_real_content = GUILayout.Toolbar(Tab_real_content, new string[5] { "Title real", "title news", "real files", "Email collection", "real massege(push notifaction)" });
+                    Tab_real_content = GUILayout.Toolbar(Tab_real_content, new string[] { "Title real", "title news", "real files", "collections", "real massege(push notifaction)" });
+                    switch (Tab_real_content)
+                    {
+
+
+                        case 0:
+                            {
+                                GUILayout.Label("Title real");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("titel news");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("titel real file");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("Collectins");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("real massege");
+                            }
+                            break;
+                    }
+
+
                 }
                 break;
             case 7:
                 {
-
+                    Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Cloud script", "A/B test", "Rules", "Scheduled Tasks" });
+                    switch (Tab_automantion)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("Cloud script");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("A/B test");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("Rules");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("Scheduled Tasks");
+                            }
+                            break;
+                    }
                 }
                 break;
             case 8:
                 {
+                    Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Trends", "Event history", "Reports", "webhook", "Event", "Event Archive" });
+                    switch (Tab_automantion)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("Terends");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Event history");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("reports");
+
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("webhook");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("events");
+                            }
+                            break;
+                        case 5:
+                            {
+                                GUILayout.Label("event archive");
+                            }
+                            break;
+                    }
 
                 }
                 break;
             case 9:
                 {
-
+                    GUILayout.Label("addon");
                 }
                 break;
             case 10:
                 {
+                    
+
 
                 }
                 break;
@@ -467,6 +556,7 @@ public class App_Dashboard : EditorWindow
                 {
 
                 }
+
                 break;
         }
     }
