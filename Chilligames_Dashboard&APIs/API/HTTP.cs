@@ -7,16 +7,24 @@ using System.Threading;
 using System.Threading.Tasks;
 public class HTTP : MonoBehaviour
 {
+    public const string API_address = "127.0.0.1:3333";
 
     #region Dashboard
 
-    public static async Task<bool> Admin_requst(Requsts.Req_Admin requsts, Action<Result> result, Action<Error> Err)
+    /// <summary>
+    /// admin requst for register new admin 
+    /// </summary>
+    /// <param name="Requst_register"> parametr for register new admin</param>
+    /// <param name="Result_register"> result register callback here</param>
+    /// <param name="ERROR"> error callback </param>
+    /// <returns></returns>
+    public static async Task<bool> Admin_requst(Requsts.Dashboard_req.Admin_register Requst_register, Action<Result> Result_register, Action<Error> ERROR)
     {
 
-        UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3333/reg_admin", requsts.body);
-         
-        www.SetRequestHeader("Password", requsts.Password);
-        www.SetRequestHeader("Email", requsts.Email);
+        UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3333/reg_admin", Requst_register.body);
+
+        www.SetRequestHeader("Password", Requst_register.Password);
+        www.SetRequestHeader("Email", Requst_register.Email);
 
         www.SendWebRequest();
 
@@ -41,6 +49,60 @@ public class HTTP : MonoBehaviour
 
     }
 
+
+
+    public static async Task Admin_login(Requsts.Dashboard_req.Admin_login Requst_login, Action<Result> Result_login, Action<Error> ERROR)
+    {
+
+
+        UnityWebRequest requst = UnityWebRequest.Post(API_address, Requst_login.body);
+
+        requst.SetRequestHeader("User_name", Requst_login.Email);
+        requst.SetRequestHeader("Password", Requst_login.Password);
+
+        requst.SendWebRequest();
+
+        await Task.Delay(1000);
+
+        if (requst.isDone)
+        {
+            //recive data
+            
+        }
+        else
+        {
+            await Task.Delay(500);
+            requst.SendWebRequest();
+            await Task.Delay(500);
+            if (requst.isDone)
+            {
+
+                //reciive edata
+            }
+            else
+            {
+                if (requst.isNetworkError)
+                {
+                    ERROR(new Error { Massege = "Conncetion Erro pleas cheack your conncetion", NetworkError = NetworkError.WrongConnection });
+                }
+                else if (requst.isHttpError)
+                {
+
+                }
+                else
+                {
+                    //show try agen
+
+                }
+
+            }
+
+
+        }
+
+
+
+    }
     #endregion
 }
 
@@ -51,18 +113,35 @@ public class HTTP : MonoBehaviour
 /// </summary>
 public class Requsts
 {
-
-    /// <summary>
-    /// admin raw requst
-    /// </summary>
-    public class Req_Admin
+    public class Dashboard_req
     {
-        public readonly string body = "Admin";
-        public string Email;
-        public string Password;
-        public string Nickname;
-    }
 
+
+        /// <summary>
+        /// admin raw requst
+        /// </summary>
+        public class Admin_register
+        {
+            public readonly string body = "Admin";
+            public string Email;
+            public string Password;
+            public string Nickname;
+        }
+
+
+        /// <summary>
+        /// raw admin login entity
+        /// </summary>
+        public class Admin_login
+        {
+            public string Email;
+            public string Password;
+
+            public string body = "Admin_login";
+
+        }
+
+    }
 
 
 }
@@ -73,6 +152,12 @@ public class Requsts
 /// </summary>
 public class Result
 {
+    public class Result_dashboard
+    {
+
+
+    }
+
     public bool Result_back;
 
 }
@@ -83,9 +168,9 @@ public class Result
 /// </summary>
 public class Error
 {
+    public string Massege;
 
-    enum ERRS
-    {
 
-    }
+    public NetworkError NetworkError = new NetworkError();
+
 }

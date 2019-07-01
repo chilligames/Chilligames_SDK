@@ -261,7 +261,7 @@ public class Register : EditorWindow
             result_reg();
             async void result_reg()
             {
-                bool result_register = await HTTP.Admin_requst(new Requsts.Req_Admin { Email = Email, Password = Password[1] }, null, null);
+                bool result_register = await HTTP.Admin_requst(new Requsts.Dashboard_req.Admin_register { Email = Email, Password = Password[1] }, null, null);
                 if (result_register)
                 {
                     CreateInstance<Dashboard>().Show();
@@ -303,6 +303,22 @@ public class Login : EditorWindow
         GUILayout.Label("Enter Your password:");
         Text_password = GUILayout.TextField("");
         Press_btn_login = GUILayout.Button("Login");
+
+        if (Press_btn_login)
+        {
+            var sendrequsted = HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login {Email=Text_Email,Password=Text_password }, result => { }, error => { });
+
+            if (sendrequsted.IsCompleted)
+            {
+                //code succes
+            }
+            else
+            {
+                sendrequsted.Wait(2);
+                
+            }
+
+        }
 
     }
 
