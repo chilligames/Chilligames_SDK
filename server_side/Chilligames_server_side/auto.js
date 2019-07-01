@@ -18,5 +18,5 @@ app.put('/reg_admin', function (req, res) {
     res.json({ "hi": "bith" });
 
     res.end();
-
+     
 });
