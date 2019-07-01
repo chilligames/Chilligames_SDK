@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 public class HTTP : MonoBehaviour
 {
-    public const string API_address = "127.0.0.1:3333";
+    public const string API_address_Register = "http://127.0.0.1:3333/admin/register";
 
     #region Dashboard
 
@@ -21,7 +21,7 @@ public class HTTP : MonoBehaviour
     public static async Task<bool> Admin_requst(Requsts.Dashboard_req.Admin_register Requst_register, Action<Result> Result_register, Action<Error> ERROR)
     {
 
-        UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3333/reg_admin", Requst_register.body);
+        UnityWebRequest www = UnityWebRequest.Put(API_address_Register, Requst_register.body);
 
         www.SetRequestHeader("Password", Requst_register.Password);
         www.SetRequestHeader("Email", Requst_register.Email);
@@ -55,7 +55,7 @@ public class HTTP : MonoBehaviour
     {
 
 
-        UnityWebRequest requst = UnityWebRequest.Post(API_address, Requst_login.body);
+        UnityWebRequest requst = UnityWebRequest.Post(API_address_Register, Requst_login.body);
 
         requst.SetRequestHeader("User_name", Requst_login.Email);
         requst.SetRequestHeader("Password", Requst_login.Password);
@@ -67,7 +67,7 @@ public class HTTP : MonoBehaviour
         if (requst.isDone)
         {
             //recive data
-            
+
         }
         else
         {

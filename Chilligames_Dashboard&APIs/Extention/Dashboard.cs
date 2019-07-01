@@ -310,11 +310,11 @@ public class Login : EditorWindow
 
             if (sendrequsted.IsCompleted)
             {
-                //code succes
+                CreateInstance<Dashboard>().Show();
             }
             else
             {
-                sendrequsted.Wait(2);
+                
                 
             }
 
