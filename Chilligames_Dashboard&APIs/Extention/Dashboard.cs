@@ -234,8 +234,8 @@ public class Register : EditorWindow
 
     string Email = "Enter your Email";
     string[] Password = new string[2] { "Password_1 ", "Password_2 " };
-    bool Button = false;
-
+    bool BTN_register;
+    bool Btn_login;
 
 
 
@@ -250,9 +250,13 @@ public class Register : EditorWindow
         GUILayout.Label("Enter agine Password:");
         Password[1] = GUILayout.PasswordField(Password[1], '*');
 
-        Button = GUILayout.Button(new GUIContent("Register", "register"));
+        BTN_register = GUILayout.Button(new GUIContent("Register", "register"));
+        GUILayout.Label("You old user?");
 
-        if (Button)
+        Btn_login = GUILayout.Button("Login");
+
+        //if player press btn_register
+        if (BTN_register)
         {
             result_reg();
             async void result_reg()
@@ -271,12 +275,46 @@ public class Register : EditorWindow
         }
 
 
+        if (Btn_login)
+        {
+            CreateInstance<Login>().Show();
+            Close();
+        }
+
 
     }
 
 
 
 }
+
+
+public class Login : EditorWindow
+{
+
+    string Text_Email;
+    string Text_password;
+    bool Press_btn_login;
+    private void OnGUI()
+    {
+
+        GUILayout.Label("Enter your email:");
+        Text_Email = GUILayout.TextField("");
+        GUILayout.Label("Enter Your password:");
+        Text_password = GUILayout.TextField("");
+        Press_btn_login = GUILayout.Button("Login");
+
+    }
+
+
+
+}
+
+
+
+
+
+
 
 public class App_Dashboard : EditorWindow
 {
@@ -396,7 +434,7 @@ public class App_Dashboard : EditorWindow
 
                     switch (tab_Real_data)
                     {
-                        
+
 
                         case 0:
                             {
