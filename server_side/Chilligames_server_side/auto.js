@@ -12,10 +12,10 @@ app.put('/reg_admin', function (req, res) {
 
 
     var Email = req.header("Email");
-
+    
     console.log(Email);
 
-    res.json({ "hi": "bith" });
+    res.json({ "hi": "" });
 
     res.end();
      
