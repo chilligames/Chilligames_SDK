@@ -11,8 +11,25 @@ app.put('/admin/register', function (req, res) {
 
     var Email = req.header("Email");
     var Password = req.header("Password");
-    register_admin(Email, Password);
-    //callbackfor unity
+
+    var DB = new Database().register_new_admin(Email, Password);
+
+    setTimeout(() => {
+        DB.then((r) => {
+
+            if (r == 1) {
+                console.log("code send data to admin");
+
+            } else {
+                console.log("code faild creat");
+            }
+
+        }, (e) => {
+            console.log("Code reject")
+        });
+
+
+    }, 3000);
 
     res.end();
 
@@ -33,39 +50,33 @@ app.put('/API', function (res, req) {
 
 
 /*DB area*/
-{
-
-    var mongoraw = require('mongodb');
+class Database {
 
 
-    var string_mongo = "mongodb://localhost:27017/admin";
-    
-    var mongoclient = new mongoraw.MongoClient(string_mongo, { useNewUrlParser: true });
-    
+    async register_new_admin(email, password) {
+        var mongoraw = require('mongodb');
+
+        var string_mongo = "mongodb://localhost:27017/admin";
+
+        var mongoclient = new mongoraw.MongoClient(string_mongo, { useNewUrlParser: true });
+
+        var data_access = await mongoclient.connect();
+        var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
+
+        if (insert.result.ok == 1) {
+            return 1;
+        } else {
+            return 0
+        }
 
 
-    function register_admin(email, password) {
-
-        mongoclient.connect(function (err_connection, result_connection) {
-
-
-            var database = mongoclient.db("Chilligames");
-            var Collection = database.collection("Users");
-
-            var insert = Collection.insertOne({ "Email:": email,"Password":password,"Time":Date()}, function (err_insert, result_insert) {
-               
-
-            console.log(result_insert);
-
-            });
-
-        });
 
     }
 
 
-
 }
+
+
 
 
 
