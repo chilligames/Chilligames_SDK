@@ -306,7 +306,7 @@ public class Login : EditorWindow
 
         if (Press_btn_login)
         {
-            var sendrequsted = HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login {Email=Text_Email,Password=Text_password }, result => { }, error => { });
+            var sendrequsted = HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login { Email = Text_Email, Password = Text_password }, result => { }, error => { });
 
             if (sendrequsted.IsCompleted)
             {
@@ -314,8 +314,8 @@ public class Login : EditorWindow
             }
             else
             {
-                
-                
+
+
             }
 
         }

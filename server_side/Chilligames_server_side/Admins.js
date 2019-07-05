@@ -15,16 +15,16 @@ app.put('/admin/register', function (req, res) {
     var DB = new Database().register_new_admin(Email, Password);
 
     setTimeout(() => {
-        DB.then((r) => {
+        DB.then((Callback) => {
 
-            if (r == 1) {
+            if (Callback == 1) {
                 console.log("code send data to admin");
-
             } else {
                 console.log("code faild creat");
             }
 
-        }, (e) => {
+        }, () => {
+
             console.log("Code reject")
         });
 
@@ -61,12 +61,14 @@ class Database {
         var mongoclient = new mongoraw.MongoClient(string_mongo, { useNewUrlParser: true });
 
         var data_access = await mongoclient.connect();
+        var result_serch=await data_access.db("Chilligames").collection("Users").findOne()///delet
+
         var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
 
         if (insert.result.ok == 1) {
             return 1;
         } else {
-            return 0
+            return 0;
         }
 
 
