@@ -61,25 +61,24 @@ class Database {
         var mongoclient = new mongoraw.MongoClient(string_mongo, { useNewUrlParser: true });
 
         var data_access = await mongoclient.connect();
-        var result_serch=await data_access.db("Chilligames").collection("Users").findOne()///delet
 
-        var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
+        var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': email }).count();
 
-        if (insert.result.ok == 1) {
-            return 1;
-        } else {
-            return 0;
+        var result_register = async function () {
+            if (result_serch === 1) {
+                return 0;
+            } else {
+                var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
+                return insert.result.ok;
+            }
         }
 
+        return result_register();
 
 
     }
 
 
 }
-
-
-
-
 
 
