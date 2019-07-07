@@ -15,21 +15,20 @@ app.put('/admin/register', function (req, res) {
     var DB = new Database().register_new_admin(Email, Password);
 
     setTimeout(() => {
-        DB.then((Callback) => {
 
-            if (Callback == 1) {
-                console.log("code send data to admin");
-            } else {
-                console.log("code faild creat");
-            }
+        DB.then(
 
-        }, () => {
+            ({ ID_creat, result_register }) => {
+                if (result_register) {
+                 
+                }
+                
+            },
 
-            console.log("Code reject")
-        });
+        );
 
 
-    }, 3000);
+    }, 3000)
 
     res.end();
 
@@ -55,6 +54,10 @@ class Database {
 
     async register_new_admin(email, password) {
         var mongoraw = require('mongodb');
+        var callback = { "result_register": Boolean, "ID_creat": "" };
+
+
+
 
         var string_mongo = "mongodb://localhost:27017/admin";
 
@@ -65,11 +68,24 @@ class Database {
         var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': email }).count();
 
         var result_register = async function () {
+
             if (result_serch === 1) {
-                return 0;
-            } else {
+                callback.ID_creat = 0;
+                callback.result_register = false;
+                return callback;
+            }
+            else {
                 var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
-                return insert.result.ok;
+                if (insert.result.ok === 1) {
+                    callback.ID_creat = insert.insertedId.toHexString();
+                    callback.result_register = true;
+                    return callback;
+
+                } else {
+                    callback.ID_creat = 0;
+                    callback.result_register = false;
+                    return callback;
+                }
             }
         }
 
