@@ -20,9 +20,9 @@ app.put('/admin/register', function (req, res) {
 
             ({ ID_creat, result_register }) => {
                 if (result_register) {
-                 
+
                 }
-                
+
             },
 
         );
@@ -66,6 +66,7 @@ class Database {
         var data_access = await mongoclient.connect();
 
         var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': email }).count();
+        
 
         var result_register = async function () {
 
@@ -90,6 +91,7 @@ class Database {
         }
 
         return result_register();
+        mongoclient.close();
 
 
     }
