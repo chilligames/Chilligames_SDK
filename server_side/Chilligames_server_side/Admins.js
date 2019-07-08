@@ -14,21 +14,6 @@ app.put('/admin/register', function (req, res) {
 
     var DB = new Database().register_new_admin(Email, Password);
 
-    setTimeout(() => {
-
-        DB.then(
-
-            ({ ID_creat, result_register }) => {
-                if (result_register) {
-
-                }
-
-            },
-
-        );
-
-
-    }, 3000)
 
     res.end();
 
@@ -52,12 +37,10 @@ app.put('/API', function (res, req) {
 class Database {
 
 
-    async register_new_admin(email, password) {
+
+    async register_new_admin(Email_Incoming, Password_Incomin) {
         var mongoraw = require('mongodb');
         var callback = { "result_register": Boolean, "ID_creat": "" };
-
-
-
 
         var string_mongo = "mongodb://localhost:27017/admin";
 
@@ -65,8 +48,8 @@ class Database {
 
         var data_access = await mongoclient.connect();
 
-        var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': email }).count();
-        
+        var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': Email_Incoming }).count();
+
 
         var result_register = async function () {
 
@@ -74,27 +57,57 @@ class Database {
                 callback.ID_creat = 0;
                 callback.result_register = false;
                 return callback;
-            }
-            else {
-                var insert = await data_access.db("Chilligames").collection("Users").insertOne({ email, password });
-                if (insert.result.ok === 1) {
-                    callback.ID_creat = insert.insertedId.toHexString();
-                    callback.result_register = true;
-                    return callback;
+            } else {
 
-                } else {
-                    callback.ID_creat = 0;
-                    callback.result_register = false;
-                    return callback;
-                }
+                Install_Admin(Email_Incoming, Password_Incomin);
+
             }
+
+        }
+
+        var Install_Admin = async function (Email, Password) {
+
+            var Result_install = async () => {
+                let Callback;
+                await mongoclient.db("Chilligames").collection("Users").insertOne(
+                    {
+                        "Email": Email,
+                        "Password": Password,
+                        "Tier": 0,
+                        "Setting": { "Shord_valid": "w" },
+                        "Users": {
+                            "Admin": { "Email": Email, "Password": Password }
+                        },
+                        "Rolls": {
+                            "Admin": {},
+                            "Dassboard": {}
+                        }
+
+                    }, function (Err_install, Result_install) {
+
+
+
+                    });
+            }
+
+            Result_install();
+
+
         }
 
         return result_register();
+
         mongoclient.close();
 
 
     }
+
+
+
+
+
+
+
 
 
 }
