@@ -81,19 +81,34 @@ class Database {
                         "Rolls": {
                             "Admin": {},
                             "Dassboard": {}
+                        },
+                        "Applications": {
+                           
                         }
 
                     }, function (Err_install, Result_install) {
 
+                        if (Result_install.result.ok == 1) {
+
+
+                        }
+
 
 
                     });
+
             }
+
+
+
 
             Result_install();
 
 
         }
+
+
+
 
         return result_register();
 
