@@ -12,8 +12,9 @@ app.put('/admin/register', function (req, res) {
     var Email = req.header("Email");
     var Password = req.header("Password");
 
-    var DB = new Database().register_new_admin(Email, Password);
 
+    var DB = new Database().register_new_admin(Email, Password);
+    DB.then((id) => { console.log(id.result); });
 
     res.end();
 
@@ -40,7 +41,7 @@ class Database {
 
     async register_new_admin(Email_Incoming, Password_Incomin) {
         var mongoraw = require('mongodb');
-        var callback = { "result_register": Boolean, "ID_creat": "" };
+
 
         var string_mongo = "mongodb://localhost:27017/admin";
 
@@ -48,83 +49,49 @@ class Database {
 
         var data_access = await mongoclient.connect();
 
-        var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'email': Email_Incoming }).count();
+        var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'Email': Email_Incoming }).count();
 
+        var Callback = await function () {
+            var callback = { "ID": String, "result": Boolean };
 
-        var result_register = async function () {
+            if (result_serch > 0) {
+                callback.ID = "";
+                callback.result = false;
 
-            if (result_serch === 1) {
-                callback.ID_creat = 0;
-                callback.result_register = false;
+                mongoclient.close();
                 return callback;
+
             } else {
 
-                Install_Admin(Email_Incoming, Password_Incomin);
-
-            }
-
-        }
-
-        var Install_Admin = async function (Email, Password) {
-
-            var Result_install = async () => {
-                let Callback;
-                await mongoclient.db("Chilligames").collection("Users").insertOne(
+                return  mongoclient.db("Chilligames").collection("Users").insertOne(
                     {
-                        "Email": Email,
-                        "Password": Password,
+                        "Email": Email_Incoming,
+                        "Password": Password_Incomin,
                         "Tier": 0,
                         "Setting": { "Shord_valid": "w" },
                         "Users": {
-                            "Admin": { "Email": Email, "Password": Password }
+                            "Admin": { "Email": Email_Incoming, "Password": Password_Incomin }
                         },
                         "Rolls": {
                             "Admin": {},
                             "Dassboard": {}
                         },
                         "Applications": {
-                           
-                        }
-
-                    }, function (Err_install, Result_install) {
-
-                        if (Result_install.result.ok == 1) {
-
 
                         }
 
-
-
-                    });
-
+                    }).then((result) => {
+                        callback.ID = result.insertedId;
+                        callback.result = true;
+                        return callback;
+                        mongoclient.close();
+                    })
             }
-
-
-
-
-            Result_install();
-
-
         }
-
-
-
-
-        return result_register();
-
-        mongoclient.close();
-
+       
+        return await Callback();
 
     }
-
-
-
-
-
-
-
-
-
 }
 
 
