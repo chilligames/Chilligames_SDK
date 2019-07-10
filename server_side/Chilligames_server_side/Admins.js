@@ -7,16 +7,21 @@ var port_reg = 3333;
 
 app.listen(port_reg, host_reg);
 
-app.put('/admin/register', function (req, res) {
+app.get('/admin/register', function (req, res) {
+
 
     var Email = req.header("Email");
     var Password = req.header("Password");
 
 
     var DB = new Database().register_new_admin(Email, Password);
-    DB.then((id) => { console.log(id.result); });
+    DB.then((call_back_Unity) => {
 
-    res.end();
+        res.send(call_back_Unity);
+
+        res.end();
+    })
+
 
 });
 
@@ -63,7 +68,7 @@ class Database {
 
             } else {
 
-                return  mongoclient.db("Chilligames").collection("Users").insertOne(
+                return mongoclient.db("Chilligames").collection("Users").insertOne(
                     {
                         "Email": Email_Incoming,
                         "Password": Password_Incomin,
@@ -88,7 +93,7 @@ class Database {
                     })
             }
         }
-       
+
         return await Callback();
 
     }

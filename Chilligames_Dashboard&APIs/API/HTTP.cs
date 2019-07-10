@@ -21,14 +21,14 @@ public class HTTP : MonoBehaviour
     public static async Task<bool> Admin_requst(Requsts.Dashboard_req.Admin_register Requst_register, Action<Result> Result_register, Action<Error> ERROR)
     {
 
-        UnityWebRequest www = UnityWebRequest.Put(API_address_Register, Requst_register.body);
+        UnityWebRequest www = UnityWebRequest.Get(API_address_Register);
 
         www.SetRequestHeader("Password", Requst_register.Password);
         www.SetRequestHeader("Email", Requst_register.Email);
-
+        
         www.SendWebRequest();
-
-
+        
+        
         await Task.Delay(3000);
 
         if (www.isDone)
