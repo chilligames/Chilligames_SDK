@@ -57,45 +57,38 @@ class Database {
         var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'Email': Email_Incoming }).count();
 
         var Callback = await function () {
-            var callback = { "ID": String, "result": Boolean };
+            var callback_model = {
+                "ID": "",
+                "result": Boolean(true),
+                "Password": Password_Incomin,
+                "Email": Email_Incoming,
+                "Tier": 0,
+                "Setting": [{"Short_valid":""}],
+                "Users": [{"Admin":[Email_Incoming,Password_Incomin]}],
+                "Rolls": [{ "Admin": [] }, { "Dashboard": {}}],
+                "Application": []
+            };
 
             if (result_serch > 0) {
-                callback.ID = "";
-                callback.result = false;
+                callback_model.result = false;
 
                 mongoclient.close();
-                return callback;
+                return callback_model;
 
             } else {
 
-                return mongoclient.db("Chilligames").collection("Users").insertOne(
-                    {
-                        "Email": Email_Incoming,
-                        "Password": Password_Incomin,
-                        "Tier": 0,
-                        "Setting": { "Shord_valid": "w" },
-                        "Users": {
-                            "Admin": { "Email": Email_Incoming, "Password": Password_Incomin }
-                        },
-                        "Rolls": {
-                            "Admin": {},
-                            "Dassboard": {}
-                        },
-                        "Applications": {
+                return mongoclient.db("Chilligames").collection("Users").insertOne(callback_model).then((result) => {
+                    callback_model.ID = result.insertedId;
+                    callback_model.result = true;
 
-                        }
-
-                    }).then((result) => {
-                        callback.ID = result.insertedId;
-                        callback.result = true;
-                        return callback;
-                        mongoclient.close();
-                    })
+                    return callback_model;
+                    mongoclient.close();
+                })
             }
         }
-         
+
         return await Callback();
-        
+
     }
 }
 
