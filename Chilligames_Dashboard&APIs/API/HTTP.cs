@@ -25,27 +25,28 @@ public class HTTP : MonoBehaviour
 
         www.SetRequestHeader("Password", Requst_register.Password);
         www.SetRequestHeader("Email", Requst_register.Email);
-        
+
         www.SendWebRequest();
-        
-        
-        await Task.Delay(3000);
 
-        if (www.isDone)
+
+        while (true)
         {
-            Debug.Log("send");
 
-            Debug.Log(www.downloadHandler.text);
+            if (www.isDone)
+            {
+                Debug.Log("send_succes");
+                Debug.Log(www.downloadHandler.text);
+                www.Abort();
+                return true;
 
-            www.Abort();
-            return true;
+            }
+            else
+            {
+                await Task.Delay(100);
+            }
+
         }
-        else
-        {
-            www.SendWebRequest();
-            await Task.Delay(2000);
-            return false;
-        }
+
 
     }
 
