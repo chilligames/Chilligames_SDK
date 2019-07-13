@@ -49,7 +49,7 @@ namespace Chilligames.Dashboard
 
             EditorGUILayout.LabelField("Wellcome To Chilligames [Backend]");
 
-            EditorGUILayout.LabelField($"You are login as :{Entity_Admin.Nick_name}");
+            EditorGUILayout.LabelField($"You are login as :{Entity_Admin.Email}");
             switch (Entity_Admin.Active_Tier)
             {
                 case 0:
@@ -81,10 +81,9 @@ namespace Chilligames.Dashboard
                 case 0:
                     {
 
-                        if (Entity_Admin.List_application.Count < 2)
+                        if (Entity_Admin.List_application.Count == 0)
                         {
-                            Entity_Admin.List_application.Add("hard");
-                            Entity_Admin.List_application.Add("hi");
+                            
 
                             EditorGUILayout.HelpBox("You are not a application", MessageType.Warning, true);
 
@@ -278,8 +277,17 @@ namespace Chilligames.Dashboard
                             Entity_Admin.Setting = result.Setting;
                             Entity_Admin.Users = result.Users;
                             Entity_Admin.Rolls = result.Rolls;
-                            Entity_Admin.Application = result.Applications;
-                            if (Entity_Admin.Status_active)
+                            Entity_Admin.Application = result.Application;
+                            Debug.Log(result.Application[0]);
+
+                            
+                            foreach (var item in Entity_Admin.Application)
+                            {
+                                Entity_Admin.List_application.Add(item.ToString());
+                            }
+
+
+                            if (Entity_Admin.ID.Length>5)
                             {
                                 Close();
 

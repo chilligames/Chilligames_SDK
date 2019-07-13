@@ -173,7 +173,7 @@ namespace Chilligames.APIs
             public object[] Setting;
             public object[] Users;
             public object[] Rolls;
-            public object[] Applications;
+            public object[] Application;
 
         }
 
