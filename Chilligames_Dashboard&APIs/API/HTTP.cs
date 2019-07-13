@@ -43,10 +43,10 @@ namespace Chilligames.APIs
 
 
                     Debug.Log(www.downloadHandler.text);
-                    
+
 
                     Result_register(Json.ChilligamesJson.DeserializeObject<Result.Result_Admin>(www.downloadHandler.text));
-                    
+
                     www.Abort();
                     return true;
 

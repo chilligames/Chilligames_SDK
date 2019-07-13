@@ -109,8 +109,6 @@ namespace Chilligames.Dashboard
                                     App_Dashboard.Name_app = Entity_Admin.List_application[index];
                                     CreateInstance<App_Dashboard>().ShowAuxWindow();
                                 }
-
-
                             }
                         }
                     }

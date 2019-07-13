@@ -26,7 +26,7 @@ app.get('/admin/register', function (req, res) {
 
 });
 
-app.post('/Admin/login', function () {
+app.post('/admin/login', function () {
 
 
 })
@@ -42,8 +42,6 @@ app.put('/API', function (res, req) {
 
 /*DB area*/
 class Database {
-
-
 
     async register_new_admin(Email_Incoming, Password_Incomin) {
         var mongoraw = require('mongodb');
@@ -115,6 +113,22 @@ class Database {
 
 
         return await Callback();
+
+    }
+
+    async Admin_login(Email_Incomin, Password_Incoming) {
+
+        var mongo_raw = require("mongodb");
+        var express = require('express');
+        var string_mongo = "mongodb://localhost:27017/admin/";
+
+        var Mongo_client = new mongo_raw.MongoClient(string_mongo, { useNewUrlParser: true });
+
+
+
+
+        }
+
 
     }
 }
