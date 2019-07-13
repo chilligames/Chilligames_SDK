@@ -17,6 +17,7 @@ app.get('/admin/register', function (req, res) {
     var DB = new Database().register_new_admin(Email, Password);
     DB.then((call_back_Unity) => {
 
+        console.log(call_back_Unity.ID);
         res.send(call_back_Unity);
 
         res.end();
@@ -57,17 +58,33 @@ class Database {
         var result_serch = await data_access.db("Chilligames").collection("Users").find({ 'Email': Email_Incoming }).count();
 
         var Callback = await function () {
+
             var callback_model = {
                 "ID": "",
                 "result": Boolean(true),
                 "Password": Password_Incomin,
                 "Email": Email_Incoming,
                 "Tier": 0,
-                "Setting": [{"Short_valid":""}],
-                "Users": [{"Admin":[Email_Incoming,Password_Incomin]}],
-                "Rolls": [{ "Admin": [] }, { "Dashboard": {}}],
+                "Setting": [{ "Short_valid": "" }],
+                "Users": [{ "Admin": [Email_Incoming, Password_Incomin] }],
+                "Rolls": [{ "Admin": [] }, { "Dashboard": {} }],
                 "Application": []
             };
+            var Model_Application = {
+                "Qick_viwe": [],
+                "Users": [],
+                "Economy": [],
+                "Tabels": [],
+                "Real_Data": [],
+                "Teams": [],
+                "Real_content": [],
+                "Automation": [],
+                "Analytics": [],
+                "ADD_on": [],
+                "Setting": [],
+                "Admins": [],
+            }
+
 
             if (result_serch > 0) {
                 callback_model.result = false;
@@ -77,15 +94,25 @@ class Database {
 
             } else {
 
-                return mongoclient.db("Chilligames").collection("Users").insertOne(callback_model).then((result) => {
-                    callback_model.ID = result.insertedId;
-                    callback_model.result = true;
+                var install = async function () {
 
-                    return callback_model;
-                    mongoclient.close();
-                })
+                    await mongoclient.db("Chilligames").collection("Applications").insertOne(Model_Application).then((result_insert_app) => {
+
+                        callback_model.Application[0] = result_insert_app.insertedId;
+                    });
+                    await mongoclient.db("Chilligames").collection("Users").insertOne(callback_model).then((result) => {
+                        callback_model.ID = result.insertedId;
+                        callback_model.result = true;
+                        mongoclient.close();
+                    });
+
+                    return await callback_model;
+                }
+
+                return install();
             }
         }
+
 
         return await Callback();
 

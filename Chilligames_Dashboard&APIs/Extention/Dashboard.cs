@@ -83,7 +83,7 @@ namespace Chilligames.Dashboard
 
                         if (Entity_Admin.List_application.Count == 0)
                         {
-                            
+
 
                             EditorGUILayout.HelpBox("You are not a application", MessageType.Warning, true);
 
@@ -101,7 +101,8 @@ namespace Chilligames.Dashboard
                             void application(int index)
                             {
 
-                                EditorGUILayout.LabelField($"Name Aplication : {Entity_Admin.List_application[index]}");
+                                EditorGUILayout.LabelField($"ID Application : {Entity_Admin.List_application[index]}");
+                                EditorGUILayout.LabelField($"Name Application:{Entity_apps.Name_application}");
                                 bool Press_btn_manage = GUILayout.Button(new GUIContent("Manage"));
                                 if (Press_btn_manage)
                                 {
@@ -280,14 +281,14 @@ namespace Chilligames.Dashboard
                             Entity_Admin.Application = result.Application;
                             Debug.Log(result.Application[0]);
 
-                            
+
                             foreach (var item in Entity_Admin.Application)
                             {
                                 Entity_Admin.List_application.Add(item.ToString());
                             }
 
 
-                            if (Entity_Admin.ID.Length>5)
+                            if (Entity_Admin.ID.Length > 5)
                             {
                                 Close();
 
@@ -360,6 +361,8 @@ namespace Chilligames.Dashboard
 
     public class App_Dashboard : EditorWindow
     {
+        public static string Name_app { get; set; }
+
         int Toolbar_selecter;
         int Tab_quick_viwe;
         int Tab_Users;
@@ -373,7 +376,7 @@ namespace Chilligames.Dashboard
         int Tab_Setting;
         int Tab_loges;
         int Tab_help;
-        public static string Name_app { get; set; }
+
 
         private void Awake()
         {
@@ -680,7 +683,6 @@ namespace Chilligames.Dashboard
     }
 
 
-
     public struct Entity_Admin
     {
 
@@ -705,6 +707,15 @@ namespace Chilligames.Dashboard
 
 
     }
+
+
+    public struct Entity_apps
+    {
+        public static string Name_application;
+
+    }
+
+
 }
 
 
