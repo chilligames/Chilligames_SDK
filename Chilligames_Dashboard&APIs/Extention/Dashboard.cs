@@ -126,27 +126,27 @@ namespace Chilligames.Dashboard
                                 {
                                     GUILayout.Label("*The basic things every game needs");
                                     GUILayout.Space(30f);
-                                    GUILayout.Label($"Price : {Entity_Admin.Prices[0]}T Enjoy!");
+                                    //GUILayout.Label($"Price : {Entity_Admin.Prices[0]}T Enjoy!");
 
                                     GUILayout.Button("Select");
                                 }
                                 break;
                             case 1:
                                 {
-                                    Entity_Admin.Prices[1] = 2.3;
+                                    //Entity_Admin.Prices[1] = 2.3;
                                     GUILayout.Label("*More features to support growth and enhance monetization");
                                     GUILayout.Space(30f);
-                                    GUILayout.Label($"Price : {Entity_Admin.Prices[1]}T per Mons");
+                                    //GUILayout.Label($"Price : {Entity_Admin.Prices[1]}T per Mons");
                                     GUILayout.Button("Select tier");
                                 }
                                 break;
                             case 2:
                                 {
-                                    Entity_Admin.Prices[2] = 4.9;
+                                    //Entity_Admin.Prices[2] = 4.9;
 
                                     GUILayout.Label("*Premium services and dedicated support");
                                     GUILayout.Space(30f);
-                                    GUILayout.Label($"Price : {Entity_Admin.Prices[2] }T per Mons");
+                                    //GUILayout.Label($"Price : {Entity_Admin.Prices[2] }T per Mons");
                                     GUILayout.Button("Select tier");
                                 }
                                 break;
@@ -162,7 +162,7 @@ namespace Chilligames.Dashboard
                         //
                         Recovery_email = GUILayout.Button("Recovery Email");
                         GUILayout.Space(30);
-                        EditorGUILayout.SelectableLabel($"Vrifie Code :{Entity_Admin.Vrifie_code}");
+                        //EditorGUILayout.SelectableLabel($"Vrifie Code :{Entity_Admin.Vrifie_code}");
                         GUILayout.Button("revrified");
                     }
                     break;
@@ -267,13 +267,29 @@ namespace Chilligames.Dashboard
                 {
                     await HTTP.Admin_requst(new Requsts.Dashboard_req.Admin_register { Email = Email, Password = Password[1] },
 
-                        (resul) =>
+                        (result) =>
                         {
 
-                            Entity_Admin.Email = resul.Email;
-                            Debug.Log( resul.Result);
-                            Close();
-                            CreateInstance<Dashboard>().Show();
+                            Entity_Admin.ID = result.ID;
+                            Entity_Admin.Status_active = result.Result;
+                            Entity_Admin.Password = result.Password;
+                            Entity_Admin.Email = result.Email;
+                            Entity_Admin.Active_Tier = result.Tier;
+                            Entity_Admin.Setting = result.Setting;
+                            Entity_Admin.Users = result.Users;
+                            Entity_Admin.Rolls = result.Rolls;
+                            Entity_Admin.Application = result.Applications;
+                            if (Entity_Admin.Status_active)
+                            {
+                                Close();
+
+                                CreateInstance<Dashboard>().Show();
+                            }
+                            else
+                            {
+                                EditorGUILayout.HelpBox("not_active", MessageType.Error);
+                            }
+
                         }, null);
 
                 }
@@ -661,16 +677,16 @@ namespace Chilligames.Dashboard
     {
 
         #region Dashboard
-        public static string Email { get; set; }
-        public static string Password { get; set; }
-
-        public static string Nick_name { get; set; }
-
-        public static int Active_Tier { get; set; }
-
-        public static double[] Prices = new double[3];
-        public static string Vrifie_code { get; set; }
-
+        public static string ID;
+        public static bool Status_active;
+        public static string Password;
+        public static string Email;
+        public static string Nick_name;
+        public static int Active_Tier;
+        public static object[] Setting;
+        public static object[] Users;
+        public static object[] Rolls;
+        public static object[] Application;
         public static List<string> List_application = new List<string>(100);
         #endregion
         #region App_dashboard
