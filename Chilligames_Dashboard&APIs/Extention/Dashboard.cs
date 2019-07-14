@@ -277,7 +277,7 @@ namespace Chilligames.Dashboard
                             Entity_Admin.Users = result.Users;
                             Entity_Admin.Rolls = result.Rolls;
                             Entity_Admin.Application = result.Application;
-                            Debug.Log(result.Application[0]);
+
 
 
                             foreach (var item in Entity_Admin.Application)
@@ -329,392 +329,414 @@ namespace Chilligames.Dashboard
         {
 
             GUILayout.Label("Enter your email:");
-            Text_Email = GUILayout.TextField("");
+            Text_Email = GUILayout.TextField(Text_Email);
             GUILayout.Label("Enter Your password:");
-            Text_password = GUILayout.TextField("");
+            Text_password = GUILayout.TextField(Text_password);
             Press_btn_login = GUILayout.Button("Login");
 
             if (Press_btn_login)
             {
-                var sendrequsted = HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login { Email = Text_Email, Password = Text_password }, result => { }, error => { });
+                login();
 
-                if (sendrequsted.IsCompleted)
-                {
-                    CreateInstance<Dashboard>().Show();
-                }
-                else
+                async void login()
                 {
 
+                    await HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login { Email = Text_Email, Password = Text_password }, (result_login) =>
+                          {
+
+                              Entity_Admin.ID = result_login.ID;
+                              Entity_Admin.Status_active = result_login.Result;
+                              Entity_Admin.Password = result_login.Password;
+                              Entity_Admin.Email = result_login.Email;
+                              Entity_Admin.Active_Tier = result_login.Tier;
+                              Entity_Admin.Setting = result_login.Setting;
+                              Entity_Admin.Users = result_login.Users;
+                              Entity_Admin.Rolls = result_login.Rolls;
+                              Entity_Admin.Application = result_login.Application;
+                              Debug.Log(Entity_Admin.Application.Length);
+
+                              for (int i = 0; i < Entity_Admin.Application.Length; i++)
+                              {
+                                  Entity_Admin.List_application.Add(Entity_Admin.Application[i].ToString());
+                              }
+
+                              CreateInstance<Dashboard>().Show();
+                          },
+                    (Error) =>
+                    {
+                        Debug.Log("code_err_here");
+                    });
 
                 }
-
             }
 
-        }
 
-
-
-    }
-
-
-    public class App_Dashboard : EditorWindow
-    {
-        public static string Name_app { get; set; }
-
-        int Toolbar_selecter;
-        int Tab_quick_viwe;
-        int Tab_Users;
-        int Tab_Economy;
-        int Tab_Tabels;
-        int tab_Real_data;
-        int Tab_teams;
-        int Tab_real_content;
-        int Tab_automantion;
-        int Tab_analystic;
-        int Tab_Setting;
-        int Tab_loges;
-        int Tab_help;
-
-
-        private void Awake()
-        {
-            titleContent = new GUIContent($"You are manage :  [ {Name_app} ]");
-            maxSize = new Vector2(1200, 500);
-            minSize = new Vector2(1200, 500);
-        }
-
-        private void OnGUI()
-        {
-            Toolbar_selecter = GUILayout.Toolbar(Toolbar_selecter, new string[] { "quick viwe", "Users", "Economy", "Tabels", "Real Data", "Teams", "Real content", "Automation", "analytics", "Add on", "Setting", "Admins", "Help" });
-
-            switch (Toolbar_selecter)
-            {
-                case 0:
-                    {
-                        Tab_quick_viwe = GUILayout.Toolbar(Tab_quick_viwe, new string[] { "Overview", "Monitoring" });
-                        switch (Tab_quick_viwe)
-                        {
-
-                            case 0:
-                                {
-                                    GUILayout.Label("overviwe");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Monitor");
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case 1:
-                    {
-                        Tab_Users = GUILayout.Toolbar(Tab_Users, new string[] { "Users", "Segments", "Analyis users" });
-                        switch (Tab_Users)
-                        {
-
-                            case 0:
-                                {
-                                    GUILayout.Label("Users");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Segments");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("Analys player");
-                                }
-                                break;
-                        }
-
-                    }
-                    break;
-                case 2:
-                    {
-                        Tab_Economy = GUILayout.Toolbar(Tab_Economy, new string[] { "Catalog", "Curency" });
-                        switch (Tab_Economy)
-                        {
-                            case 0:
-                                {
-                                    GUILayout.Label("catalog");
-
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Curency");
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case 3:
-                    {
-                        Tab_Tabels = GUILayout.Toolbar(Tab_Tabels, new string[] { "Static Tabel", "Dynamic" });
-                        switch (Tab_Tabels)
-                        {
-                            case 0:
-                                {
-                                    GUILayout.Label("Static_tabel");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Dynamic_tabel");
-                                }
-                                break;
-                        }
-
-                    }
-                    break;
-                case 4:
-                    {
-                        tab_Real_data = GUILayout.Toolbar(tab_Real_data, new string[] { "Extended server", "Rooms", "real data" });
-
-                        switch (tab_Real_data)
-                        {
-
-
-                            case 0:
-                                {
-                                    GUILayout.Label("Extnded server");
-
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Roobs");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("real data");
-                                }
-                                break;
-
-                        }
-
-
-                    }
-                    break;
-                case 5:
-                    {
-                        GUILayout.Label("Teams");
-                    }
-                    break;
-                case 6:
-                    {
-                        Tab_real_content = GUILayout.Toolbar(Tab_real_content, new string[] { "Title real", "title news", "real files", "collections", "real massege(push notifaction)" });
-                        switch (Tab_real_content)
-                        {
-
-
-                            case 0:
-                                {
-                                    GUILayout.Label("Title real");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("titel news");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("titel real file");
-                                }
-                                break;
-                            case 3:
-                                {
-                                    GUILayout.Label("Collectins");
-                                }
-                                break;
-                            case 4:
-                                {
-                                    GUILayout.Label("real massege");
-                                }
-                                break;
-                        }
-
-
-                    }
-                    break;
-                case 7:
-                    {
-                        Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Cloud script", "A/B test", "Rules", "Scheduled Tasks" });
-                        switch (Tab_automantion)
-                        {
-                            case 0:
-                                {
-                                    GUILayout.Label("Cloud script");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("A/B test");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("Rules");
-                                }
-                                break;
-                            case 3:
-                                {
-                                    GUILayout.Label("Scheduled Tasks");
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case 8:
-                    {
-                        Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Trends", "Event history", "Reports", "webhook", "Event", "Event Archive" });
-                        switch (Tab_automantion)
-                        {
-                            case 0:
-                                {
-                                    GUILayout.Label("Terends");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("Event history");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("reports");
-
-                                }
-                                break;
-                            case 3:
-                                {
-                                    GUILayout.Label("webhook");
-                                }
-                                break;
-                            case 4:
-                                {
-                                    GUILayout.Label("events");
-                                }
-                                break;
-                            case 5:
-                                {
-                                    GUILayout.Label("event archive");
-                                }
-                                break;
-                        }
-
-                    }
-                    break;
-                case 9:
-                    {
-                        GUILayout.Label("addon");
-                    }
-                    break;
-                case 10:
-                    {
-                        Tab_Setting = GUILayout.Toolbar(Tab_Setting, new string[] { "General", "API setting", "secret keys", "realmassege setting", "Limits", "user setting", "Open id", "deta collection" });
-                        switch (Tab_Setting)
-                        {
-                            case 0:
-                                {
-                                    GUILayout.Label("General");
-                                }
-                                break;
-                            case 1:
-                                {
-                                    GUILayout.Label("APIsetting");
-                                }
-                                break;
-                            case 2:
-                                {
-                                    GUILayout.Label("ecret keys");
-                                }
-                                break;
-                            case 3:
-                                {
-                                    GUILayout.Label("real masseges");
-                                }
-                                break;
-                            case 4:
-                                {
-                                    GUILayout.Label("Limits");
-                                }
-                                break;
-                            case 5:
-                                {
-                                    GUILayout.Label("user setting");
-                                }
-                                break;
-                            case 6:
-                                {
-                                    GUILayout.Label("Open id");
-                                }
-                                break;
-                            case 7:
-                                {
-                                    GUILayout.Label("data_collecton");
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case 11:
-                    {
-                        GUILayout.Label("logs");
-                    }
-                    break;
-                case 12:
-                    {
-                        GUILayout.Label("help");
-                    }
-
-                    break;
-            }
         }
 
     }
 
-
-    public struct Entity_Admin
-    {
-
-        #region Dashboard
-        public static string ID;
-        public static bool Status_active;
-        public static string Password;
-        public static string Email;
-        public static string Nick_name;
-        public static int Active_Tier;
-        public static object[] Setting;
-        public static object[] Users;
-        public static object[] Rolls;
-        public static object[] Application;
-        public static List<string> List_application = new List<string>(100);
-        #endregion
-        #region App_dashboard
-
-
-
-        #endregion
-
-
-    }
-
-
-    public struct Entity_apps
-    {
-        public static string Name_application;
-
-    }
 
 
 }
+
+
+public class App_Dashboard : EditorWindow
+{
+    public static string Name_app { get; set; }
+
+    int Toolbar_selecter;
+    int Tab_quick_viwe;
+    int Tab_Users;
+    int Tab_Economy;
+    int Tab_Tabels;
+    int tab_Real_data;
+    int Tab_teams;
+    int Tab_real_content;
+    int Tab_automantion;
+    int Tab_analystic;
+    int Tab_Setting;
+    int Tab_loges;
+    int Tab_help;
+
+
+    private void Awake()
+    {
+        titleContent = new GUIContent($"You are manage :  [ {Name_app} ]");
+        maxSize = new Vector2(1200, 500);
+        minSize = new Vector2(1200, 500);
+    }
+
+    private void OnGUI()
+    {
+        Toolbar_selecter = GUILayout.Toolbar(Toolbar_selecter, new string[] { "quick viwe", "Users", "Economy", "Tabels", "Real Data", "Teams", "Real content", "Automation", "analytics", "Add on", "Setting", "Admins", "Help" });
+
+        switch (Toolbar_selecter)
+        {
+            case 0:
+                {
+                    Tab_quick_viwe = GUILayout.Toolbar(Tab_quick_viwe, new string[] { "Overview", "Monitoring" });
+                    switch (Tab_quick_viwe)
+                    {
+
+                        case 0:
+                            {
+                                GUILayout.Label("overviwe");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Monitor");
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 1:
+                {
+                    Tab_Users = GUILayout.Toolbar(Tab_Users, new string[] { "Users", "Segments", "Analyis users" });
+                    switch (Tab_Users)
+                    {
+
+                        case 0:
+                            {
+                                GUILayout.Label("Users");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Segments");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("Analys player");
+                            }
+                            break;
+                    }
+
+                }
+                break;
+            case 2:
+                {
+                    Tab_Economy = GUILayout.Toolbar(Tab_Economy, new string[] { "Catalog", "Curency" });
+                    switch (Tab_Economy)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("catalog");
+
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Curency");
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 3:
+                {
+                    Tab_Tabels = GUILayout.Toolbar(Tab_Tabels, new string[] { "Static Tabel", "Dynamic" });
+                    switch (Tab_Tabels)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("Static_tabel");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Dynamic_tabel");
+                            }
+                            break;
+                    }
+
+                }
+                break;
+            case 4:
+                {
+                    tab_Real_data = GUILayout.Toolbar(tab_Real_data, new string[] { "Extended server", "Rooms", "real data" });
+
+                    switch (tab_Real_data)
+                    {
+
+
+                        case 0:
+                            {
+                                GUILayout.Label("Extnded server");
+
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Roobs");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("real data");
+                            }
+                            break;
+
+                    }
+
+
+                }
+                break;
+            case 5:
+                {
+                    GUILayout.Label("Teams");
+                }
+                break;
+            case 6:
+                {
+                    Tab_real_content = GUILayout.Toolbar(Tab_real_content, new string[] { "Title real", "title news", "real files", "collections", "real massege(push notifaction)" });
+                    switch (Tab_real_content)
+                    {
+
+
+                        case 0:
+                            {
+                                GUILayout.Label("Title real");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("titel news");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("titel real file");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("Collectins");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("real massege");
+                            }
+                            break;
+                    }
+
+
+                }
+                break;
+            case 7:
+                {
+                    Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Cloud script", "A/B test", "Rules", "Scheduled Tasks" });
+                    switch (Tab_automantion)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("Cloud script");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("A/B test");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("Rules");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("Scheduled Tasks");
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 8:
+                {
+                    Tab_automantion = GUILayout.Toolbar(Tab_automantion, new string[] { "Trends", "Event history", "Reports", "webhook", "Event", "Event Archive" });
+                    switch (Tab_automantion)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("Terends");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("Event history");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("reports");
+
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("webhook");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("events");
+                            }
+                            break;
+                        case 5:
+                            {
+                                GUILayout.Label("event archive");
+                            }
+                            break;
+                    }
+
+                }
+                break;
+            case 9:
+                {
+                    GUILayout.Label("addon");
+                }
+                break;
+            case 10:
+                {
+                    Tab_Setting = GUILayout.Toolbar(Tab_Setting, new string[] { "General", "API setting", "secret keys", "realmassege setting", "Limits", "user setting", "Open id", "deta collection" });
+                    switch (Tab_Setting)
+                    {
+                        case 0:
+                            {
+                                GUILayout.Label("General");
+                            }
+                            break;
+                        case 1:
+                            {
+                                GUILayout.Label("APIsetting");
+                            }
+                            break;
+                        case 2:
+                            {
+                                GUILayout.Label("ecret keys");
+                            }
+                            break;
+                        case 3:
+                            {
+                                GUILayout.Label("real masseges");
+                            }
+                            break;
+                        case 4:
+                            {
+                                GUILayout.Label("Limits");
+                            }
+                            break;
+                        case 5:
+                            {
+                                GUILayout.Label("user setting");
+                            }
+                            break;
+                        case 6:
+                            {
+                                GUILayout.Label("Open id");
+                            }
+                            break;
+                        case 7:
+                            {
+                                GUILayout.Label("data_collecton");
+                            }
+                            break;
+                    }
+                }
+                break;
+            case 11:
+                {
+                    GUILayout.Label("logs");
+                }
+                break;
+            case 12:
+                {
+                    GUILayout.Label("help");
+                }
+
+                break;
+        }
+    }
+
+}
+
+
+public struct Entity_Admin
+{
+
+    #region Dashboard
+    public static string ID;
+    public static bool Status_active;
+    public static string Password;
+    public static string Email;
+    public static string Nick_name;
+    public static int Active_Tier;
+    public static object[] Setting;
+    public static object[] Users;
+    public static object[] Rolls;
+    public static object[] Application;
+    public static List<string> List_application = new List<string>(100);
+    #endregion
+    #region App_dashboard
+
+
+
+    #endregion
+
+
+}
+
+
+public struct Entity_apps
+{
+    public static string Name_application;
+
+}
+
+
 
 
 

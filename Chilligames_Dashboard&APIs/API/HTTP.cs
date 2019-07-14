@@ -14,6 +14,7 @@ namespace Chilligames.APIs
     public class HTTP : MonoBehaviour
     {
         public const string API_address_Register = "http://127.0.0.1:3333/admin/register";
+        public const string API_address_login = "http://127.0.0.1:3333/admin/login";
 
         #region Dashboard
 
@@ -67,50 +68,32 @@ namespace Chilligames.APIs
         {
 
 
-            UnityWebRequest requst = UnityWebRequest.Post(API_address_Register, Requst_login.body);
+            UnityWebRequest requst = UnityWebRequest.Get(API_address_login);
 
-            requst.SetRequestHeader("User_name", Requst_login.Email);
+            requst.SetRequestHeader("Email", Requst_login.Email);
             requst.SetRequestHeader("Password", Requst_login.Password);
 
             requst.SendWebRequest();
 
-            await Task.Delay(1000);
-
-            if (requst.isDone)
+            while (true)
             {
-                //recive data
-
-            }
-            else
-            {
-                await Task.Delay(500);
-                requst.SendWebRequest();
-                await Task.Delay(500);
                 if (requst.isDone)
                 {
 
-                    //reciive edata
+                    Result_login(Json.ChilligamesJson.DeserializeObject<Result.Result_Admin>(requst.downloadHandler.text));
+
+                    requst.Abort();
+                    break;
+
                 }
                 else
                 {
-                    if (requst.isNetworkError)
-                    {
-                        ERROR(new Error { Massege = "Conncetion Erro pleas cheack your conncetion", NetworkError = NetworkError.WrongConnection });
-                    }
-                    else if (requst.isHttpError)
-                    {
-
-                    }
-                    else
-                    {
-                        //show try agen
-
-                    }
+                    await Task.Delay(200);
 
                 }
 
-
             }
+
 
 
 
@@ -133,10 +116,8 @@ namespace Chilligames.APIs
             /// </summary>
             public class Admin_register
             {
-                public readonly string body = "Admin";
                 public string Email;
                 public string Password;
-                public string Nickname;
             }
 
 
@@ -147,9 +128,6 @@ namespace Chilligames.APIs
             {
                 public string Email;
                 public string Password;
-
-                public string body = "Admin_login";
-
             }
 
         }

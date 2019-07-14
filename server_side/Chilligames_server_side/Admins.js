@@ -26,9 +26,22 @@ app.get('/admin/register', function (req, res) {
 
 });
 
-app.post('/admin/login', function () {
 
+app.get('/admin/login', function (req, res) {
 
+    var Email = req.header("Email");
+    var Password = req.header("Password");
+    var login = async () => {
+        var database = new Database().Admin_login(Email, Password);
+        await database.then((result_login) => {
+            console.log(result_login);
+            res.send(result_login);
+
+            res.end();
+        });
+    }
+
+    login();
 })
 
 
@@ -124,13 +137,21 @@ class Database {
 
         var Mongo_client = new mongo_raw.MongoClient(string_mongo, { useNewUrlParser: true });
 
+        var result_login = async () => {
 
-
-
+            await Mongo_client.connect();
+            var callbak;
+            var result_serch = await Mongo_client.db("Chilligames").collection("Users");
+            return await result_serch.findOne({ 'Email': Email_Incomin, 'Password': Password_Incoming });
         }
 
 
+        return result_login();
+
     }
+
+
 }
+
 
 
