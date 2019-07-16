@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using Chilligames.APIs;
+
 /// <summary>
 /// playpref
 /// 1:User_register
@@ -382,6 +383,23 @@ namespace Chilligames.Dashboard
 
 public class App_Dashboard : EditorWindow
 {
+
+    public struct App_enitiy
+    {
+        public object[] Quick_viwe;
+        public object[] Users;
+        public object[] Economy;
+        public object[] Tabels;
+        public object[] Real_Data;
+        public object[] Teams;
+        public object[] Real_content;
+        public object[] Automation;
+        public object[] Analytics;
+        public object[] ADD_on;
+        public object[] Setting;
+        public object[] Admins;
+    }
+
     public static string Name_app { get; set; }
 
     int Toolbar_selecter;
@@ -404,6 +422,7 @@ public class App_Dashboard : EditorWindow
         titleContent = new GUIContent($"You are manage :  [ {Name_app} ]");
         maxSize = new Vector2(1200, 500);
         minSize = new Vector2(1200, 500);
+
     }
 
     private void OnGUI()
@@ -420,7 +439,50 @@ public class App_Dashboard : EditorWindow
 
                         case 0:
                             {
+
+                                EditorGUILayout.BeginHorizontal();
+                                GUILayout.Box($" \n [Unique Users] \n \n " +
+                                    $"24 Hours ago: \t Amount:{2} \t Change:{2} \t \n \n " +
+                                    $"1 Day ago: \t Amount:{2} \t Change:{2} \t \n \n " +
+                                    $"7 Day ago: \t Amount:{3} \t Change:{4} \t \n \n " +
+                                    $"30 Day ago:{200} \n \n ");
+
+                                GUILayout.Box($" \n [Loigns] \n \n " +
+                                    $"24 Hours ago: \t Amount:{3} \t Change:{3} \t \n \n " +
+                                    $"1 Day ago: \t Amount:{3} \t Change:{1} \t \n \n " +
+                                    $"4 Day ago: \t Amount:{3} \t Change:{1} \t \n \n" +
+                                    $"30 Day ago:{222} \n \n ");
+
+                                GUILayout.Box($" \n [Report] \n \n " +
+                                    $"Unique users: \t YesterDay:{2} \t Last month:{2} \t \n \n " +
+                                    $"New users: \t YesterDay:{4} \t Last mounth:{4} \t \n \n " +
+                                    $"Purchases: \t YesterDay:{2} \t Last mounth:{2} \t \n \n " +
+                                    $"Spenders: \t YesterDay:{3} \t Last mounth:{4} \t \n \n " +
+                                    $"ARPU: \t \t YesterDay:{2} \t Last mounth:{5} \t \n \n " +
+                                    $"ARPPU: \t \t YesterDay:{3} \t Last mounth:{3} \t \n \n " +
+                                    $"API calls: \t \t YesterDay{5} \t Last mounth:{3} \t \n \n ");
+                                EditorGUILayout.EndHorizontal();
+
+
+                                EditorGUI.MultiIntField(new Rect(0, 0, 200, 300), null, new int[] { 2, 3, 4 });
+
+
+                                Keyframe keyframe = new Keyframe(3, 8);
+                                Keyframe k2 = new Keyframe(34, 2);
+                                Keyframe k3 = new Keyframe(49, 11);
+
+
+                                AnimationCurve animationCurve = new AnimationCurve(keyframe, k2, k3);
+
+
+
+                                EditorGUILayout.CurveField(animationCurve);
+
+
+
                                 GUILayout.Label("overviwe");
+
+
                             }
                             break;
                         case 1:

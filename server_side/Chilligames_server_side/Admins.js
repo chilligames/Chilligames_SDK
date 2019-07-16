@@ -82,7 +82,7 @@ class Database {
                 "Application": []
             };
             var Model_Application = {
-                "Qick_viwe": [],
+                "Quick_viwe": [],
                 "Users": [],
                 "Economy": [],
                 "Tabels": [],
@@ -147,6 +147,12 @@ class Database {
 
 
         return result_login();
+
+    }
+
+    async Application() {
+
+
 
     }
 
