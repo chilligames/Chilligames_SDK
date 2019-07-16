@@ -16,6 +16,7 @@ Engine needs :
 
 > To use dashboard ,  download the packages and add to the [assets] folder in unity 3d
 
+> We ❤️  open source.
  
 [![Build Status](https://travis-ci.com/chilligames/Unity-backend.svg?branch=master)](https://travis-ci.com/chilligames/Unity-backend)
 
