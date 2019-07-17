@@ -383,18 +383,24 @@ namespace Chilligames.Dashboard
     {
         public struct User_area
         {
-            public static Vector2 vector ;
+            public static Vector2 vector;
 
-            public static void User_model (string ID,DateTime Last_login,DateTime Created,SystemLanguage language,double VTD,string DB_ID)
+            public static void User_model(string ID, DateTime Last_login, DateTime Created, SystemLanguage language, double VTD, string DB_ID)
             {
-                
+
                 GUILayout.BeginHorizontal();
-                GUILayout.Label($"{ID+"\t\t\t"+Last_login.ToString()+"\t\t"+Created+"\t\t"+language.ToString()+"\t\t\t"+VTD+"\t"}");
-               
+                GUILayout.Label($"{ID + "\t\t\t" + Last_login.ToString() + "\t\t" + Created + "\t\t" + language.ToString() + "\t\t\t" + VTD + "\t"}");
                 GUILayout.Button("Go to manage user");
                 GUILayout.EndHorizontal();
             }
-            
+
+            //last_edit
+            public static void Serch_user()
+            {
+                
+
+            }
+
         }
 
         public static string Name_app { get; set; }
@@ -413,7 +419,7 @@ namespace Chilligames.Dashboard
         int Tab_loges;
         int Tab_help;
 
-        
+
 
         private void Awake()
         {
@@ -503,8 +509,10 @@ namespace Chilligames.Dashboard
 
                             case 0:
                                 {
-                                   
+
                                     GUILayout.Label("Users");
+
+                                    GUILayout.Button("New User");
 
                                     EditorGUILayout.LabelField("Search");
 
@@ -514,16 +522,16 @@ namespace Chilligames.Dashboard
                                     GUILayout.Box("\n [Users]\n\n " +
                                         "[ID] \t\t\t [Last login] \t\t\t[Created]  \t\t\t[Language/Contry] \t\t [Purchase]\t");
 
-                                 User_area.vector = EditorGUILayout.BeginScrollView(User_area.vector);
+                                    User_area.vector = EditorGUILayout.BeginScrollView(User_area.vector);
 
                                     for (int i = 0; i < 300; i++)
                                     {
-                                        User_area.User_model("asdfasf", new DateTime(), new DateTime(), SystemLanguage.Afrikaans,2.8d,"2");
+                                        User_area.User_model("asdfasf", new DateTime(), new DateTime(), SystemLanguage.Afrikaans, 2.8d, "2");
                                     }
 
                                     EditorGUILayout.EndScrollView();
 
-                                  
+
                                 }
                                 break;
                             case 1:
@@ -712,6 +720,7 @@ namespace Chilligames.Dashboard
                             case 5:
                                 {
                                     GUILayout.Label("event archive");
+                                    
                                 }
                                 break;
                         }
