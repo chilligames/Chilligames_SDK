@@ -266,7 +266,7 @@ namespace Chilligames.Dashboard
                 result_reg();
                 async void result_reg()
                 {
-                    await HTTP.Admin_requst(new Requsts.Dashboard_req.Admin_register { Email = Email, Password = Password[1] },
+                    await HTTP_Extention.Admin_requst(new Requsts.Dashboard_req.Admin_register { Email = Email, Password = Password[1] },
 
                         (result) =>
                         {
@@ -344,7 +344,7 @@ namespace Chilligames.Dashboard
                 async void login()
                 {
 
-                    await HTTP.Admin_login(new Requsts.Dashboard_req.Admin_login { Email = Text_Email, Password = Text_password }, (result_login) =>
+                    await HTTP_Extention.Admin_login(new Requsts.Dashboard_req.Admin_login { Email = Text_Email, Password = Text_password }, (result_login) =>
                           {
 
                               Entity_Admin.ID = result_login.ID;

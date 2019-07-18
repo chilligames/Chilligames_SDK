@@ -11,7 +11,7 @@ namespace Chilligames.APIs
 {
 
 
-    public class HTTP : MonoBehaviour
+    public class HTTP_Extention : MonoBehaviour
     {
         public const string API_address_Register = "http://127.0.0.1:3333/admin/register";
         public const string API_address_login = "http://127.0.0.1:3333/admin/login";
