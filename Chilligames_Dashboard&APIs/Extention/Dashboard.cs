@@ -490,14 +490,13 @@ namespace Chilligames.Dashboard
 
                             case 0:
                                 {
-
-                                    GUILayout.Label("Users");
-
-                                    GUILayout.Button("New User");
+                                    GUILayout.Label($"Totall Player:{33}");
+                                    User_raw.New_user();
+                                    GUILayout.Space(30);
 
 
                                     User_raw.Serch_user();
-                                    GUILayout.Label("Users");
+
 
                                     GUILayout.Box("\n [Users]\n\n " +
                                         "[ID] \t\t\t [Last login] \t\t\t[Created]  \t\t\t[Language/Contry] \t\t [Purchase]\t");
@@ -786,6 +785,9 @@ namespace Chilligames.Dashboard
             int Result_search;
             int insta_close_search;
             bool Close_search;
+            int Creat_user;
+            string New_user_name;
+
             public static void User_model(string ID, DateTime Last_login, DateTime Created, SystemLanguage language, double VTD, string DB_ID)
             {
                 GUILayout.BeginHorizontal();
@@ -837,6 +839,36 @@ namespace Chilligames.Dashboard
 
                 GUILayout.EndHorizontal();
 
+            }
+            public void New_user()
+            {
+                GUILayout.BeginHorizontal();
+                if (this.Creat_user == 0)
+                {
+                    bool Creat_user = GUILayout.Button("Creat new user");
+
+                    if (Creat_user)
+                    {
+                        this.Creat_user = 1;
+                    }
+                }
+                else if (this.Creat_user == 1)
+                {
+                    GUILayout.Label("Enter ID");
+                    New_user_name = GUILayout.TextArea(New_user_name);
+                    bool Creat = GUILayout.Button("Creat User");
+                    bool Cancel = GUILayout.Button("Cancel");
+                    if (Cancel)
+                    {
+                        Creat_user = 0;
+                    }
+
+                }
+
+
+
+
+                GUILayout.EndHorizontal();
             }
 
         }
