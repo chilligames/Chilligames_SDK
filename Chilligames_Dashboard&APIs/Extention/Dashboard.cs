@@ -381,27 +381,8 @@ namespace Chilligames.Dashboard
 
     public class App_Dashboard : EditorWindow
     {
-        public struct User_area
-        {
-            public static Vector2 vector;
 
-            public static void User_model(string ID, DateTime Last_login, DateTime Created, SystemLanguage language, double VTD, string DB_ID)
-            {
-
-                GUILayout.BeginHorizontal();
-                GUILayout.Label($"{ID + "\t\t\t" + Last_login.ToString() + "\t\t" + Created + "\t\t" + language.ToString() + "\t\t\t" + VTD + "\t"}");
-                GUILayout.Button("Go to manage user");
-                GUILayout.EndHorizontal();
-            }
-
-            //last_edit
-            public static void Serch_user()
-            {
-                
-
-            }
-
-        }
+        User_area User_raw = new User_area();
 
         public static string Name_app { get; set; }
 
@@ -514,15 +495,14 @@ namespace Chilligames.Dashboard
 
                                     GUILayout.Button("New User");
 
-                                    EditorGUILayout.LabelField("Search");
 
-
+                                    User_raw.Serch_user();
                                     GUILayout.Label("Users");
 
                                     GUILayout.Box("\n [Users]\n\n " +
                                         "[ID] \t\t\t [Last login] \t\t\t[Created]  \t\t\t[Language/Contry] \t\t [Purchase]\t");
 
-                                    User_area.vector = EditorGUILayout.BeginScrollView(User_area.vector);
+                                    User_raw.Scrol_Users = EditorGUILayout.BeginScrollView(User_raw.Scrol_Users);
 
                                     for (int i = 0; i < 300; i++)
                                     {
@@ -720,7 +700,7 @@ namespace Chilligames.Dashboard
                             case 5:
                                 {
                                     GUILayout.Label("event archive");
-                                    
+
                                 }
                                 break;
                         }
@@ -792,6 +772,73 @@ namespace Chilligames.Dashboard
 
                     break;
             }
+        }
+
+
+
+        public struct User_area
+        {
+            public Vector2 Scrol_Users;
+            Vector2 Scrol_User_search;
+            string Code_serch;
+            int Count_search;
+            bool Search;
+            int Result_search;
+            int insta_close_search;
+            bool Close_search;
+            public static void User_model(string ID, DateTime Last_login, DateTime Created, SystemLanguage language, double VTD, string DB_ID)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label($"{ID + "\t\t\t" + Last_login.ToString() + "\t\t" + Created + "\t\t" + language.ToString() + "\t\t\t" + VTD + "\t"}");
+                GUILayout.Button("Go to manage user");
+                GUILayout.EndHorizontal();
+            }
+
+
+            public void Serch_user()
+            {
+
+                GUILayout.BeginHorizontal();
+
+                Code_serch = EditorGUILayout.TextArea(Code_serch);
+
+                Search = GUILayout.Button("Serch");
+
+                if (Search)
+                {
+                    Result_search = 89;//del
+
+                    insta_close_search = 1;
+                }
+
+                if (insta_close_search == 1)
+                {
+                    Close_search = GUILayout.Button("Close");
+                    if (Close_search)
+                    {
+                        insta_close_search = 0;
+                        Result_search = 0;
+                    }
+                }
+
+
+                Scrol_User_search = GUILayout.BeginScrollView(Scrol_User_search);
+                for (int i = 0; i < Result_search; i++)
+                {
+                    GUILayout.BeginVertical();
+                    GUILayout.Label("hi");
+                    GUILayout.Space(20);
+
+
+                    GUILayout.EndVertical();
+                }
+
+                GUILayout.EndScrollView();
+
+                GUILayout.EndHorizontal();
+
+            }
+
         }
 
     }
