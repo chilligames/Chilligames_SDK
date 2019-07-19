@@ -1,18 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Chilligames_SDK : MonoBehaviour
+
+namespace Chilligames.SDK
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    public class Chilligames_SDK : MonoBehaviour
     {
-        
+        public class Gate : MonoBehaviour
+        {
+            public static bool Fast_close
+            {
+                get => default;
+                set
+                {
+                }
+            }
+
+            public void OpenGate()
+            {
+
+            }
+
+
+        }
+
+        public static class API_Client
+        {
+
+            
+
+        }
+
+        public class API_Admin
+        {
+
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
