@@ -99,78 +99,79 @@ namespace Chilligames.Dashboard.APIS
 
         }
         #endregion
-    }
 
-    
-    /// <summary>
-    /// All Requst raw here
-    /// </summary>
-    public class Requsts
-    {
-        public class Dashboard_req
+        /// <summary>
+        /// All Requst raw here
+        /// </summary>
+        public class Requsts
         {
-
-
-            /// <summary>
-            /// admin raw requst
-            /// </summary>
-            public class Admin_register
+            public class Dashboard_req
             {
-                public string Email;
-                public string Password;
+
+
+                /// <summary>
+                /// admin raw requst
+                /// </summary>
+                public class Admin_register
+                {
+                    public string Email;
+                    public string Password;
+                }
+
+
+                /// <summary>
+                /// raw admin login entity
+                /// </summary>
+                public class Admin_login
+                {
+                    public string Email;
+                    public string Password;
+                }
+
             }
 
-
-            /// <summary>
-            /// raw admin login entity
-            /// </summary>
-            public class Admin_login
-            {
-                public string Email;
-                public string Password;
-            }
 
         }
 
 
-    }
-
-
-    /// <summary>
-    /// All result raw
-    /// </summary>
-    public class Result
-    {
-        public class Result_Admin
+        /// <summary>
+        /// All result raw
+        /// </summary>
+        public class Result
         {
-            public string ID;
-            public bool Result;
-            public string Password;
-            public string Email;
-            public int Tier;
-            public object[] Setting;
-            public object[] Users;
-            public object[] Rolls;
-            public object[] Application;
+            public class Result_Admin
+            {
+                public string ID;
+                public bool Result;
+                public string Password;
+                public string Email;
+                public int Tier;
+                public object[] Setting;
+                public object[] Users;
+                public object[] Rolls;
+                public object[] Application;
+
+            }
+
+            public bool Result_back;
 
         }
 
-        public bool Result_back;
+        /// <summary>
+        /// all ERR raw
+        /// </summary>
+        public class Error
+        {
+            public string Massege;
+
+
+            public NetworkError NetworkError = new NetworkError();
+
+        }
 
     }
 
 
-    /// <summary>
-    /// all ERR raw
-    /// </summary>
-    public class Error
-    {
-        public string Massege;
-
-
-        public NetworkError NetworkError = new NetworkError();
-
-    }
 
 
 }
