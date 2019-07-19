@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Chilligames.Dashboard;
 
-namespace Chilligames.APIs
+namespace Chilligames.Dashboard.APIS
 {
 
 
