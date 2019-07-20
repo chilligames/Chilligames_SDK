@@ -22,7 +22,7 @@ namespace Chilligames.SDK
 
             public void OpenGate()
             {
-
+                
             }
 
 
@@ -30,8 +30,12 @@ namespace Chilligames.SDK
 
         public static class API_Client
         {
+            public static void Get_Player_info()
+            {
 
+            }
             
+
 
         }
 

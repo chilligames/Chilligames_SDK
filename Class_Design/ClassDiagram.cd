@@ -27,25 +27,25 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Chilligames.SDK.Chilligames_SDK">
-    <Position X="8" Y="2.25" Width="1.5" />
+    <Position X="8" Y="1.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
+      <Class Name="Chilligames.SDK.Chilligames_SDK.Gate">
+        <Compartments>
+          <Compartment Name="Properties" Collapsed="true" />
+        </Compartments>
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
       <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client">
         <TypeIdentifier>
           <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
       <Class Name="Chilligames.SDK.Chilligames_SDK.API_Admin">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="Chilligames.SDK.Chilligames_SDK.Gate">
-        <Compartments>
-          <Compartment Name="Properties" Collapsed="true" />
-        </Compartments>
         <TypeIdentifier>
           <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
         </TypeIdentifier>
