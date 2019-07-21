@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
   <Comment CommentText="Tools for unity and Dashboards">
     <Position X="2.431" Y="0.524" Height="0.75" Width="1.7" />
   </Comment>
@@ -7,17 +7,34 @@
     <Position X="7.916" Y="0.728" Height="0.75" Width="1.7" />
   </Comment>
   <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention" Collapsed="true">
-    <Position X="3.75" Y="1.5" Width="1.5" />
+    <Position X="0.75" Y="1.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
+    <NestedTypes>
+      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Requsts" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Result" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Error" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAABACAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Chilligames.Dashboard.Dashboard" Collapsed="true">
-    <Position X="0.75" Y="1.5" Width="2.5" />
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -27,20 +44,27 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Chilligames.SDK.Chilligames_SDK">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="0.75" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="Chilligames.SDK.Chilligames_SDK.Gate">
-        <Compartments>
-          <Compartment Name="Properties" Collapsed="true" />
-        </Compartments>
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
       <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client.Result_register" Collapsed="true">
+            <TypeIdentifier>
+              <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+          <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client.ERROR_register" Collapsed="true">
+            <TypeIdentifier>
+              <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
+            </TypeIdentifier>
+          </Class>
+        </NestedTypes>
         <TypeIdentifier>
           <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -52,7 +76,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</FileName>
     </TypeIdentifier>
   </Class>
