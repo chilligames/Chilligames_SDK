@@ -45,8 +45,15 @@ app.get('/admin/login', function (req, res) {
 })
 
 
-app.put('/API', function (res, req) {
+app.get('/API', function (req, res) {
 
+    var TOK_app = req.header("Token_App");
+    var TOK_admin = req.header("Token_Admin");
+    var req_token = new Database().AccessToken(TOK_admin, TOK_app).then((result_token) => {
+
+
+        console.log(result_token);
+    });
 
 
 
@@ -132,7 +139,7 @@ class Database {
     async Admin_login(Email_Incomin, Password_Incoming) {
 
         var mongo_raw = require("mongodb");
-        var express = require('express');
+
         var string_mongo = "mongodb://localhost:27017/admin/";
 
         var Mongo_client = new mongo_raw.MongoClient(string_mongo, { useNewUrlParser: true });
@@ -150,11 +157,24 @@ class Database {
 
     }
 
-    async Application() {
+    async AccessToken(incoming_Token_admin, incomin_token_App) {
+
+        var mongo_raw = require('mongodb');
 
 
+        var string_mongo = "mongodb://localhost:27017/admin";
+        var mongo_client = new mongo_raw.MongoClient(string_mongo, { useNewUrlParser: true });
+
+        await mongo_client.connect();
+
+        var Token = new mongo_raw.ObjectId(incoming_Token_admin);
+
+        var sercher_token = await mongo_client.db("Chilligames").collection("Users").findOne({ '_id': Token });
+
+        return sercher_token;
 
     }
+
 
 
 }
