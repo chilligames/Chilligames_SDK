@@ -32,6 +32,9 @@
     <Content Include="Admins.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="APIs.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
