@@ -69,12 +69,30 @@ namespace Chilligames.SDK
 
             public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERROR_register> ERROR)
             {
+                req();
 
-                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                www.SetRequestHeader("User_name", Req_reg_user_Username_pass.UserName);
-                www.SetRequestHeader("Password", Req_reg_user_Username_pass.Password);
-                www.SetRequestHeader("Pipe", "Reg_user");
+                async void req()
+                {
 
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("User_name", Req_reg_user_Username_pass.UserName);
+                    www.SetRequestHeader("Password", Req_reg_user_Username_pass.Password);
+                    www.SetRequestHeader("Pipe_line", "Reg_User_pass");
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            print(www.downloadHandler);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(200);
+                        }
+                    }
+                }
 
             }
 
