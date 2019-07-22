@@ -50,9 +50,13 @@ app.get('/API', function (req, res) {
     var TOK_app = req.header("Token_App");
     var TOK_admin = req.header("Token_Admin");
     var req_token = new Database().AccessToken(TOK_admin, TOK_app).then((result_token) => {
-
-
-        console.log(result_token);
+        if (result_token == null) {
+            res.send(TOK_admin);
+            res.end();
+        } else {
+            res.send(TOK_admin);
+            res.end();
+        }
     });
 
 

@@ -37,14 +37,16 @@ namespace Chilligames.SDK
 
                 while (true)
                 {
+                    print(www.downloadProgress);
                     if (www.isDone)
                     {
-                        Pipe_line_app = www.downloadHandler.text;
+                        Pipe_line_Admin = www.downloadHandler.text;
+                        print(Pipe_line_Admin);
+                        break;
                     }
                     else
                     {
-                        await Task.Delay(200);
-
+                        await Task.Delay(500);
                     }
                 }
 
@@ -58,7 +60,7 @@ namespace Chilligames.SDK
 
             public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERROR_register> ERROR)
             {
-                
+
 
 
 
