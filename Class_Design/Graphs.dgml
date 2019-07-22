@@ -1,139 +1,145 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph GraphDirection="LeftToRight" Layout="ForceDirected" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="/admin/login" Bounds="141.827281051729,377.38107083127,89.26,25.96" Label="/admin/login" />
-    <Node Id="0" Bounds="291.62301737606,569.26107083127,68.6133333333332,25.9599999999999" Label="0-&gt;[Arry]" />
-    <Node Id="01" Bounds="291.62301737606,597.22107083127,69.5766666666668,25.96" Label="0-&gt;string" />
-    <Node Id="0212b8bd-8d6d-430e-b103-6b7d79e94f021" Bounds="1183.77912451877,53.96,80.3166666666666,25.96" Label="Player_data" />
-    <Node Id="06649c0b-6506-498a-be6a-5ab9847f9f981" Bounds="831.909124518774,221.72,108.04,25.96" Label="Chilligames_user" />
-    <Node Id="1-&gt;String" Bounds="291.62301737606,681.10107083127,70.4700000000003,25.96" Label="1-&gt;String" />
-    <Node Id="1-&gt;[Arry]" Bounds="291.62301737606,653.14107083127,68.6133333333332,25.9599999999999" Label="1-&gt;[Arry]" />
-    <Node Id="171f8440-a0ba-4639-836e-1bcf079475d91" Bounds="1042.57245785211,53.96,62.8100000000004,25.96" Label="list notif" />
-    <Node Id="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Bounds="147.029584042727,489.30107083127,102.593333333333,25.96" Label="/admin/register" />
-    <Node Id="269b8845-af64-4dc8-ae55-ccc319e7864d1" Bounds="831.909124518774,137.84,53.7066666666667,25.96" Label="Avatar" />
-    <Node Id="52e7cda3-f18f-4365-bec2-d3bf3b06b8441" Bounds="655.694074573864,201.661213114416,72.2799999999997,25.96" Label="Segments" />
-    <Node Id="76af77ea-c7d7-4e2e-9376-7a57da100c831" Bounds="1183.77912451877,165.8,102.116666666667,25.96" Label="Read_only_data" />
-    <Node Id="8c708d6a-db26-493e-a895-66ca6a822fdf" Bounds="410.38735826527,63.820842755098,355.786691894531,309.600229907227" Group="Expanded" Label="Doc_record:Users" LayoutSettings="List" />
-    <Node Id="9061b6c4-fab7-42be-bbc6-19c39510c2791" Bounds="267.087516956676,175.661197855627,141.3,25.96" Label="Doc_record:application" />
-    <Node Id="93bb9ec3-84da-4403-bb9f-8bbac23eb75b1" Bounds="831.909124518774,389.48,91.0833333333335,25.96" Label="Display name" />
-    <Node Id="ADD_on" Bounds="267.087447783499,63.8212015177364,63.3666666666668,25.96" Label="ADD_on" />
-    <Node Id="API" Bounds="147.029584042727,433.34107083127,50,25.96" Label="/API" UseManualLocation="True" />
-    <Node Id="Add-Friend" Bounds="831.909124518774,109.88,79.7466666666667,25.96" Label="Add-Friend" />
-    <Node Id="AddBan" Bounds="831.909124518774,53.96,65.1100000000001,25.96" Label="Add ban" />
-    <Node Id="Add_policy" Bounds="831.909124518774,81.9200000000001,78.0999999999999,25.96" Label="Add_policy" />
-    <Node Id="Admin[Arry]" Bounds="291.62301737606,709.06107083127,83.9733333333334,25.96" Label="Admin[Arry]" />
-    <Node Id="Admins" Bounds="267.087439645479,91.7811891581172,59.9333333333334,25.96" Label="Admins" />
-    <Node Id="Analytics" Bounds="267.087595081676,119.741199686682,66.96,25.96" Label="Analytics" />
-    <Node Id="Applications" Bounds="384.436350709393,541.30107083127,122.246666666667,25.96" Label="Application-&gt;[Arry]" />
-    <Node Id="Automation" Bounds="267.087466500947,147.701183512365,82.8633333333332,25.96" Label="Automation" />
-    <Node Id="Bans" Bounds="831.909124518774,165.8,50,25.96" Label="Bans" />
-    <Node Id="Bans1" Bounds="416.387449818005,89.8212320353145,50,25.96" Label="Bans" />
-    <Node Id="Change_password" Bounds="831.909124518774,193.76,115.73,25.96" Label="Change_password" />
-    <Node Id="Chilligames_SDK" Bounds="9.57615070939356,466.962821600415,107.453333333333,25.96" Label="Chilligames_SDK" UseManualLocation="True" />
-    <Node Id="Cloud_Script" Bounds="831.909124518774,249.68,86.3200000000002,25.96" Label="Cloud_Script" />
-    <Node Id="Cloud_Script1" Bounds="416.387483997692,117.781223490393,86.3200000000002,25.96" Label="Cloud_Script" />
-    <Node Id="Collection_record" Bounds="279.62301737606,489.30107083127,332.083333333334,257.72" Group="Expanded" Label="Collection_record:Users" LayoutSettings="List" UseManualLocation="True" />
-    <Node Id="ContactEmail" Bounds="831.909124518774,305.6,92.6466666666668,25.96" Label="Contact Email" />
-    <Node Id="Contact_Email" Bounds="416.387432728161,145.741245463049,94.3400000000001,25.96" Label="Contact_Email" />
-    <Node Id="ContentEmail" Bounds="831.909124518774,277.64,92.6466666666668,25.96" Label="Contact Email" />
-    <Node Id="Details" Bounds="831.909124518774,333.56,55.77,25.9599999999998" Label="Details" />
-    <Node Id="Display" Bounds="831.909124518774,361.52,58.2866666666666,25.96" Label="Display" />
-    <Node Id="Display1" Bounds="416.387488066703,201.661289408361,58.2866666666666,25.96" Label="Display" />
-    <Node Id="Doc_Users:" Bounds="416.387491321911,229.621189310705,111.71,25.96" Label="Doc_record:Users" />
-    <Node Id="Doc_record:Admin" Bounds="285.62301737606,515.30107083127,320.083333333334,225.72" Group="Expanded" Label="Doc_record:Admin" LayoutSettings="List" UseManualLocation="True" />
-    <Node Id="Economy" Bounds="267.087503935843,203.621219828283,68.6066666666666,25.96" Label="Economy" />
-    <Node Id="Email" Bounds="949.639124518774,26,78.3133333333334,25.96" Label="Email login" />
-    <Node Id="Email1" Bounds="384.436350709393,569.26107083127,92.3266666666668,25.96" Label="Email-&gt;String" />
-    <Node Id="Event_history" Bounds="949.639124518774,53.96,89.7966666666665,25.96" Label="Event_history" />
-    <Node Id="Event_history1" Bounds="416.387462431937,257.581150248205,89.7966666666666,25.96" Label="Event_history" />
-    <Node Id="Events" Bounds="949.639124518774,81.9200000000001,54.0433333333333,25.96" Label="Events" />
-    <Node Id="FacebookAcc" Bounds="949.639124518774,109.88,90.9333333333333,25.96" Label="Facebook acc" />
-    <Node Id="Files" Bounds="949.639124518774,137.84,50,25.96" Label="Files" />
-    <Node Id="Files1" Bounds="416.38735826527,285.541202738439,50,25.96" Label="Files" />
-    <Node Id="Friends" Bounds="949.639124518774,165.8,58.1666666666665,25.96" Label="Friends" />
-    <Node Id="Friends1" Bounds="416.387459990531,313.501163675939,58.1666666666665,25.96" Label="Friends" />
-    <Node Id="FristLogin" Bounds="949.639124518774,193.76,74.8299999999998,25.96" Label="Frist Login" />
-    <Node Id="Google_acc" Bounds="949.639124518774,221.72,80.7166666666666,25.96" Label="Google_acc" />
-    <Node Id="HTTP_Extention" Bounds="9.29718105172894,411.002821600415,102.53,25.96" Label="HTTP_Extention" />
-    <Node Id="ID" Bounds="949.639124518774,249.68,50,25.96" Label="ID" />
-    <Node Id="ID1" Bounds="384.436350709393,597.22107083127,75.6066666666667,25.96" Label="ID-&gt;String" />
-    <Node Id="Idenntities" Bounds="416.387488473604,341.461185648596,75.4333333333334,25.96" Label="Idenntities" />
-    <Node Id="Identities" Bounds="831.909124518774,26,75.2166666666667,25.96" Label=" Identities " />
-    <Node Id="Info" Bounds="949.639124518774,277.64,50,25.96" Label="Info" />
-    <Node Id="Info1" Bounds="530.097380237926,89.8212015177364,50,25.96" Label="Info" />
-    <Node Id="Internal_data" Bounds="949.639124518774,305.6,88.63,25.96" Label="Internal_data" />
-    <Node Id="Internal_data1" Bounds="949.639124518774,333.56,88.63,25.96" Label="Internal_data" />
-    <Node Id="Inventory" Bounds="949.639124518774,361.52,69.8733333333333,25.96" Label="Inventory" />
-    <Node Id="Inventory1" Bounds="530.097481149385,117.781192972814,69.8733333333334,25.96" Label="Inventory" />
-    <Node Id="Language" Bounds="949.639124518774,389.48,71.8533333333334,25.96" Label="Language" />
-    <Node Id="LastLogin" Bounds="1042.57245785211,26,70.9033333333332,25.96" Label="Last login" />
-    <Node Id="List_segment" Bounds="1042.57245785211,81.9200000000001,88.6033333333335,25.9599999999998" Label="List_segment" />
-    <Node Id="Login_Info" Bounds="1042.57245785211,109.88,78.1933333333332,25.96" Label="Login_ info" />
-    <Node Id="Login_info" Bounds="530.097507597952,145.741214945471,74.9066666666668,25.96" Label="Login_info" />
-    <Node Id="Logins" Bounds="1042.57245785211,137.84,54.5366666666669,25.96" Label="Logins" />
-    <Node Id="Logins1" Bounds="530.097449004203,173.701236918127,54.5366666666666,25.96" Label="Logins" />
-    <Node Id="Memberships_team" Bounds="1042.57245785211,165.8,123.596666666666,25.96" Label="Memberships_team" />
-    <Node Id="Memberships_team1" Bounds="530.097386748343,201.661182596838,123.596666666666,25.96" Label="Memberships_team" />
-    <Node Id="Model_Users" Bounds="825.909124518774,0,618.733333333333,421.440000000001" Group="Expanded" LayoutSettings="List" />
-    <Node Id="Monetization" Bounds="1042.57245785211,193.76,90.1733333333336,25.96" Label="Monetization" />
-    <Node Id="Monetization1" Bounds="530.097444528291,229.621219828283,90.1733333333332,25.96" Label="Monetization" />
-    <Node Id="Mongodb" Bounds="235.059602133444,433.34107083127,72.8133333333335,25.96" Label="Mongodb" />
-    <Node Id="Mulltiplay" Bounds="1042.57245785211,221.72,72.2266666666669,25.96" Label="Mulltiplay" />
-    <Node Id="Multi_Acc" Bounds="530.097483590791,257.581211283361,71.2533333333331,25.96" Label="Multi_Acc" />
-    <Node Id="Multi_acc" Bounds="1042.57245785211,249.68,69.6199999999999,25.96" Label="Multi_acc" />
-    <Node Id="Multiplay" Bounds="530.097444935192,285.541233256018,69.3200000000002,25.96" Label="Multiplay" />
-    <Node Id="Notifactions" Bounds="530.097493356416,313.501194193518,84.2733333333333,25.96" Label="Notifactions" />
-    <Node Id="Notifictions" Bounds="1042.57245785211,277.64,81.0733333333333,25.96" Label="Notifictions" />
-    <Node Id="Object" Bounds="1042.57245785211,305.6,59.9866666666667,25.96" Label="Objects" />
-    <Node Id="Objects" Bounds="530.097394072562,341.461200907385,59.9866666666667,25.96" Label="Objects" />
-    <Node Id="Password" Bounds="1042.57245785211,333.56,69.5466666666666,25.96" Label="Password" />
-    <Node Id="Password1" Bounds="384.436350709393,625.18107083127,113.546666666667,25.96" Label="Password-&gt;String" />
-    <Node Id="PlayerData" Bounds="1042.57245785211,361.52,79.9700000000003,25.9599999999998" Label="Player Data" />
-    <Node Id="PlayerData(Publisher)" Bounds="1042.57245785211,389.48,139.206666666667,25.96" Label="Player Data (Publisher)" />
-    <Node Id="PlayerData(Title)" Bounds="1183.77912451877,26,112.94,25.96" Label="Player Data (Title)" />
-    <Node Id="Player_Data_P" Bounds="655.694155954072,117.781162455236,93.3633333333332,25.96" Label="Player_Data_P" />
-    <Node Id="Policy" Bounds="1183.77912451877,81.9200000000001,50.4700000000003,25.96" Label="Policy" />
-    <Node Id="Policy1" Bounds="655.694167347301,145.741192057287,50.4700000000003,25.96" Label="Policy" />
-    <Node Id="Purchases" Bounds="1183.77912451877,109.88,72.5866666666666,25.96" Label="Purchases" />
-    <Node Id="Purchases1" Bounds="655.694122588187,173.701206400549,72.5866666666666,25.96" Label="Purchases" />
-    <Node Id="Qick_viwe" Bounds="267.087390817354,231.581211283361,78.833333333333,25.96" Label="Quick_viwe" />
-    <Node Id="Quary" Bounds="1183.77912451877,137.84,51.9233333333332,25.96" Label="Quary" />
-    <Node Id="Read_only_data" Bounds="1183.77912451877,193.76,102.116666666667,25.96" Label="Read_only_data" />
-    <Node Id="Real_Data" Bounds="267.08742052113,287.501194193518,71.79,25.96" Label="Real_Data" />
-    <Node Id="Real_contact" Bounds="267.087468942354,259.541202738439,86.2433333333333,25.96" Label="Real_contact" />
-    <Node Id="Rolls" Bounds="384.436350709393,681.10107083127,86.9066666666668,25.96" Label="Rolls-&gt;[Arry]" />
-    <Node Id="Segments" Bounds="1183.77912451877,221.72,72.2799999999997,25.9599999999998" Label="Segments" />
-    <Node Id="Send_password_recovery" Bounds="1183.77912451877,249.68,151.783333333333,25.96" Label="Send_password_recovery" />
-    <Node Id="Setting" Bounds="384.436350709393,709.06107083127,99.6900000000001,25.96" Label="Setting-&gt;[Arry]" />
-    <Node Id="Setting1" Bounds="267.087474638968,315.461216166174,57.5466666666666,25.96" Label="Setting" />
-    <Node Id="Tabel" Bounds="1183.77912451877,277.64,50,25.96" Label="Tabel" />
-    <Node Id="Tabel1" Bounds="655.694059925426,229.621219828283,50,25.96" Label="Tabel" />
-    <Node Id="Tabel:Chilligames" Bounds="364.106130084824,433.34107083127,110.61,25.96" Label="Tabel:Chilligames" />
-    <Node Id="Tabels" Bounds="267.087391631155,343.421207621252,52.376666666667,25.96" Label="Tabels" />
-    <Node Id="Team" Bounds="267.087488880505,371.38119907633,52.9299999999998,25.96" Label="Teams" />
-    <Node Id="Tier" Bounds="508.68301737606,541.30107083127,66.7033333333334,25.9599999999999" Label="Tier-&gt;Int" />
-    <Node Id="Upload_files" Bounds="1183.77912451877,305.6,84.3266666666668,25.9599999999998" Label="Upload_files" />
-    <Node Id="User_name_login" Bounds="1183.77912451877,333.56,109.956666666667,25.96" Label="User_name_login" />
-    <Node Id="User_steam" Bounds="1183.77912451877,361.52,80.6466666666665,25.96" Label="User_steam" />
-    <Node Id="User_steam1" Bounds="655.694090849906,257.581211283361,80.6466666666665,25.96" Label="User_steam" />
-    <Node Id="Users" Bounds="1183.77912451877,389.48,50,25.96" Label="Users" />
-    <Node Id="Users-&gt;[Arry]" Bounds="508.68301737606,569.26107083127,91.0233333333335,25.96" Label="Users-&gt;[Arry]" />
-    <Node Id="Users1" Bounds="410.387480335583,35.8612100626582,50,25.96" Label="Users" />
-    <Node Id="VirtualCurrency" Bounds="1337.56245785211,26,101.08,25.96" Label="virtual currency" />
-    <Node Id="Virtual_currency" Bounds="655.694050159801,285.541233256018,104.48,25.96" Label="Virtual_currency" />
-    <Node Id="Wallet" Bounds="1337.56245785211,53.96,53.0033333333331,25.96" Label="Wallet" />
-    <Node Id="_id" Bounds="291.62301737606,541.30107083127,90.8133333333335,25.96" Label="_id-&gt;idobject" />
-    <Node Id="_id1" Bounds="267.087381051728,35.8612024332637,90.8133333333335,25.96" Label="_id-&gt;idobject" />
-    <Node Id="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Bounds="261.087381051728,9.8608741882035,511.086669108073,393.480196643067" Group="Expanded" Label="Collection_record:Application" LayoutSettings="List" />
-    <Node Id="c8ee7ab0-d3b8-4455-bacc-8c5895938be61" Bounds="655.694051787406,89.8211710001582,80.3166666666666,25.96" Label="Player_data" />
-    <Node Id="d958659d-5b64-4cea-9a30-05a42442d41c1" Bounds="416.387429066051,173.701267435705,55.77,25.96" Label="Details" />
-    <Node Id="e663ef03-0255-4209-8bda-9c9478b265601" Bounds="384.436350709393,653.14107083127,88.8166666666666,25.96" Label="Result-&gt;Bool" />
-    <Node Id="fb8e32c9-85d9-4b15-ab72-0614bc79ab601" Bounds="291.62301737606,625.18107083127,70.4700000000003,25.96" Label="0-&gt;String" />
+    <Node Id="/admin/login" Bounds="148.167453740756,289.527990734651,89.26,25.96" Label="/admin/login" />
+    <Node Id="0" Bounds="574.834117457391,235.627981579377,68.6133333333332,25.96" Label="0-&gt;[Arry]" />
+    <Node Id="01" Bounds="574.834079208693,263.588034069612,69.5766666666668,25.96" Label="0-&gt;string" />
+    <Node Id="0212b8bd-8d6d-430e-b103-6b7d79e94f021" Bounds="357.87012125651,633.327910192215,80.3166666666666,25.9599999999999" Label="Player_data" />
+    <Node Id="06649c0b-6506-498a-be6a-5ab9847f9f981" Bounds="6.00000122070315,801.08791995784,108.04,25.96" Label="Chilligames_user" />
+    <Node Id="1-&gt;String" Bounds="574.834098333042,347.468038952424,70.4700000000003,25.96" Label="1-&gt;String" />
+    <Node Id="1-&gt;[Arry]" Bounds="574.834117457391,319.50798646219,68.6133333333332,25.96" Label="1-&gt;[Arry]" />
+    <Node Id="171f8440-a0ba-4639-836e-1bcf079475d91" Bounds="216.663432617187,633.327910192215,62.8100000000004,25.9599999999999" Label="list notif" />
+    <Node Id="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Bounds="267.42746096325,289.527960217073,102.593333333333,25.96" Label="/admin/register" />
+    <Node Id="269b8845-af64-4dc8-ae55-ccc319e7864d1" Bounds="6.00001139322916,717.207915075028,53.7066666666667,25.96" Label="Avatar" />
+    <Node Id="52e7cda3-f18f-4365-bec2-d3bf3b06b8441" Bounds="1319.52409955374,279.587988293245,72.2799999999997,25.96" Label="Segments" />
+    <Node Id="76af77ea-c7d7-4e2e-9376-7a57da100c831" Bounds="357.87002360026,745.167906530106,102.116666666667,25.96" Label="Read_only_data" />
+    <Node Id="8c708d6a-db26-493e-a895-66ca6a822fdf" Bounds="1074.2173637139,141.747899584749,355.786711425782,309.600222277832" Group="Expanded" Label="Doc_record:Model_application" LayoutSettings="List" />
+    <Node Id="9061b6c4-fab7-42be-bbc6-19c39510c2791" Bounds="930.917419866245,253.587988293245,141.3,25.96" Label="Doc_record:application" />
+    <Node Id="93bb9ec3-84da-4403-bb9f-8bbac23eb75b1" Bounds="6.00000203450514,968.847929723465,91.0833333333335,25.96" Label="Display name" />
+    <Node Id="ADD_on" Bounds="930.917442245802,141.747999584749,63.3666666666668,25.96" Label="ADD_on" />
+    <Node Id="API" Bounds="228.167456487338,233.567999279573,50,25.96" Label="/API" />
+    <Node Id="Add-Friend" Bounds="6.00000040690105,689.24792361995,79.7466666666667,25.96" Label="Add-Friend" />
+    <Node Id="AddBan" Bounds="6.00000488281245,633.327910192215,65.1100000000001,25.9599999999999" Label="Add ban" />
+    <Node Id="Add_policy" Bounds="6.00000000000006,661.287901647293,78.0999999999999,25.96" Label="Add_policy" />
+    <Node Id="Admin[Arry]" Bounds="574.834110133172,375.427999889924,83.9733333333334,25.96" Label="Admin[Arry]" />
+    <Node Id="Admins" Bounds="930.917464625359,169.707983410432,59.9333333333334,25.96" Label="Admins" />
+    <Node Id="Analytics" Bounds="930.91740643851,197.668005383088,66.96,25.96" Label="Analytics" />
+    <Node Id="Applications" Bounds="667.647425155958,207.667990124299,122.246666666667,25.96" Label="Application-&gt;[Arry]" />
+    <Node Id="Automation" Bounds="930.917399928094,225.627996838167,82.8633333333332,25.96" Label="Automation" />
+    <Node Id="Backend" Bounds="128.167448695175,193.567829748323,261.853340555827,141.920338146973" Group="Expanded" />
+    <Node Id="Bans" Bounds="6.00001220703126,745.167906530106,50,25.96" Label="Bans" />
+    <Node Id="Bans1" Bounds="1080.21738324515,167.747999584749,50,25.96" Label="Bans" />
+    <Node Id="Change_password" Bounds="6.00000244140625,773.127928502762,115.73,25.96" Label="Change_password" />
+    <Node Id="Chilligames_SDK" Bounds="-51.7794945017495,156.869020496488,107.453333333333,25.96" Label="Chilligames_SDK" />
+    <Node Id="Cloud_Script" Bounds="6.00001586914055,829.047911412918,86.3200000000002,25.96" Label="Cloud_Script" />
+    <Node Id="Cloud_Script1" Bounds="1080.21741742484,195.708006298616,86.3200000000002,25.96" Label="Cloud_Script" />
+    <Node Id="Collection_record" Bounds="562.834079208694,155.667790124299,332.08335571289,257.720409765625" Group="Expanded" Label="Collection_record:Users" LayoutSettings="List" />
+    <Node Id="ContactEmail" Bounds="6.00001261393226,857.007963903153,92.6466666666668,25.96" Label="Contact Email" />
+    <Node Id="Contact_Email" Bounds="1080.21742719046,223.667997753694,94.3400000000001,25.96" Label="Contact_Email" />
+    <Node Id="ContentEmail" Bounds="6.00001261393226,884.967924840653,92.6466666666668,25.96" Label="Contact Email" />
+    <Node Id="Data_base" Bounds="420.020789251002,7.78770050027606,1055.98328588868,513.480589013672" Group="Expanded" />
+    <Node Id="Details" Bounds="6.00002197265627,912.927885778153,55.77,25.9599999999998" Label="Details" />
+    <Node Id="Display" Bounds="6.00001993815107,940.887907750809,58.2866666666666,25.96" Label="Display" />
+    <Node Id="Display1" Bounds="1080.21742149385,279.587988293245,58.2866666666666,25.96" Label="Display" />
+    <Node Id="Doc_Users:" Bounds="1080.2173637139,307.547995007112,111.71,25.96" Label="Doc_record:Users" />
+    <Node Id="Doc_record:Admin" Bounds="568.834079208694,181.667890124299,320.08335571289,225.720209765625" Group="Expanded" Label="Doc_record:model_admin" LayoutSettings="List" />
+    <Node Id="Economy" Bounds="930.917467880568,281.547995007112,68.6066666666666,25.96" Label="Economy" />
+    <Node Id="Email" Bounds="123.730033772786,605.367918737137,78.3133333333335,25.96" Label="Email login" />
+    <Node Id="Email1" Bounds="667.64743370088,235.627981579377,92.3266666666668,25.96" Label="Email-&gt;String" />
+    <Node Id="End_user" Bounds="-71.7794962688111,116.868920618145,147.453333333333,85.9602" Group="Expanded" UseManualLocation="True" />
+    <Node Id="Event_history" Bounds="123.730005289714,633.327910192215,89.7966666666664,25.9599999999999" Label="Event_history" />
+    <Node Id="Event_history1" Bounds="1080.21742637666,335.507971203401,89.7966666666666,25.96" Label="Event_history" />
+    <Node Id="Events" Bounds="123.729993489583,661.287901647293,54.0433333333333,25.96" Label="Events" />
+    <Node Id="FacebookAcc" Bounds="123.73003133138,689.24792361995,90.9333333333334,25.96" Label="Facebook acc" />
+    <Node Id="Files" Bounds="123.729992675781,717.207915075028,50,25.96" Label="Files" />
+    <Node Id="Files1" Bounds="1080.21750531546,363.467977917268,50,25.96" Label="Files" />
+    <Node Id="Friends" Bounds="123.730002848307,745.167906530106,58.1666666666665,25.96" Label="Friends" />
+    <Node Id="Friends1" Bounds="1080.21742393526,391.427984631135,58.1666666666665,25.96" Label="Friends" />
+    <Node Id="FristLogin" Bounds="123.730001220703,773.127928502762,74.8299999999997,25.96" Label="Frist Login" />
+    <Node Id="Front_end" Bounds="-64.297703541563,355.010775244141,142.53,85.9602" Group="Expanded" UseManualLocation="True" />
+    <Node Id="Google_acc" Bounds="123.73002726237,801.08791995784,80.7166666666667,25.96" Label="Google_acc" />
+    <Node Id="HTTP_Extention" Bounds="-44.297703541563,395.010875244141,102.53,25.96" Label="HTTP_Extention" />
+    <Node Id="ID" Bounds="123.729992675781,829.047911412918,50,25.96" Label="ID" />
+    <Node Id="ID1" Bounds="667.647448349318,263.588034069612,75.6066666666667,25.96" Label="ID-&gt;String" />
+    <Node Id="Idenntities" Bounds="1080.21751345348,419.387976086213,75.4333333333334,25.96" Label="Idenntities" />
+    <Node Id="Identities" Bounds="6.00001627604166,605.367918737137,75.2166666666667,25.96" Label=" Identities " />
+    <Node Id="Info" Bounds="123.729992675781,857.007933385575,50,25.96" Label="Info" />
+    <Node Id="Info1" Bounds="1193.92734418265,167.747999584749,50,25.96" Label="Info" />
+    <Node Id="Internal_data" Bounds="123.730025634766,884.967924840653,88.6299999999999,25.96" Label="Internal_data" />
+    <Node Id="Internal_data1" Bounds="123.730025634766,912.927885778153,88.6299999999999,25.96" Label="Internal_data" />
+    <Node Id="Inventory" Bounds="123.730002034505,940.887907750809,69.8733333333334,25.96" Label="Inventory" />
+    <Node Id="Inventory1" Bounds="1193.92738405895,195.708006298616,69.8733333333334,25.96" Label="Inventory" />
+    <Node Id="Language" Bounds="123.72999226888,968.847929723465,71.8533333333335,25.96" Label="Language" />
+    <Node Id="LastLogin" Bounds="216.663457845052,605.367918737137,70.9033333333332,25.96" Label="Last login" />
+    <Node Id="List_segment" Bounds="216.66343343099,661.287901647293,88.6033333333335,25.9599999999998" Label="List_segment" />
+    <Node Id="Login_Info" Bounds="216.66335530599,689.24792361995,78.1933333333332,25.96" Label="Login_ info" />
+    <Node Id="Login_info" Bounds="1193.9274410251,223.667997753694,74.9066666666668,25.96" Label="Login_info" />
+    <Node Id="Logins" Bounds="216.66344156901,717.207915075028,54.5366666666669,25.96" Label="Logins" />
+    <Node Id="Logins1" Bounds="1193.92732139619,251.627989208772,54.5366666666666,25.96" Label="Logins" />
+    <Node Id="Memberships_team" Bounds="216.663348795573,745.167906530106,123.596666666666,25.96" Label="Memberships_team" />
+    <Node Id="Memberships_team1" Bounds="1193.92741172822,279.587988293245,123.596666666666,25.96" Label="Memberships_team" />
+    <Node Id="Model_Users" Bounds="0,579.367818737137,618.733432617187,421.440210986328" Group="Expanded" LayoutSettings="List" />
+    <Node Id="Monetization" Bounds="216.663467610677,773.127928502762,90.1733333333336,25.96" Label="Monetization" />
+    <Node Id="Monetization1" Bounds="1193.92740847302,307.547995007112,90.1733333333332,25.96" Label="Monetization" />
+    <Node Id="Mongodb" Bounds="440.020769068719,261.547979748323,72.8133333333336,25.96" Label="Mongodb" />
+    <Node Id="Mulltiplay" Bounds="216.663351236979,801.08791995784,72.2266666666669,25.96" Label="Mulltiplay" />
+    <Node Id="Multi_Acc" Bounds="1193.92744753552,335.507971203401,71.2533333333331,25.96" Label="Multi_Acc" />
+    <Node Id="Multi_acc" Bounds="216.663461914063,829.047911412918,69.6199999999999,25.96" Label="Multi_acc" />
+    <Node Id="Multiplay" Bounds="1193.92743939749,363.467977917268,69.3200000000002,25.96" Label="Multiplay" />
+    <Node Id="Notifactions" Bounds="1193.92745730114,391.427984631135,84.2733333333333,25.96" Label="Notifactions" />
+    <Node Id="Notifictions" Bounds="216.663357747396,857.007933385575,81.0733333333333,25.96" Label="Notifictions" />
+    <Node Id="Object" Bounds="216.663356119792,884.967924840653,59.9866666666667,25.96" Label="Objects" />
+    <Node Id="Objects" Bounds="1193.9274800876,419.388021862581,59.9866666666667,25.96" Label="Objects" />
+    <Node Id="Password" Bounds="216.663446451823,912.927885778153,69.5466666666666,25.96" Label="Password" />
+    <Node Id="Password1" Bounds="667.647449570021,291.547995007112,113.546666666667,25.96" Label="Password-&gt;String" />
+    <Node Id="PlayerData" Bounds="216.663449707031,940.887907750809,79.9700000000003,25.9599999999998" Label="Player Data" />
+    <Node Id="PlayerData(Publisher)" Bounds="216.663463541667,968.847929723465,139.206666666667,25.96" Label="Player Data (Publisher)" />
+    <Node Id="PlayerData(Title)" Bounds="357.870100097656,605.367918737137,112.94,25.96" Label="Player Data (Title)" />
+    <Node Id="Player_Data_P" Bounds="1319.52405886364,195.708006298616,93.3633333333332,25.96" Label="Player_Data_P" />
+    <Node Id="Policy" Bounds="357.870114746094,661.287901647293,50.4700000000003,25.96" Label="Policy" />
+    <Node Id="Policy1" Bounds="1319.52407025687,223.667990124299,50.4700000000003,25.96" Label="Policy" />
+    <Node Id="Purchases" Bounds="357.870131022135,689.24792361995,72.5866666666666,25.96" Label="Purchases" />
+    <Node Id="Purchases1" Bounds="1319.52408653291,251.627989208772,72.5866666666666,25.9600000000001" Label="Purchases" />
+    <Node Id="Qick_viwe" Bounds="930.917446314813,309.507971203401,78.833333333333,25.96" Label="Quick_viwe" />
+    <Node Id="Quary" Bounds="357.87013264974,717.207915075028,51.9233333333332,25.96" Label="Quary" />
+    <Node Id="Read_only_data" Bounds="357.87002360026,773.127928502762,102.116666666667,25.96" Label="Read_only_data" />
+    <Node Id="Real_Data" Bounds="930.917414983432,365.427984631135,71.79,25.96" Label="Real_Data" />
+    <Node Id="Real_contact" Bounds="930.9174023695,337.467977917268,86.2433333333333,25.96" Label="Real_contact" />
+    <Node Id="Rolls" Bounds="667.647442245802,347.468038952424,86.9066666666668,25.96" Label="Rolls-&gt;[Arry]" />
+    <Node Id="Segments" Bounds="357.870021972656,801.08791995784,72.2799999999997,25.9599999999998" Label="Segments" />
+    <Node Id="Send_password_recovery" Bounds="357.870125325521,829.047911412918,151.783333333333,25.96" Label="Send_password_recovery" />
+    <Node Id="Server_side" Bounds="108.167448695175,-32.212399499724,1387.83662644451,573.480789013671" Group="Expanded" />
+    <Node Id="Setting" Bounds="667.647438176792,375.427999889924,99.6900000000001,25.96" Label="Setting-&gt;[Arry]" />
+    <Node Id="Setting1" Bounds="930.917408066115,393.387976086213,57.5466666666666,25.96" Label="Setting" />
+    <Node Id="Tabel" Bounds="357.870129394531,857.007933385575,50,25.96" Label="Tabel" />
+    <Node Id="Tabel1" Bounds="1319.52402387015,307.547995007112,50,25.96" Label="Tabel" />
+    <Node Id="Tabel_chilligames" Bounds="542.834079208694,47.787800500276,913.169995930989,453.480389013672" Group="Expanded" Label="Tabel_chilligames" />
+    <Node Id="Tabels" Bounds="930.917447128614,421.347982800081,52.376666666667,25.96" Label="Tabels" />
+    <Node Id="Team" Bounds="930.917422307651,449.307989513948,52.9299999999998,25.96" Label="Teams" />
+    <Node Id="Tier" Bounds="791.894128443719,207.667990124299,66.7033333333334,25.96" Label="Tier-&gt;Int" />
+    <Node Id="Upload_files" Bounds="357.870126139323,884.967924840653,84.3266666666668,25.9599999999998" Label="Upload_files" />
+    <Node Id="User_name_login" Bounds="357.870128580729,912.927885778153,109.956666666667,25.96" Label="User_name_login" />
+    <Node Id="User_steam" Bounds="357.870099283854,940.887907750809,80.6466666666665,25.96" Label="User_steam" />
+    <Node Id="User_steam1" Bounds="1319.52411582979,335.507971203401,80.6466666666665,25.96" Label="User_steam" />
+    <Node Id="Users" Bounds="357.870129394531,968.847929723465,50,25.96" Label="Users" />
+    <Node Id="Users-&gt;[Arry]" Bounds="791.89410158825,235.627981579377,91.0233333333335,25.96" Label="Users-&gt;[Arry]" />
+    <Node Id="Users1" Bounds="1074.21750531546,113.788000500276,50,25.96" Label="Users" />
+    <Node Id="VirtualCurrency" Bounds="511.653432617187,605.367918737137,101.08,25.96" Label="virtual currency" />
+    <Node Id="Virtual_currency" Bounds="1319.52407513968,363.467977917268,104.48,25.96" Label="Virtual_currency" />
+    <Node Id="Wallet" Bounds="511.653435872396,633.327910192215,53.0033333333331,25.9599999999999" Label="Wallet" />
+    <Node Id="_id" Bounds="574.834093043328,207.667990124299,90.8133333333335,25.96" Label="_id-&gt;idobject" />
+    <Node Id="_id1" Bounds="930.917467066766,113.788000500276,90.8133333333335,25.96" Label="_id-&gt;idobject" />
+    <Node Id="a18cc6fe-5f05-4e09-a706-8d00bbb1f76f1" Bounds="148.167456487338,233.56804505594,50,25.96" Label="/APIs" />
+    <Node Id="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Bounds="924.917399928094,87.787900500276,511.086675211589,393.480189013672" Group="Expanded" Label="Collection_record:Application" LayoutSettings="List" />
+    <Node Id="c8ee7ab0-d3b8-4455-bacc-8c5895938be61" Bounds="1319.52407676729,167.747999584749,80.3166666666666,25.96" Label="Player_data" />
+    <Node Id="d958659d-5b64-4cea-9a30-05a42442d41c1" Bounds="1080.21751508109,251.627989208772,55.77,25.96" Label="Details" />
+    <Node Id="e663ef03-0255-4209-8bda-9c9478b265601" Bounds="667.647428818068,319.50798646219,88.8166666666666,25.96" Label="Result-&gt;Bool" />
+    <Node Id="fb8e32c9-85d9-4b15-ab72-0614bc79ab601" Bounds="574.834098333042,291.547995007112,70.4700000000003,25.96" Label="0-&gt;String" />
   </Nodes>
   <Links>
-    <Link Source="/admin/login" Target="Mongodb" Bounds="206.175234249977,403.34107083127,38.0556692091612,25.0514128605795" />
+    <Link Source="/admin/login" Target="Mongodb" Bounds="232.682873975965,294.209281568237,193.636814670196,19.1022532428246" />
     <Link Source="01" Target="_id1" Bounds="916.75943392817,1082.50157589032,71.6407063847732,58.8541174690538" />
-    <Link Source="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Target="Mongodb" Bounds="215.291179851951,464.76993450138,32.0623258569331,24.5311363298895" />
+    <Link Source="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Target="Mongodb" Bounds="365.276207309299,297.765799045562,61.1384000807121,10.84730337711" />
     <Link Source="8c708d6a-db26-493e-a895-66ca6a822fdf" Target="52e7cda3-f18f-4365-bec2-d3bf3b06b8441" Category="Contains" />
     <Link Source="8c708d6a-db26-493e-a895-66ca6a822fdf" Target="Bans1" Category="Contains" />
     <Link Source="8c708d6a-db26-493e-a895-66ca6a822fdf" Target="Cloud_Script1" Category="Contains" />
@@ -175,15 +181,26 @@
     <Link Source="9061b6c4-fab7-42be-bbc6-19c39510c2791" Target="Team" Bounds="708.982708797625,777.743852639004,90.8756267803034,80.0125882016409" />
     <Link Source="9061b6c4-fab7-42be-bbc6-19c39510c2791" Target="Users1" Bounds="702.941162109375,719.250854492188,113.854370117188,138.505615234375" />
     <Link Source="9061b6c4-fab7-42be-bbc6-19c39510c2791" Target="_id1" Bounds="763.277038574219,883.376770019531,240.812866210938,124.145629882813" />
-    <Link Source="API" Target="Mongodb" Bounds="197.029584042727,446.32107083127,29.0300180907169,0" />
+    <Link Source="API" Target="Mongodb" Bounds="273.422882080077,264.887287904111,152.923187208647,19.1650869456428" />
     <Link Source="Admin[Arry]" Target="1-&gt;String" Bounds="395.001378551144,635.812028470976,22.5891222156374,23.5101827513147" />
     <Link Source="Admin[Arry]" Target="fb8e32c9-85d9-4b15-ab72-0614bc79ab601" Bounds="442.533342935306,635.812058592631,22.5888748614957,23.5101526296598" />
     <Link Source="Applications" Target="01" Bounds="665.787124467552,573.36221122229,10.032522745624,23.8808684388256" />
+    <Link Source="Backend" Target="/admin/login" Category="Contains" />
+    <Link Source="Backend" Target="/admin/login" Index="1" Bounds="192.798370361328,324.488067626953,4.5,15.5000915527344" />
+    <Link Source="Backend" Target="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Category="Contains" />
+    <Link Source="Backend" Target="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Index="1" Bounds="318.725036621094,324.488006591797,4.5,15.5001525878906" />
+    <Link Source="Backend" Target="API" Index="1" Bounds="253.168395996094,189.067825317383,4.5,35.5000915527344" />
+    <Link Source="Backend" Target="API" Category="Contains" />
+    <Link Source="Backend" Target="a18cc6fe-5f05-4e09-a706-8d00bbb1f76f1" Index="1" Bounds="123.667449951172,246.547973632813,15.5009460449219,4.5" />
+    <Link Source="Backend" Target="a18cc6fe-5f05-4e09-a706-8d00bbb1f76f1" Category="Contains" />
     <Link Source="Bans" Target="AddBan" Bounds="1733.544921875,2499.59350585938,85.3292236328125,31.71630859375" />
-    <Link Source="Chilligames_SDK" Target="API" Bounds="105.277830546061,456.710721076656,33.1534710712583,10.2521005237585" />
+    <Link Source="Chilligames_SDK" Target="API" Bounds="58.167348124186,214.436659424759,161.120645109101,26.5320919908657" />
+    <Link Source="Chilligames_SDK" Target="a18cc6fe-5f05-4e09-a706-8d00bbb1f76f1" Bounds="56.5406028435167,218.236611150867,82.8817923450498,20.1195304449334" />
     <Link Source="Collection_record" Target="Doc_record:Admin" Category="Contains" />
     <Link Source="ContentEmail" Target="ContactEmail" Bounds="1877.91967773438,2391.28100585938,91.2291259765625,192.90771484375" />
     <Link Source="ContentEmail" Target="Language" Bounds="1873.90710449219,2391.28100585938,99.919189453125,136.07763671875" />
+    <Link Source="Data_base" Target="Mongodb" Category="Contains" />
+    <Link Source="Data_base" Target="Tabel_chilligames" Category="Contains" />
     <Link Source="Details" Target="FristLogin" Bounds="1878.93444824219,2335.28100585938,94.583740234375,136.1357421875" />
     <Link Source="Details" Target="LastLogin" Bounds="1874.97229003906,2335.28100585938,97.5572509765625,80.319580078125" />
     <Link Source="Display" Target="269b8845-af64-4dc8-ae55-ccc319e7864d1" Bounds="1874.97229003906,2279.28100585938,97.5572509765625,80.319580078125" />
@@ -226,12 +243,14 @@
     <Link Source="Doc_record:Admin" Target="e663ef03-0255-4209-8bda-9c9478b265601" Category="Contains" />
     <Link Source="Doc_record:Admin" Target="fb8e32c9-85d9-4b15-ab72-0614bc79ab601" Category="Contains" />
     <Link Source="Email1" Target="fb8e32c9-85d9-4b15-ab72-0614bc79ab601" Bounds="498.091122223266,573.36221122229,15.8595930909398,22.6297820710322" />
+    <Link Source="End_user" Target="Chilligames_SDK" Category="Contains" />
     <Link Source="Event_history" Target="Events" Bounds="1743.46606445313,2615.28125,80.283447265625,29.8408203125" />
     <Link Source="Event_history" Target="Quary" Bounds="1753.44323730469,2602.30102539063,70.8016357421875,0" />
     <Link Source="Files" Target="Upload_files" Bounds="1726.00549316406,2391.28100585938,108.517578125,80.670654296875" />
     <Link Source="Friends" Target="Add-Friend" Bounds="1726.00549316406,2335.28100585938,108.517578125,80.670654296875" />
-    <Link Source="HTTP_Extention" Target="/admin/login" Bounds="109.113806392714,404.445492214327,24.6050063193651,6.57105312393355" />
-    <Link Source="HTTP_Extention" Target="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Bounds="83.4002092544313,436.962821600415,84.2634705055487,47.8911680752105" />
+    <Link Source="Front_end" Target="HTTP_Extention" Category="Contains" />
+    <Link Source="HTTP_Extention" Target="/admin/login" Bounds="58.1673475646973,307.996639579737,81.0469589266258,8.30170708671869" />
+    <Link Source="HTTP_Extention" Target="1af65895-b6c5-4353-ab0f-e071a1289e3f1" Bounds="58.1673475646973,306.189016270086,200.276853641994,12.2299406915315" />
     <Link Source="Identities" Target="06649c0b-6506-498a-be6a-5ab9847f9f981" Bounds="1896.81494140625,2210.30102539063,35.4083251953125,0" />
     <Link Source="Identities" Target="FacebookAcc" Bounds="1890.73791503906,2170.70703125,64.651611328125,26.614013671875" />
     <Link Source="Identities" Target="Google_acc" Bounds="1874.97229003906,2117.00146484375,97.5572509765625,80.319580078125" />
@@ -311,7 +330,7 @@
     <Link Source="Model_Users" Target="VirtualCurrency" Category="Contains" />
     <Link Source="Model_Users" Target="Wallet" Category="Contains" />
     <Link Source="Monetization" Target="Wallet" Bounds="1878.49206542969,1891.99877929688,87.99951171875,193.322265625" />
-    <Link Source="Mongodb" Target="Tabel:Chilligames" Bounds="307.872935466777,446.32107083127,47.2331946180465,0" />
+    <Link Source="Mongodb" Target="Tabel_chilligames" Bounds="512.834106445313,274.527984619141,21,0" />
     <Link Source="Notifictions" Target="171f8440-a0ba-4639-836e-1bcf079475d91" Bounds="1878.16442871094,1838.04272460938,99.7374267578125,191.2783203125" />
     <Link Source="Password" Target="Change_password" Bounds="2029.34545898438,1946.23986816406,80.980712890625,28.18994140625" />
     <Link Source="Password" Target="Send_password_recovery" Bounds="2030.0166015625,1986.30102539063,41.205078125,0" />
@@ -326,8 +345,10 @@
     <Link Source="Rolls" Target="0" Bounds="694.26094577085,687.460601260206,20.4833327292876,23.2472850966741" />
     <Link Source="Rolls" Target="1-&gt;[Arry]" Bounds="650.90408972729,687.460601260206,20.4833327292877,23.2472850966741" />
     <Link Source="Segments" Target="List_segment" Bounds="1742.841796875,1610.41662597656,73.0074462890625,27.136474609375" />
-    <Link Source="Tabel:Chilligames" Target="Collection_record" Bounds="421.39420230534,459.30107083127,3.2241320995347,21.1032327612648" />
-    <Link Source="Tabel:Chilligames" Target="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Bounds="424.675234958206,411.681484352243,8.78415521877497,21.6595864790268" />
+    <Link Source="Server_side" Target="Backend" Category="Contains" />
+    <Link Source="Server_side" Target="Data_base" Category="Contains" />
+    <Link Source="Tabel_chilligames" Target="Collection_record" Category="Contains" />
+    <Link Source="Tabel_chilligames" Target="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Category="Contains" />
     <Link Source="Users" Target="Bans" Bounds="1585.99914550781,1999.28100585938,98.966064453125,472.4765625" />
     <Link Source="Users" Target="Cloud_Script" Bounds="1586.65368652344,1999.28100585938,102.47216796875,415.69091796875" />
     <Link Source="Users" Target="Event_history" Bounds="1585.84594726563,1999.28100585938,114.738037109375,581.60400390625" />
@@ -349,7 +370,8 @@
     <Link Source="Users" Target="User_steam" Bounds="1586.65368652344,1557.63024902344,102.47216796875,415.690795898438" />
     <Link Source="Users" Target="VirtualCurrency" Bounds="1586.06481933594,1501.04809570313,100.019653320313,472.27294921875" />
     <Link Source="Users-&gt;[Arry]" Target="Admin[Arry]" Bounds="430.080673369564,694.282207968178,0.0373964971214491,43.9765110110297" />
-    <Link Source="Users1" Target="Doc_Users:" Bounds="932.05810546875,591.742370605469,110.037109375,92.2576293945313" />
+    <Link Source="Users1" Target="Doc_Users:" Bounds="646.188633745378,388.201918978854,123.595073087312,71.8268563160271" />
+    <Link Source="a18cc6fe-5f05-4e09-a706-8d00bbb1f76f1" Target="Mongodb" Bounds="193.422882080077,264.060783893931,232.891394703195,21.4875275287826" />
     <Link Source="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Target="8c708d6a-db26-493e-a895-66ca6a822fdf" Category="Contains" />
     <Link Source="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Target="9061b6c4-fab7-42be-bbc6-19c39510c2791" Category="Contains" />
     <Link Source="b4a53cc5-c4b8-4189-a494-a1b7cf96f025" Target="ADD_on" Category="Contains" />
