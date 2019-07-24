@@ -11,55 +11,16 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Requsts" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Result" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="Chilligames.Dashboard.APIS.HTTP_Extention.Error" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAABACAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\API\HTTP_Extention.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Chilligames.Dashboard.Dashboard" Collapsed="true">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Position X="3.5" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="Chilligames.Dashboard.Dashboard.Register" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="Chilligames.Dashboard.Dashboard.Login" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="Chilligames.Dashboard.Dashboard.App_Dashboard" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Struct Name="Chilligames.Dashboard.Dashboard.Entity_Admin" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAABAAAAEABAAAAAAAQAAAQABAAAAAABABCAAABBYAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</FileName>
@@ -98,7 +59,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQBAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQBAAAAAAAAAAAAAAAAAAAAAAABQAAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -73,7 +73,6 @@ namespace Chilligames.SDK
 
                 async void req()
                 {
-
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("User_name", Req_reg_user_Username_pass.UserName);
                     www.SetRequestHeader("Password", Req_reg_user_Username_pass.Password);
