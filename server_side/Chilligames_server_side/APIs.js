@@ -43,40 +43,40 @@ class DB_model {
         "Admins": [],
     }
     Raw_Model_User = {
-        '_id': new mongo_raw.ObjectId(),
+        'ID': '',
         "Identities": {
-            "Frist_Login": "",
-            "Password": "",
-            "Username": "",
-            "Chilligames_user": "",
-            "Contact_Email": "",
-            "Display_name": "",
-            "Email": "",
-            "Facebook_ACC": { "User_name": "", "password": "" },
-            "google_ACC": { "User_name": "", "Password": "" },
-            "Language": "",
-            "Last_login": ""
+            "Frist_Login": '',
+            "Password": '',
+            "Username": '',
+            "Chilligames_user": '',
+            "Contact_Email": '',
+            "Display_name": '',
+            "Email": '',
+            "Facebook_ACC": { "User_name": '', "password": '' },
+            "google_ACC": { "User_name": '', "Password": '' },
+            "Language": '',
+            "Last_login": ''
         },
-        "ban": {},
-        "policy": {},
-        "Friends": {},
-        "Avatar": "",
-        "Clud_Scripts": {},
-        "Log": {},
-        "Files": {},
+        "ban": [],
+        "policy": [],
+        "Friends": [],
+        "Avatar": '',
+        "Clud_Scripts": [],
+        "Log": [],
+        "Files": [],
         "Data": {
-            "Public": {},
-            "Internal": {}
+            "Public": [],
+            "Internal": []
         },
-        "Inventory": {},
-        "Notifaction": {},
-        "Segment": {},
-        "Logins": {},
-        "Teams": {},
-        "Wallet": {},
-        "Servers": {}
+        "Inventory": [],
+        "Notifaction": [],
+        "Segment": [],
+        "Logins": [],
+        "Teams": [],
+        "Wallet": [],
+        "Servers": []
     }
-    async register_user_pass(Incoming_Token, User_name, Password) {
+    async register_user_pass(Incoming_Token, Incoming_User_name, Incoming_Password) {
 
         await Client_mongo.connect();
         var Collection = await Client_mongo.db("Chilligames").collection("Applications");
@@ -86,13 +86,22 @@ class DB_model {
         this.Model_Application = await Collection.findOne({ '_id': Token });
 
 
-        this.Model_Application.Users.push(this.Raw_Model_User);
-
-        var new_user = this.Model_Application;
-
         var id = new mongo_raw.ObjectID();
 
+        this.Raw_Model_User.ID = new mongo_raw.ObjectID();
+        this.Raw_Model_User.Identities.Username = Incoming_User_name;
+        this.Raw_Model_User.Identities.Password = Incoming_Password;
+        var New_user = this.Raw_Model_User;
+        this.Model_Application.Users.push(New_user);
+
+        var new_application = this.Model_Application;
+
+        Collection.update({ '_id': Token }, new_application, { multi: false }, function (e, r) {
+            console.log(e);
+
+        });
 
     }
+
 
 }
