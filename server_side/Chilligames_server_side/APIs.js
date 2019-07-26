@@ -42,6 +42,7 @@ class DB_model {
         "Setting": [],
         "Admins": [],
     }
+
     Raw_Model_User = {
         'ID': '',
         "Identities": {
@@ -83,7 +84,9 @@ class DB_model {
 
         var Token = new mongo_raw.ObjectId(Incoming_Token);
 
-        this.Model_Application = await Collection.findOne({ '_id': Token });
+
+        this.Model_Application = await Collection.findOne({ "_id": Token });
+
 
 
         var id = new mongo_raw.ObjectID();
@@ -94,9 +97,10 @@ class DB_model {
         var New_user = this.Raw_Model_User;
         this.Model_Application.Users.push(New_user);
 
-        var new_application = this.Model_Application;
 
-        Collection.update({ '_id': Token }, new_application, { multi: false }, function (e, r) {
+        var users = this.Model_Application.Users;
+
+        await Collection.updateOne({ "_id": Token }, { $set: { "Users": users } }, { upsert: true }, function (e, r) {
             console.log(e);
 
         });
