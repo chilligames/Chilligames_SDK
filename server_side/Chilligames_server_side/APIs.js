@@ -101,7 +101,7 @@ class DB_model {
         var users = this.Model_Application.Users;
 
         await Collection.updateOne({ "_id": Token }, { $set: { "Users": users } }, { upsert: true }, function (e, r) {
-            console.log(e);
+            
 
         });
 
