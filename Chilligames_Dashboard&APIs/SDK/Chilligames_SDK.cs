@@ -27,7 +27,7 @@ namespace Chilligames.SDK
     {
         public static string Token_App;
         public static string Token_Admin;
-
+        public static string Token_users;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
         /// <summary>
@@ -80,35 +80,55 @@ namespace Chilligames.SDK
         internal class API_Client
         {
 
+            
+
             public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERROR_register> ERROR)
             {
                 req();
 
                 async void req()
                 {
-                    print("req_send");
-                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("User_name", Requst_register.UserName);
-                    www.SetRequestHeader("Password", Requst_register.Password);
-                    www.SetRequestHeader("Pipe_line", "RUP");
-                    www.SetRequestHeader("Token", Token_App);
-                    www.SendWebRequest();
                     while (true)
                     {
-                        if (www.isDone)
-                        {
 
-                            print(www.downloadHandler.text);
-                            www.Abort();
+                        if (Token_App != null)
+                        {
+                            requst();
                             break;
                         }
                         else
                         {
                             await Task.Delay(20);
+
+                        }
+                    }
+
+                    async void requst()
+                    {
+                        UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                        www.SetRequestHeader("User_name", Requst_register.UserName);
+                        www.SetRequestHeader("Password", Requst_register.Password);
+                        www.SetRequestHeader("Pipe_line", "RUP");
+
+                        www.SetRequestHeader("Token", Token_App);
+
+                        www.SendWebRequest();
+
+                        while (true)
+                        {
+                            if (www.isDone)
+                            {
+                                Token_users = www.downloadHandler.text;
+                                www.Abort();
+                                break;
+                            }
+                            else
+                            {
+                                await Task.Delay(20);
+                            }
                         }
                     }
                 }
-
             }
 
 
