@@ -13,8 +13,8 @@ namespace Chilligames.Dashboard.APIS
 
     public class HTTP_Extention : MonoBehaviour
     {
-        public const string API_address_Register = "http://127.0.0.1:3333/admin/register";
-        public const string API_address_login = "http://127.0.0.1:3333/admin/login";
+        public const string API_address_Register = "http://127.0.0.1:3332/admin/register";
+        public const string API_address_login = "http://127.0.0.1:3332/admin/login";
 
         #region Dashboard
 

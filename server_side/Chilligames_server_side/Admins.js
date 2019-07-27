@@ -3,7 +3,7 @@ var app = express();
 
 
 var host_reg = "127.0.0.1";
-var port_reg = 3333;
+var port_reg = 3332;
 
 app.listen(port_reg, host_reg);
 

@@ -12,7 +12,16 @@ app_api.get("/APIs", (req, res) => {
     switch (pipe_line) {
         case "RUP": {
 
-            DB.register_user_pass(Token_application, User_name, Password).then(() => { });
+            DB.register_user_pass(Token_application, User_name, Password).then((result_inject) => {
+
+                if (result_inject == 0) {
+                    res.send("Not_creat");
+                    res.end();
+                } else {
+                    res.send(result_inject);
+                    res.end();
+                }
+            });
         }
     }
 
@@ -77,11 +86,13 @@ class DB_model {
         "Wallet": [],
         "Servers": []
     }
+
     async register_user_pass(Incoming_Token, Incoming_User_name, Incoming_Password) {
+
 
         await Client_mongo.connect();
         var Collection = await Client_mongo.db("Chilligames").collection("Applications");
-
+        var result;
         var Token = new mongo_raw.ObjectId(Incoming_Token);
 
 
@@ -100,11 +111,16 @@ class DB_model {
 
         var users = this.Model_Application.Users;
 
-        await Collection.updateOne({ "_id": Token }, { $set: { "Users": users } }, { upsert: true }, function (e, r) {
-            
+        var Result_inject = await Collection.updateOne({ "_id": Token }, { $set: { "Users": users } }, { upsert: true });
+        if (Result_inject.result.ok === 1) {
 
-        });
-
+            result = this.Raw_Model_User.ID;
+            console.log(result);
+            return result;
+        } else {
+            result = 0;
+            return result;
+        }
     }
 
 

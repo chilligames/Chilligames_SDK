@@ -10,8 +10,8 @@ namespace Chilligames.SDK.Model_Client
 {
     public class Req_reg_user_Username_pass
     {
-        public static string UserName;
-        public static string Password;
+        public  string UserName;
+        public  string Password;
     }
 
 }
@@ -24,6 +24,11 @@ namespace Chilligames.SDK
         public static string Pipe_line_Admin;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
+        /// <summary>
+        /// intialize of chilligames 
+        /// </summary>
+        /// <param name="Token_Admin">your token</param>
+        /// <param name="Token_App">your app token</param>
         public static void Initialize(string Token_Admin, string Token_App)
         {
             intil();
@@ -37,11 +42,12 @@ namespace Chilligames.SDK
 
                 while (true)
                 {
-                    print(www.downloadProgress);
+
                     if (www.isDone)
                     {
                         Pipe_line_Admin = www.downloadHandler.text;
                         www.Abort();
+
                         if (Pipe_line_Admin == "")
                         {
                             print("Token_not_found");
@@ -73,22 +79,23 @@ namespace Chilligames.SDK
 
                 async void req()
                 {
+                    print("req_send");
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("User_name", Req_reg_user_Username_pass.UserName);
-                    www.SetRequestHeader("Password", Req_reg_user_Username_pass.Password);
-                    www.SetRequestHeader("Pipe_line", "Reg_User_pass");
+                    www.SetRequestHeader("User_name", Requst_register.UserName);
+                    www.SetRequestHeader("Password", Requst_register.Password);
+                    www.SetRequestHeader("Pipe_line", "RUP");
                     www.SendWebRequest();
                     while (true)
                     {
                         if (www.isDone)
                         {
-                            print(www.downloadHandler);
+                            print(www.downloadHandler.text);
                             www.Abort();
                             break;
                         }
                         else
                         {
-                            await Task.Delay(200);
+                            await Task.Delay(20);
                         }
                     }
                 }
