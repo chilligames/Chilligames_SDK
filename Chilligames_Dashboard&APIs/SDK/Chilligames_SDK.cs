@@ -8,16 +8,22 @@ using Chilligames.SDK.Model_Client;
 
 namespace Chilligames.SDK.Model_Client
 {
+    public class Req_Quick_register
+    {
+        public string ID;
+    }
     public class Req_reg_user_Username_pass
     {
         public string UserName;
         public string Password;
     }
+
     public class Token_entity
     {
         public string Token_app;
         public string Token_admin;
     }
+
 
 }
 namespace Chilligames.SDK
@@ -80,9 +86,12 @@ namespace Chilligames.SDK
         internal class API_Client
         {
 
-            
+            public static void Quick_register(Req_Quick_register Requst_quick_reg, Action<Result_register> result_register, Action<ERRORs> ERROR)
+            {
+                
+            }
 
-            public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERROR_register> ERROR)
+            public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERRORs> ERROR)
             {
                 req();
 
@@ -137,7 +146,8 @@ namespace Chilligames.SDK
             {
 
             }
-            public class ERROR_register
+
+            public class ERRORs
             {
 
             }
