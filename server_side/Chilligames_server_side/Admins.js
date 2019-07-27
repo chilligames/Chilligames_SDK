@@ -51,10 +51,10 @@ app.get('/API', function (req, res) {
     var TOK_admin = req.header("Token_Admin");
     var req_token = new Database().AccessToken(TOK_admin, TOK_app).then((result_token) => {
         if (result_token == null) {
-            res.send(TOK_admin);
+            res.send(result_token);
             res.end();
         } else {
-            res.send(TOK_admin);
+            res.send(result_token);
             res.end();
         }
     });
@@ -65,6 +65,19 @@ app.get('/API', function (req, res) {
 
 
 /*DB area*/
+
+var model_admin = {
+    "_id": '',
+    "ID": '',
+    "result": '',
+    "Password": '',
+    "Email": '',
+    "Tier": '',
+    "Setting": [],
+    "Users": [],
+    "Rolls": [],
+    "Application": []
+}
 class Database {
 
     async register_new_admin(Email_Incoming, Password_Incomin) {
@@ -165,7 +178,6 @@ class Database {
 
         var mongo_raw = require('mongodb');
 
-
         var string_mongo = "mongodb://localhost:27017/admin";
         var mongo_client = new mongo_raw.MongoClient(string_mongo, { useNewUrlParser: true });
 
@@ -173,15 +185,22 @@ class Database {
 
         var Token = new mongo_raw.ObjectId(incoming_Token_admin);
 
-        var sercher_token = await mongo_client.db("Chilligames").collection("Users").findOne({ '_id': Token });
+        model_admin = await mongo_client.db("Chilligames").collection("Users").findOne({ '_id': Token });
 
-        return sercher_token;
+        var result_token_model = { "Token_app": "", "Token_admin": "" };
 
+        for (var i = 0; i <= model_admin.Application.length; i++) {
+
+            if (model_admin.Application[i] == incomin_token_App) {
+                result_token_model.Token_app = model_admin.Application[i];
+                result_token_model.Token_admin = model_admin._id;
+            }
+        }
+        return result_token_model;
     }
 
 
 
 }
-
 
 
