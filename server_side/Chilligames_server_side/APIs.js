@@ -26,7 +26,10 @@ app_api.get("/APIs", (req, res) => {
         }
             break;
         case "QR": {
-            DB.Register_quick(Token_application, ID).then(() => { });
+            DB.Register_quick(Token_application, ID).then((result_inject) => {
+                res.send(result_inject);
+                res.end();
+            });
 
         } break;
     }
@@ -95,13 +98,12 @@ class DB_model {
 
     async register_user_pass(Incoming_Token, Incoming_User_name, Incoming_Password) {
 
-
         await Client_mongo.connect();
         var Collection = await Client_mongo.db("Chilligames").collection("Applications");
         var result;
+
+
         var Token = new mongo_raw.ObjectId(Incoming_Token);
-
-
         this.Model_Application = await Collection.findOne({ "_id": Token });
 
         this.Raw_Model_User.ID = new mongo_raw.ObjectID();
@@ -111,7 +113,7 @@ class DB_model {
         this.Model_Application.Users.push(this.Raw_Model_User);
 
 
-        var Result_inject = await Collection.updateOne({ "_id": Token }, { $set: { "Users": this.Model_Application.Users } }, { upsert: true });
+        var Result_inject = await Collection.updateOne({ "_id": Token }, { $set: { "Users": this.Model_Application.Users } });
         if (Result_inject.result.ok === 1) {
 
             result = this.Raw_Model_User.ID;
@@ -127,6 +129,7 @@ class DB_model {
 
     async Register_quick(Incomin_Token) {
 
+        var result;
         await Client_mongo.connect();
         var Token = new mongo_raw.ObjectId(Incomin_Token);
         this.Model_Application = await Client_mongo.db("Chilligames").collection("Applications").findOne({ '_id': Token });
@@ -136,8 +139,16 @@ class DB_model {
 
         this.Model_Application.Users.push(this.Raw_Model_User);
 
-        await Client_mongo.db("Chilligames").collection("Applications").updateOne({ '_id': Token }, { $set: { 'Users': this.Model_Application.Users } }, { upsert: true });
+        var Result_insert = await Client_mongo.db("Chilligames").collection("Applications").updateOne({ '_id': Token }, { $set: { 'Users': this.Model_Application.Users } });
 
+        if (Result_insert.result.ok === 1) {
+            result = this.Raw_Model_User.ID;
+            return result;
+        } else {
+            result = 0;
+
+            return result;
+        }
 
     }
 
