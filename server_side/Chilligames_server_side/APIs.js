@@ -126,7 +126,6 @@ class DB_model {
     }
 
 
-
     async Register_quick(Incomin_Token) {
 
         var result;

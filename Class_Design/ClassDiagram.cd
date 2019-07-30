@@ -33,18 +33,6 @@
         </TypeIdentifier>
       </Class>
       <Class Name="Chilligames.Dashboard.Dashboard.App_Dashboard" Collapsed="true">
-        <NestedTypes>
-          <Struct Name="Chilligames.Dashboard.Dashboard.App_Dashboard.User_area" Collapsed="true">
-            <TypeIdentifier>
-              <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-            </TypeIdentifier>
-          </Struct>
-          <Struct Name="Chilligames.Dashboard.Dashboard.App_Dashboard.App_enitiy" Collapsed="true">
-            <TypeIdentifier>
-              <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
-            </TypeIdentifier>
-          </Struct>
-        </NestedTypes>
         <TypeIdentifier>
           <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\Extention\Dashboard.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -76,7 +64,7 @@
               <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
             </TypeIdentifier>
           </Class>
-          <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client.ERROR_register" Collapsed="true">
+          <Class Name="Chilligames.SDK.Chilligames_SDK.API_Client.ERRORs" Collapsed="true">
             <TypeIdentifier>
               <NewMemberFileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</NewMemberFileName>
             </TypeIdentifier>
@@ -93,7 +81,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQBAAAAAAAAAAAAAAAAAAAAAAABQAAA=</HashCode>
+      <HashCode>AAAAAgQAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Assets\Unity-backend\Chilligames_Dashboard&amp;APIs\SDK\Chilligames_SDK.cs</FileName>
     </TypeIdentifier>
   </Class>

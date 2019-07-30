@@ -33,6 +33,8 @@ namespace Chilligames.SDK
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
 
+
+
         /// <summary>
         /// intialize of chilligames 
         /// </summary>
@@ -40,7 +42,22 @@ namespace Chilligames.SDK
         /// <param name="Token_App">your app token</param>
         public static void Initialize(string Token_Admin, string Token_App)
         {
-            intil();
+            if (GameObject.Find("Chilligames(Clone)"))
+            {
+                intil();
+            }
+            else
+            {
+                var Chilligames = Instantiate(new GameObject { name = "Chilligames" });
+                Chilligames.AddComponent<Chilligames_SDK>();
+                DontDestroyOnLoad(Chilligames);
+                if (GameObject.Find("Chilligames"))
+                {
+                    Destroy(GameObject.Find("Chilligames"));
+                }
+                intil();
+            }
+
 
             async void intil()
             {
@@ -80,6 +97,8 @@ namespace Chilligames.SDK
 
 
 
+
+
         internal class API_Client
         {
 
@@ -89,9 +108,17 @@ namespace Chilligames.SDK
             /// <param name="Requst_quick_reg"></param>
             /// <param name="result_register"></param>
             /// <param name="ERROR"></param>
-            public static void Quick_register( Action<Result_register> result_register, Action<ERRORs> ERROR)
+            public static void Quick_register(Action<Result_register> result_register, Action<ERRORs> ERROR)
             {
-                quick_register();
+
+                if (Token_App != null)
+                {
+                    quick_register();
+                }
+                else
+                {
+                    print("need_token_app");
+                }
 
                 async void quick_register()
                 {
@@ -117,7 +144,7 @@ namespace Chilligames.SDK
 
             }
 
-               
+
             /// <summary>
             /// register with user password
             /// </summary>
