@@ -8,6 +8,7 @@ app_api.get("/APIs", (req, res) => {
 
     var User_name = req.header("User_name");
     var Password = req.header("Password");
+    var ID = req.header("ID");
 
     switch (pipe_line) {
         case "RUP": {
@@ -23,6 +24,11 @@ app_api.get("/APIs", (req, res) => {
                 }
             });
         }
+            break;
+        case "QR": {
+            DB.Register_quick(Token_application, ID).then(() => { });
+
+        } break;
     }
 
 }).listen("3333", "127.0.0.1")
@@ -98,20 +104,14 @@ class DB_model {
 
         this.Model_Application = await Collection.findOne({ "_id": Token });
 
-
-
-        var id = new mongo_raw.ObjectID();
-
         this.Raw_Model_User.ID = new mongo_raw.ObjectID();
         this.Raw_Model_User.Identities.Username = Incoming_User_name;
         this.Raw_Model_User.Identities.Password = Incoming_Password;
-        var New_user = this.Raw_Model_User;
-        this.Model_Application.Users.push(New_user);
+
+        this.Model_Application.Users.push(this.Raw_Model_User);
 
 
-        var users = this.Model_Application.Users;
-
-        var Result_inject = await Collection.updateOne({ "_id": Token }, { $set: { "Users": users } }, { upsert: true });
+        var Result_inject = await Collection.updateOne({ "_id": Token }, { $set: { "Users": this.Model_Application.Users } }, { upsert: true });
         if (Result_inject.result.ok === 1) {
 
             result = this.Raw_Model_User.ID;
@@ -123,5 +123,22 @@ class DB_model {
         }
     }
 
+
+
+    async Register_quick(Incomin_Token) {
+
+        await Client_mongo.connect();
+        var Token = new mongo_raw.ObjectId(Incomin_Token);
+        this.Model_Application = await Client_mongo.db("Chilligames").collection("Applications").findOne({ '_id': Token });
+
+        var ID_player = new mongo_raw.ObjectId();
+        this.Raw_Model_User.ID = ID_player;
+
+        this.Model_Application.Users.push(this.Raw_Model_User);
+
+        await Client_mongo.db("Chilligames").collection("Applications").updateOne({ '_id': Token }, { $set: { 'Users': this.Model_Application.Users } }, { upsert: true });
+
+
+    }
 
 }

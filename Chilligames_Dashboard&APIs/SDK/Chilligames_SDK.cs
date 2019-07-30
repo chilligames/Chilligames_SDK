@@ -8,10 +8,6 @@ using Chilligames.SDK.Model_Client;
 
 namespace Chilligames.SDK.Model_Client
 {
-    public class Req_Quick_register
-    {
-        public string ID;
-    }
     public class Req_reg_user_Username_pass
     {
         public string UserName;
@@ -35,6 +31,7 @@ namespace Chilligames.SDK
         public static string Token_Admin;
         public static string Token_users;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
+
 
         /// <summary>
         /// intialize of chilligames 
@@ -86,11 +83,47 @@ namespace Chilligames.SDK
         internal class API_Client
         {
 
-            public static void Quick_register(Req_Quick_register Requst_quick_reg, Action<Result_register> result_register, Action<ERRORs> ERROR)
+            /// <summary>
+            /// quick register with ID
+            /// </summary>
+            /// <param name="Requst_quick_reg"></param>
+            /// <param name="result_register"></param>
+            /// <param name="ERROR"></param>
+            public static void Quick_register( Action<Result_register> result_register, Action<ERRORs> ERROR)
             {
-                
+                quick_register();
+
+                async void quick_register()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Token", Token_App);
+                    www.SetRequestHeader("Pipe_line", "QR");
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            print(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(20);
+                        }
+
+                    }
+                }
+
             }
 
+               
+            /// <summary>
+            /// register with user password
+            /// </summary>
+            /// <param name="Requst_register"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERROR"></param>
             public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERRORs> ERROR)
             {
                 req();
@@ -146,6 +179,7 @@ namespace Chilligames.SDK
             {
 
             }
+
 
             public class ERRORs
             {
