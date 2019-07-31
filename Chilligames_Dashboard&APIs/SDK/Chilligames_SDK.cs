@@ -8,6 +8,11 @@ using Chilligames.SDK.Model_Client;
 
 namespace Chilligames.SDK.Model_Client
 {
+    public class Req_send_data_to_tabels
+    {
+        public string Name_tabel;
+       public double value;
+    }
     public class Req_reg_user_Username_pass
     {
         public string UserName;
@@ -129,7 +134,11 @@ namespace Chilligames.SDK
                             {
                                 if (www.isDone)
                                 {
-                                    print(www.downloadHandler.text);
+                                    if (Token_users== null)
+                                    {
+                                        Token_users = www.downloadHandler.text;
+                                    }
+                                    print(Token_users);
                                     www.Dispose();
                                     break;
                                 }
@@ -151,6 +160,7 @@ namespace Chilligames.SDK
                 }
 
             }
+
 
 
             /// <summary>
@@ -209,13 +219,31 @@ namespace Chilligames.SDK
             }
 
 
-
-            public class Result_register
+            public static void Send_data_to_tabels(Req_send_data_to_tabels req_Send_Data,Action<Result_Send_data_to_tabel> result,Action<ERRORs> Errors)
             {
+
+                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                www.SetRequestHeader("Token", Token_App);
+                www.SetRequestHeader("ID", Token_users);
+                www.SetRequestHeader("Tabel_name", req_Send_Data.Name_tabel);
+                www.SetRequestHeader("Data_Tabel", req_Send_Data.value.ToString());
+                www.SetRequestHeader("Pipe_line", "SDTT");
+
+                www.SendWebRequest();
+
 
             }
 
 
+            public class Result_register
+            {
+                public string Token_user;
+            }
+
+            public class Result_Send_data_to_tabel
+            {
+
+            }
             public class ERRORs
             {
 

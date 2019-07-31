@@ -6,9 +6,11 @@ app_api.get("/APIs", (req, res) => {
     var pipe_line = req.header("Pipe_line");
     var Token_application = req.header("Token");
 
+    var ID = req.header("ID");
     var User_name = req.header("User_name");
     var Password = req.header("Password");
-    var ID = req.header("ID");
+    var Tabel_name = req.header("Tabel_name");
+    var Tabel_data = req.header("Data_Tabel");
 
     switch (pipe_line) {
         case "RUP": {
@@ -32,6 +34,15 @@ app_api.get("/APIs", (req, res) => {
             });
 
         } break;
+        case "SDTT": {
+
+            DB.send_data_to_tabel(Tabel_name, Token_application, ID).then(() => {
+
+
+
+            });
+
+        } break;
     }
 
 }).listen("3333", "127.0.0.1")
@@ -50,7 +61,7 @@ class DB_model {
         "Quick_viwe": [],
         "Users": [],
         "Economy": [],
-        "Tabels": [],
+        "Tabels": {},
         "Real_Data": [],
         "Teams": [],
         "Real_content": [],
@@ -141,7 +152,7 @@ class DB_model {
         var Result_insert = await Client_mongo.db("Chilligames").collection("Applications").updateOne({ '_id': Token }, { $set: { 'Users': this.Model_Application.Users } });
 
         if (Result_insert.result.ok === 1) {
-            result = this.Raw_Model_User.ID;
+            result = this.Raw_Model_User.ID.toString();
             return result;
         } else {
             result = 0;
@@ -149,6 +160,20 @@ class DB_model {
             return result;
         }
 
+    }
+
+
+    async send_data_to_tabel(incomin_name_tabel, Incoming_token_app, Incoming_token_player) {
+
+
+        var Token = new mongo_raw.ObjectId(Incoming_token_app);
+        await Client_mongo.connect();
+
+        this.Model_Application = await Client_mongo.db("Chilligames").collection("Applications").findOne({ '_id': Token });
+
+        var a = this.Model_Application.Tabels.T_1;
+
+        console.log(a);
     }
 
 }
