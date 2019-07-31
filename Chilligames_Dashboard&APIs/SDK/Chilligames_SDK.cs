@@ -27,9 +27,9 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        public static string Token_App;
-        public static string Token_Admin;
-        public static string Token_users;
+        protected static string Token_App;
+        protected static string Token_Admin;
+        protected static string Token_users;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
 
@@ -42,6 +42,9 @@ namespace Chilligames.SDK
         /// <param name="Token_App">your app token</param>
         public static void Initialize(string Token_Admin, string Token_App)
         {
+
+            Application.runInBackground = true;
+
             if (GameObject.Find("Chilligames(Clone)"))
             {
                 intil();
@@ -96,11 +99,9 @@ namespace Chilligames.SDK
         }
 
 
-
-
-
         internal class API_Client
         {
+
 
             /// <summary>
             /// quick register with ID
@@ -111,32 +112,39 @@ namespace Chilligames.SDK
             public static void Quick_register(Action<Result_register> result_register, Action<ERRORs> ERROR)
             {
 
-                if (Token_App != null)
-                {
-                    quick_register();
-                }
-                else
-                {
-                    print("need_token_app");
-                }
+                quick_register();
 
                 async void quick_register()
                 {
-                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Token", Token_App);
-                    www.SetRequestHeader("Pipe_line", "QR");
-                    www.SendWebRequest();
-
                     while (true)
                     {
-                        if (www.isDone)
+
+                        if (Token_App != null)
                         {
-                            print(www.downloadHandler.text);
+                            UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                            www.SetRequestHeader("Token", Token_App);
+                            www.SetRequestHeader("Pipe_line", "QR");
+                            www.SendWebRequest();
+                            while (true)
+                            {
+                                if (www.isDone)
+                                {
+                                    print(www.downloadHandler.text);
+                                    www.Dispose();
+                                    break;
+                                }
+                                else
+                                {
+                                    await Task.Delay(20);
+                                }
+
+                            }
                             break;
+
                         }
                         else
                         {
-                            await Task.Delay(20);
+                            await Task.Delay(10);
                         }
 
                     }
