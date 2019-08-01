@@ -13,7 +13,7 @@ namespace Chilligames.SDK.Model_Client
         public string Name_app;
         public string Token_player;
     }
-    
+
     public class Token_entity
     {
         public string Token_app;
@@ -27,11 +27,7 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        protected static string Token_users;
-        protected static string Token_app;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
-
-
 
 
         /// <summary>
@@ -122,48 +118,27 @@ namespace Chilligames.SDK
             /// <param name="Requst_quick_reg"></param>
             /// <param name="result_register"></param>
             /// <param name="ERROR"></param>
-            public static void Quick_register(Action<Result_register> result_register, Action<ERRORs> ERROR)
+            public static void Quick_register(Action<Result_quick_register> result_register, Action<ERRORs> ERROR)
             {
-
                 quick_register();
 
                 async void quick_register()
                 {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "QR");
+                    www.SendWebRequest();
                     while (true)
                     {
-
-                        if (Token_app != null)
+                        if (www.isDone)
                         {
-                            UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                            www.SetRequestHeader("Token", Token_app);
-                            www.SetRequestHeader("Pipe_line", "QR");
-                            www.SendWebRequest();
-                            while (true)
-                            {
-                                if (www.isDone)
-                                {
-                                    if (Token_users == null)
-                                    {
-                                        Token_users = www.downloadHandler.text;
-                                    }
-                                    print(Token_users);
-                                    www.Dispose();
-                                    break;
-                                }
-                                else
-                                {
-                                    await Task.Delay(20);
-                                }
-
-                            }
+                            result_register(new Result_quick_register { _id = www.downloadHandler.text });
+                            www.Dispose();
                             break;
-
                         }
                         else
                         {
-                            await Task.Delay(10);
+                            await Task.Delay(20);
                         }
-
                     }
                 }
 
@@ -171,10 +146,15 @@ namespace Chilligames.SDK
 
 
 
+            public class Result_quick_register
+            {
+                public string _id;
+            }
+
 
             public class Result_register
             {
-                public string ID;
+                public string _id;
                 public string Avatar;
                 public object[] Identities;
                 public object[] Ban;
@@ -190,7 +170,7 @@ namespace Chilligames.SDK
 
             }
 
-         
+
             public class ERRORs
             {
 
