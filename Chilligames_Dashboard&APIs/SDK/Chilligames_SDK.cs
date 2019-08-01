@@ -106,8 +106,6 @@ namespace Chilligames.SDK
 
         internal class API_Client
         {
-
-
             /// <summary>
             /// quick register with ID
             /// </summary>
