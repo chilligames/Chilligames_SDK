@@ -32,9 +32,8 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        protected static string Token_App;
-        protected static string Token_Admin;
         protected static string Token_users;
+        protected static string Token_app;
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
 
@@ -80,8 +79,6 @@ namespace Chilligames.SDK
                     {
                         www.Abort();
 
-                        Chilligames_SDK.Token_Admin = Json.ChilligamesJson.DeserializeObject<Token_entity>(www.downloadHandler.text).Token_admin;
-                        Chilligames_SDK.Token_App = Json.ChilligamesJson.DeserializeObject<Token_entity>(www.downloadHandler.text).Token_app;
                         if (Token_App != "" && Token_Admin != "")
                         {
                             print("token_finde");
@@ -122,10 +119,10 @@ namespace Chilligames.SDK
                     while (true)
                     {
 
-                        if (Token_App != null)
+                        if (Token_app != null)
                         {
                             UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                            www.SetRequestHeader("Token", Token_App);
+                            www.SetRequestHeader("Token", Token_app);
                             www.SetRequestHeader("Pipe_line", "QR");
                             www.SendWebRequest();
                             while (true)
@@ -176,7 +173,7 @@ namespace Chilligames.SDK
                     while (true)
                     {
 
-                        if (Token_App != null)
+                        if (Token_app != null)
                         {
                             requst();
                             break;
@@ -195,7 +192,7 @@ namespace Chilligames.SDK
                         www.SetRequestHeader("Password", Requst_register.Password);
                         www.SetRequestHeader("Pipe_line", "RUP");
 
-                        www.SetRequestHeader("Token", Token_App);
+                        www.SetRequestHeader("Token", Token_app);
 
                         www.SendWebRequest();
 
@@ -221,7 +218,7 @@ namespace Chilligames.SDK
             {
 
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                www.SetRequestHeader("Token", Token_App);
+                www.SetRequestHeader("Token", Token_app);
                 www.SetRequestHeader("ID", Token_users);
                 www.SetRequestHeader("Tabel_name", req_Send_Data.Name_tabel);
                 www.SetRequestHeader("Data_Tabel", req_Send_Data.value.ToString());
@@ -247,13 +244,6 @@ namespace Chilligames.SDK
 
             }
         }
-
-
-        internal class API_Admin
-        {
-
-        }
-
 
     }
 
