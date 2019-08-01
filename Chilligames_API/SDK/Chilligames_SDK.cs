@@ -8,17 +8,12 @@ using Chilligames.SDK.Model_Client;
 
 namespace Chilligames.SDK.Model_Client
 {
-    public class Req_send_data_to_tabels
+    public class Req_Login
     {
-        public string Name_tabel;
-       public double value;
+        public string Name_app;
+        public string Token_player;
     }
-    public class Req_reg_user_Username_pass
-    {
-        public string UserName;
-        public string Password;
-    }
-
+    
     public class Token_entity
     {
         public string Token_app;
@@ -95,14 +90,32 @@ namespace Chilligames.SDK
                         await Task.Delay(20);
                     }
                 }
-
-
             }
         }
 
 
         internal class API_Client
         {
+
+            /// <summary>
+            /// quick Login just login with Token
+            /// </summary>
+            /// <param name="Req_login"></param>
+            /// <param name="Result_login"></param>
+            /// <param name="ERROR"></param>
+            public static void Quick_login(Req_Login Req_login, Action<Result_register> Result_login, Action<ERRORs> ERROR)
+            {
+                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                www.SetRequestHeader("Name_app", Req_login.Name_app);
+                www.SetRequestHeader("Pipe_line", "QL");
+                www.SetRequestHeader("Token", Req_login.Token_player);
+
+                www.SendWebRequest();
+
+
+            }
+
+
             /// <summary>
             /// quick register with ID
             /// </summary>
@@ -129,7 +142,7 @@ namespace Chilligames.SDK
                             {
                                 if (www.isDone)
                                 {
-                                    if (Token_users== null)
+                                    if (Token_users == null)
                                     {
                                         Token_users = www.downloadHandler.text;
                                     }
@@ -158,89 +171,29 @@ namespace Chilligames.SDK
 
 
 
-            /// <summary>
-            /// register with user password
-            /// </summary>
-            /// <param name="Requst_register"></param>
-            /// <param name="Result"></param>
-            /// <param name="ERROR"></param>
-            public static void Register_Users_with_Username_Password(Req_reg_user_Username_pass Requst_register, Action<Result_register> Result, Action<ERRORs> ERROR)
-            {
-                req();
-
-                async void req()
-                {
-                    while (true)
-                    {
-
-                        if (Token_app != null)
-                        {
-                            requst();
-                            break;
-                        }
-                        else
-                        {
-                            await Task.Delay(20);
-
-                        }
-                    }
-
-                    async void requst()
-                    {
-                        UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                        www.SetRequestHeader("User_name", Requst_register.UserName);
-                        www.SetRequestHeader("Password", Requst_register.Password);
-                        www.SetRequestHeader("Pipe_line", "RUP");
-
-                        www.SetRequestHeader("Token", Token_app);
-
-                        www.SendWebRequest();
-
-                        while (true)
-                        {
-                            if (www.isDone)
-                            {
-                                Token_users = www.downloadHandler.text;
-                                www.Abort();
-                                break;
-                            }
-                            else
-                            {
-                                await Task.Delay(20);
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            public static void Send_data_to_tabels(Req_send_data_to_tabels req_Send_Data,Action<Result_Send_data_to_tabel> result,Action<ERRORs> Errors)
-            {
-
-                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                www.SetRequestHeader("Token", Token_app);
-                www.SetRequestHeader("ID", Token_users);
-                www.SetRequestHeader("Tabel_name", req_Send_Data.Name_tabel);
-                www.SetRequestHeader("Data_Tabel", req_Send_Data.value.ToString());
-                www.SetRequestHeader("Pipe_line", "SDTT");
-
-                www.SendWebRequest();
-
-
-            }
-
 
             public class Result_register
             {
-                public string Token_user;
+                public string ID;
+                public string Avatar;
+                public object[] Identities;
+                public object[] Ban;
+                public object[] Friends;
+                public object[] Log;
+                public object[] Files;
+                public object[] Data;
+                public object[] Inventory;
+                public object[] Notifactions;
+                public object[] Teams;
+                public object[] Wallet;
+                public object[] Servers;
+
             }
 
-            public class Result_Send_data_to_tabel
-            {
-
-            }
+         
             public class ERRORs
             {
+
 
             }
         }
