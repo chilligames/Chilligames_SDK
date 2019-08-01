@@ -10,8 +10,7 @@ namespace Chilligames.SDK.Model_Client
 {
     public class Req_Login
     {
-        public string Name_app;
-        public string Token_player;
+        public string _id;
     }
 
     public class Token_entity
@@ -102,14 +101,31 @@ namespace Chilligames.SDK
             public static void Quick_login(Req_Login Req_login, Action<Result_register> Result_login, Action<ERRORs> ERROR)
             {
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                www.SetRequestHeader("Name_app", Req_login.Name_app);
                 www.SetRequestHeader("Pipe_line", "QL");
-                www.SetRequestHeader("Token", Req_login.Token_player);
+                www.SetRequestHeader("_id", Req_login._id);
 
                 www.SendWebRequest();
+                register();
 
+                async void register()
+                {
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            print(www.downloadHandler.text);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(10);
+                        }
+                    }
+                }
 
             }
+
 
 
             /// <summary>
