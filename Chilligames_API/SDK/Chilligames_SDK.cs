@@ -12,12 +12,14 @@ namespace Chilligames.SDK.Model_Client
     {
         public string _id;
     }
-
-    public class Token_entity
+    public class Req_send_score
     {
-        public string Token_app;
-        public string Token_admin;
+        public string Leader_board;
+        public string ID;
+        public int Score;
+        public string Nick_name;
     }
+
 
 
 }
@@ -27,67 +29,6 @@ namespace Chilligames.SDK
     public class Chilligames_SDK : MonoBehaviour
     {
         protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
-
-
-        /// <summary>
-        /// intialize of chilligames 
-        /// </summary>
-        /// <param name="Token_Admin">your token</param>
-        /// <param name="Token_App">your app token</param>
-        public static void Initialize(string Token_Admin, string Token_App)
-        {
-
-            Application.runInBackground = true;
-
-            if (GameObject.Find("Chilligames(Clone)"))
-            {
-                intil();
-            }
-            else
-            {
-                var Chilligames = Instantiate(new GameObject { name = "Chilligames" });
-                Chilligames.AddComponent<Chilligames_SDK>();
-                DontDestroyOnLoad(Chilligames);
-                if (GameObject.Find("Chilligames"))
-                {
-                    Destroy(GameObject.Find("Chilligames"));
-                }
-                intil();
-            }
-
-
-            async void intil()
-            {
-                UnityWebRequest www = UnityWebRequest.Get("http://127.0.0.1:3332/API");
-                www.SetRequestHeader("Token_App", Token_App);
-                www.SetRequestHeader("Token_Admin", Token_Admin);
-                www.SendWebRequest();
-
-                while (true)
-                {
-                    if (www.isDone)
-                    {
-                        www.Abort();
-
-                        if (Token_App != "" && Token_Admin != "")
-                        {
-                            print("token_finde");
-                        }
-                        else
-                        {
-                            print("Token_not_finde");
-                        }
-
-                        break;
-                    }
-                    else
-                    {
-                        await Task.Delay(20);
-                    }
-                }
-            }
-        }
-
 
         internal class API_Client
         {
@@ -113,7 +54,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                           Result_Login User_data  =Json.ChilligamesJson.DeserializeObject<Result_Login>(www.downloadHandler.text);
+                            Result_Login User_data = Json.ChilligamesJson.DeserializeObject<Result_Login>(www.downloadHandler.text);
                             Result_login(User_data);
                             www.Abort();
                             break;
@@ -162,6 +103,41 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="send_Score"></param>
+            /// <param name="result"></param>
+            public static void Send_Score_to_leader_board(Req_send_score Send_Score, Action result)
+            {
+                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                www.SetRequestHeader("Pipe_line", "SSTLB");
+                www.SetRequestHeader("_id", Send_Score.ID);
+                www.SetRequestHeader("Leader_board", Send_Score.Leader_board);
+                www.SetRequestHeader("Nick_name", Send_Score.Nick_name);
+                www.SetRequestHeader("Score", Send_Score.Score.ToString());
+                www.SendWebRequest();
+
+                Cheack_down();
+
+                async void Cheack_down()
+                {
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+            }
 
             public class Result_quick_register
             {
