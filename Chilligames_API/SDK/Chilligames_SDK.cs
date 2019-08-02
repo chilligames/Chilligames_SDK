@@ -98,7 +98,7 @@ namespace Chilligames.SDK
             /// <param name="Req_login"></param>
             /// <param name="Result_login"></param>
             /// <param name="ERROR"></param>
-            public static void Quick_login(Req_Login Req_login, Action<Result_register> Result_login, Action<ERRORs> ERROR)
+            public static void Quick_login(Req_Login Req_login, Action<Result_Login> Result_login, Action<ERRORs> ERROR)
             {
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                 www.SetRequestHeader("Pipe_line", "QL");
@@ -113,7 +113,8 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            print(www.downloadHandler.text);
+                           Result_Login User_data  =Json.ChilligamesJson.DeserializeObject<Result_Login>(www.downloadHandler.text);
+                            Result_login(User_data);
                             www.Abort();
                             break;
                         }
@@ -168,21 +169,21 @@ namespace Chilligames.SDK
             }
 
 
-            public class Result_register
+            public class Result_Login
             {
-                public string _id;
-                public string Avatar;
-                public object[] Identities;
-                public object[] Ban;
-                public object[] Friends;
-                public object[] Log;
-                public object[] Files;
-                public object[] Data;
-                public object[] Inventory;
-                public object[] Notifactions;
-                public object[] Teams;
-                public object[] Wallet;
-                public object[] Servers;
+                public string _id = "";
+                public string Avatar = "";
+                public object[] Identities = null;
+                public object[] Ban = null;
+                public object[] Friends = null;
+                public object[] Log = null;
+                public object[] Files = null;
+                public object[] Data = null;
+                public object[] Inventory = null;
+                public object[] Notifactions = null;
+                public object[] Teams = null;
+                public object[] Wallet = null;
+                public object[] Servers = null;
 
             }
 
