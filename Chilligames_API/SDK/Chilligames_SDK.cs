@@ -19,6 +19,13 @@ namespace Chilligames.SDK.Model_Client
         public int Score;
         public string Nick_name;
     }
+    public class Info_model
+    {
+        public object Username;
+        public object Password;
+        public object Email;
+        public object Nickname;
+    }
 
 
 
@@ -126,7 +133,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            
+
                             www.Abort();
                             break;
                         }
@@ -149,7 +156,7 @@ namespace Chilligames.SDK
             {
                 public string _id = "";
                 public string Avatar = "";
-                public object[] Identities = null;
+                public object Info = null;
                 public object[] Ban = null;
                 public object[] Friends = null;
                 public object[] Log = null;
@@ -157,7 +164,7 @@ namespace Chilligames.SDK
                 public object[] Data = null;
                 public object[] Inventory = null;
                 public object[] Notifactions = null;
-                public object[] Teams = null;
+                public object Teams = null;
                 public object[] Wallet = null;
                 public object[] Servers = null;
 
