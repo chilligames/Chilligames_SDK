@@ -19,6 +19,7 @@ namespace Chilligames.SDK.Model_Client
         public int Score;
         public string Nick_name;
     }
+
     public class Info_model
     {
         public object Username;
@@ -53,9 +54,9 @@ namespace Chilligames.SDK
                 www.SetRequestHeader("_id", Req_login._id);
 
                 www.SendWebRequest();
-                register();
+                login();
 
-                async void register()
+                async void login()
                 {
                     while (true)
                     {
@@ -68,7 +69,12 @@ namespace Chilligames.SDK
                         }
                         else
                         {
-                            await Task.Delay(10);
+                            await Task.Delay(1);
+                            if (www.isNetworkError || www.isHttpError || www.timeout == 1)
+                            {
+                                print("Err_not_login_login_break");
+                                break;
+                            }
                         }
                     }
                 }
@@ -102,7 +108,13 @@ namespace Chilligames.SDK
                         }
                         else
                         {
-                            await Task.Delay(20);
+                            await Task.Delay(1);
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                print("Register_fild_break_register");
+                                break;
+                            }
+
                         }
                     }
                 }
@@ -161,11 +173,11 @@ namespace Chilligames.SDK
                 public object[] Friends = null;
                 public object[] Log = null;
                 public object[] Files = null;
-                public object[] Data = null;
+                public object Data = null;
                 public object[] Inventory = null;
                 public object[] Notifactions = null;
                 public object Teams = null;
-                public object[] Wallet = null;
+                public object Wallet = null;
                 public object[] Servers = null;
 
             }
