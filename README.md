@@ -18,7 +18,8 @@ Engine needs :
 
 > We ❤️  open source.
  
-[![Build Status](https://travis-ci.com/chilligames/Unity-backend.svg?branch=master)](https://travis-ci.com/chilligames/Unity-backend)
+ 
+ [![CodeFactor](https://www.codefactor.io/repository/github/chilligames/chilligames_sdk/badge)](https://www.codefactor.io/repository/github/chilligames/chilligames_sdk)
 
 
 
