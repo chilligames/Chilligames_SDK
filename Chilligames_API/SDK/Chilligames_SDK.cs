@@ -34,7 +34,7 @@ namespace Chilligames.SDK.Model_Client
     public class Req_send_data
     {
         public string _id;
-        public string Data_user;
+        public object Data_user;
         public string Name_app;
 
     }
@@ -177,6 +177,7 @@ namespace Chilligames.SDK
                 async void Recive_data()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RDU");
                     www.SetRequestHeader("_id", req_Recive_Data._id);
                     www.SetRequestHeader("Name_App", req_Recive_Data.Name_App);
                     www.SendWebRequest();
@@ -204,9 +205,38 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Send_Data_user<Jdoc>(Req_recive_data req_Recive)
+            public static void Send_Data_user<Jdoc>(Req_send_data req_send_data, Action result_send, Action ERROR)
             {
+                send_data();
 
+                async void send_data()
+                {
+
+
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RDU");
+                    www.SetRequestHeader("_id", req_send_data._id);
+                    www.SetRequestHeader("Data_user", Json.ChilligamesJson.SerializeObject(req_send_data.Data_user));
+                    www.SetRequestHeader("Name_App", req_send_data.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+
+                            www.Abort();
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
             }
 
             public class Result_quick_register
