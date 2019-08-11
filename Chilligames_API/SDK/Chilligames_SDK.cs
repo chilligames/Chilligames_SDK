@@ -19,13 +19,24 @@ namespace Chilligames.SDK.Model_Client
         public int Score;
         public string Nick_name;
     }
-
     public class Info_model
     {
         public object Username;
         public object Password;
         public object Email;
         public object Nickname;
+    }
+    public class Req_recive_data
+    {
+        public string _id;
+        public string Name_App;
+    }
+    public class Req_send_data
+    {
+        public string _id;
+        public string Data_user;
+        public string Name_app;
+
     }
 
 
@@ -123,7 +134,7 @@ namespace Chilligames.SDK
 
 
             /// <summary>
-            /// 
+            /// send Score to leader_board
             /// </summary>
             /// <param name="send_Score"></param>
             /// <param name="result"></param>
@@ -158,6 +169,46 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            public static void Recive_Data_user<Jdoc>(Req_recive_data req_Recive_Data, Action<Jdoc> result, Action<Action> ERR)
+            {
+                Recive_data();
+
+                async void Recive_data()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("_id", req_Recive_Data._id);
+                    www.SetRequestHeader("Name_App", req_Recive_Data.Name_App);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            result(Json.ChilligamesJson.DeserializeObject<Jdoc>(www.downloadHandler.text));//Cheack
+
+                            www.Abort();
+                        }
+                        else
+                        {
+                            await Task.Delay(1);
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+            public static void Send_Data_user<Jdoc>(Req_recive_data req_Recive)
+            {
+
+            }
+
             public class Result_quick_register
             {
                 public string _id;
@@ -188,6 +239,8 @@ namespace Chilligames.SDK
 
 
             }
+
+            public delegate void mbox<in T>(T s);
         }
 
     }
