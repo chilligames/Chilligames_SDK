@@ -14,10 +14,9 @@ namespace Chilligames.SDK.Model_Client
     }
     public class Req_send_score
     {
-        public string Leader_board;
-        public string ID;
+        public string Leader_board_name;
+        public string _id;
         public int Score;
-        public string Nick_name;
     }
     public class Info_model
     {
@@ -34,11 +33,15 @@ namespace Chilligames.SDK.Model_Client
     public class Req_send_data
     {
         public string _id;
-        public object Data_user;
+        public string Data_user;
         public string Name_app;
 
     }
-
+    public class Req_recive_rank_postion
+    {
+        public string _id;
+        public string Leader_board_name;
+    }
 
 
 }
@@ -84,6 +87,7 @@ namespace Chilligames.SDK
                             if (www.isNetworkError || www.isHttpError || www.timeout == 1)
                             {
                                 print("Err_not_login_login_break");
+                                www.Abort();
                                 break;
                             }
                         }
@@ -123,6 +127,7 @@ namespace Chilligames.SDK
                             if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 print("Register_fild_break_register");
+                                www.Abort();
                                 break;
                             }
 
@@ -142,9 +147,8 @@ namespace Chilligames.SDK
             {
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                 www.SetRequestHeader("Pipe_line", "SSTLB");
-                www.SetRequestHeader("_id", Send_Score.ID);
-                www.SetRequestHeader("Leader_board", Send_Score.Leader_board);
-                www.SetRequestHeader("Nick_name", Send_Score.Nick_name);
+                www.SetRequestHeader("_id", Send_Score._id);
+                www.SetRequestHeader("Leader_board", Send_Score.Leader_board_name);
                 www.SetRequestHeader("Score", Send_Score.Score.ToString());
                 www.SendWebRequest();
 
@@ -156,13 +160,18 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-
+                            result();
                             www.Abort();
                             break;
                         }
                         else
                         {
                             await Task.Delay(1);
+                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            {
+                                www.Abort();
+                                break;
+                            }
                         }
 
                     }
@@ -189,6 +198,50 @@ namespace Chilligames.SDK
                             result(Json.ChilligamesJson.DeserializeObject<Jdoc>(www.downloadHandler.text));//Cheack
 
                             www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(1);
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// send data to database 
+            /// </summary>
+            /// <typeparam name="Jdoc"></typeparam>
+            /// <param name="req_send_data"></param>
+            /// <param name="result_send"></param>
+            /// <param name="ERROR"></param>
+            public static void Send_Data_user(Req_send_data req_send_data, Action result_send, Action ERROR)
+            {
+                send_data();
+
+                async void send_data()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SDU");
+                    www.SetRequestHeader("_id", req_send_data._id);
+                    www.SetRequestHeader("Data_user", req_send_data.Data_user);
+                    www.SetRequestHeader("Name_App", req_send_data.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            print("send_data");
+                            www.Abort();
+                            break;
                         }
                         else
                         {
@@ -205,31 +258,33 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Send_Data_user<Jdoc>(Req_send_data req_send_data, Action result_send, Action ERROR)
+
+            public static void Recive_rank_postion(Req_recive_rank_postion req_Recive_Rank, Action<string> Result, Action<ERRORs> ERROR)
             {
-                send_data();
 
-                async void send_data()
+                recive_rank();
+
+                async void recive_rank()
                 {
-
-
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "RDU");
-                    www.SetRequestHeader("_id", req_send_data._id);
-                    www.SetRequestHeader("Data_user", Json.ChilligamesJson.SerializeObject(req_send_data.Data_user));
-                    www.SetRequestHeader("Name_App", req_send_data.Name_app);
+                    www.SetRequestHeader("Pipe_line", "RRP");
+                    www.SetRequestHeader("_id", req_Recive_Rank._id);
+                    www.SetRequestHeader("Leader_board", req_Recive_Rank.Leader_board_name);
                     www.SendWebRequest();
                     while (true)
                     {
                         if (www.isDone)
                         {
-
+                            print(www.downloadHandler.text);
+                            Result(www.downloadHandler.text);
                             www.Abort();
+                            break;
                         }
                         else
                         {
                             if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
+                                www.Abort();
                                 break;
                             }
                             await Task.Delay(1);
@@ -237,7 +292,9 @@ namespace Chilligames.SDK
 
                     }
                 }
+
             }
+
 
             public class Result_quick_register
             {
