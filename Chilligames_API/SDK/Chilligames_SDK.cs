@@ -43,8 +43,19 @@ namespace Chilligames.SDK.Model_Client
         public string Leader_board_name;
     }
 
+    public class Req_Update_User_Info
+    {
+        public string _id;
+        public string Nickname;
+        public string Username;
+        public string Email;
+        public string Password;
+        public string status;
+
+    }
 
 }
+
 namespace Chilligames.SDK
 {
 
@@ -167,7 +178,7 @@ namespace Chilligames.SDK
                         else
                         {
                             await Task.Delay(1);
-                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 www.Abort();
                                 break;
@@ -258,7 +269,12 @@ namespace Chilligames.SDK
             }
 
 
-
+            /// <summary>
+            /// recive postion rank player
+            /// </summary>
+            /// <param name="req_Recive_Rank"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERROR"></param>
             public static void Recive_rank_postion(Req_recive_rank_postion req_Recive_Rank, Action<string> Result, Action<ERRORs> ERROR)
             {
 
@@ -275,7 +291,6 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            print(www.downloadHandler.text);
                             Result(www.downloadHandler.text);
                             www.Abort();
                             break;
@@ -295,6 +310,46 @@ namespace Chilligames.SDK
 
             }
 
+
+            /// <summary>
+            /// update mikone entiti user
+            /// </summary>
+            /// <param name="req_Update"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERROR"></param>
+            public static void Update_User_Info(Req_Update_User_Info req_Update, Action Result, Action<ERRORs> ERROR)
+            {
+                update_user();
+                async void update_user()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "UUI");
+                    www.SetRequestHeader("_id", req_Update._id);
+                    www.SetRequestHeader("Nickname", req_Update.Nickname);
+                    www.SetRequestHeader("Username", req_Update.Username);
+                    www.SetRequestHeader("Email", req_Update.Email);
+                    www.SetRequestHeader("Password", req_Update.Password);
+                    www.SetRequestHeader("Status", req_Update.status);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
 
             public class Result_quick_register
             {
