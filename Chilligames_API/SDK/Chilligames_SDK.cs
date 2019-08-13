@@ -337,6 +337,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            break;
                         }
                         else
                         {
@@ -350,6 +351,7 @@ namespace Chilligames.SDK
                     }
                 }
             }
+
 
             public class Result_quick_register
             {
