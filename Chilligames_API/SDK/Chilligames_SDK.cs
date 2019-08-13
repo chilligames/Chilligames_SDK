@@ -337,6 +337,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            Result();
                             break;
                         }
                         else
