@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using System;
 using System.Threading.Tasks;
 using Chilligames.SDK.Model_Client;
+using Chilligames.Json;
 
 namespace Chilligames.SDK.Model_Client
 {
@@ -51,6 +52,13 @@ namespace Chilligames.SDK.Model_Client
         public string Email;
         public string Password;
         public string status;
+
+    }
+
+    public class Req_recive_leader_board
+    {
+        public string Name_leader_board;
+        public int Count_leader_board;
 
     }
 
@@ -187,6 +195,45 @@ namespace Chilligames.SDK
 
                     }
                 }
+            }
+
+
+            public static void Recive_leader_board(Req_recive_leader_board req_Recive_Leader, Action<Result_leader_board[]> result, Action<ERRORs> ERROR)
+            {
+                Recive_leader_board();
+
+
+                async void Recive_leader_board()
+                {
+
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RLB");
+                    www.SetRequestHeader("Leader_board", req_Recive_Leader.Name_leader_board);
+                    www.SetRequestHeader("Leader_board_count", req_Recive_Leader.Count_leader_board.ToString());
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
+                            print(www.downloadHandler.text);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
             }
 
 
@@ -378,6 +425,13 @@ namespace Chilligames.SDK
 
             }
 
+            public class Result_leader_board
+            {
+                public string _id;
+                public string ID;
+                public string Nick_name;
+                public int Score;
+            }
 
             public class ERRORs
             {
@@ -385,7 +439,7 @@ namespace Chilligames.SDK
 
             }
 
-            public delegate void mbox<in T>(T s);
+
         }
 
     }
