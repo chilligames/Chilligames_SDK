@@ -62,6 +62,11 @@ namespace Chilligames.SDK.Model_Client
 
     }
 
+    public class Req_recive_Info_player
+    {
+        public string _id;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -216,7 +221,6 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
-                            print(www.downloadHandler.text);
                             www.Abort();
                             break;
                         }
@@ -237,6 +241,13 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// recive data user 
+            /// </summary>
+            /// <typeparam name="Jdoc"></typeparam>
+            /// <param name="req_Recive_Data"></param>
+            /// <param name="result"></param>
+            /// <param name="ERR"></param>
             public static void Recive_Data_user<Jdoc>(Req_recive_data req_Recive_Data, Action<Jdoc> result, Action<Action> ERR)
             {
                 Recive_data();
@@ -272,6 +283,51 @@ namespace Chilligames.SDK
                     }
                 }
             }
+
+
+            /// <summary>
+            /// recive data other player and raw player with schema
+            /// </summary>
+            /// <typeparam name="Schema_other_player"></typeparam>
+            /// <param name="req_Recive_Info"></param>
+            /// <param name="result_player"></param>
+            /// <param name="ERROR"></param>
+            public static void Recive_Info_other_User<Schema_other_player>(Req_recive_Info_player req_Recive_Info, Action<Schema_other_player> result_player, Action<ERRORs> ERROR)
+            {
+
+                Reicve_data_other_player();
+
+                async void Reicve_data_other_player()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RIOU");
+                    www.SetRequestHeader("_id", req_Recive_Info._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            print(www.downloadHandler.text);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+
+                }
+            }
+
 
 
             /// <summary>
