@@ -307,7 +307,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            print(www.downloadHandler.text);
+                            result_player(ChilligamesJson.DeserializeObject<Schema_other_player>(www.downloadHandler.text));
                             www.Abort();
                             break;
                         }
