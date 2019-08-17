@@ -80,6 +80,12 @@ namespace Chilligames.SDK.Model_Client
 
     }
 
+    public class req_cancel_and_dellet_send_freiend
+    {
+        public string _id;
+        public string _id_other_player;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -551,6 +557,43 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// cancel friend requst
+            /// </summary>
+            /// <param name="req_Cancel_And_Dellet_Send_"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cancel_friend_requst(req_cancel_and_dellet_send_freiend req_Cancel_And_Dellet_Send_, Action result, Action<ERRORs> ERRORS)
+            {
+                Cancel_friend();
+
+                async void Cancel_friend()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CFR");
+                    www.SetRequestHeader("_id", req_Cancel_And_Dellet_Send_._id);
+                    www.SetRequestHeader("_id_other_player", req_Cancel_And_Dellet_Send_._id_other_player);
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
 
             public class Result_quick_register
             {
@@ -575,6 +618,7 @@ namespace Chilligames.SDK
                 public object[] Servers = null;
 
             }
+
 
             public class Result_leader_board
             {
