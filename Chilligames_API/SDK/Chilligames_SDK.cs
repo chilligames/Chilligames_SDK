@@ -73,6 +73,13 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_player;
     }
 
+    public class Req_send_friend_requst
+    {
+        public string _id;
+        public string _id_other_player;
+
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -505,6 +512,46 @@ namespace Chilligames.SDK
 
             }
 
+
+            /// <summary>
+            /// send friend requst 
+            /// </summary>
+            /// <param name="req_Send_Friend"></param>
+            /// <param name="result"></param>
+            /// <param name="ERROR"></param>
+            public static void Send_friend_requst(Req_send_friend_requst req_Send_Friend, Action result, Action<ERRORs> ERROR)
+            {
+                send_req();
+
+                async void send_req()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SFR");
+                    www.SetRequestHeader("_id", req_Send_Friend._id);
+                    www.SetRequestHeader("_id_other_player", req_Send_Friend._id_other_player);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+
             public class Result_quick_register
             {
                 public string _id;
@@ -517,7 +564,7 @@ namespace Chilligames.SDK
                 public string Avatar = "";
                 public object Info = null;
                 public object[] Ban = null;
-                public object[] Friends = null;
+                public object Friends = null;
                 public object[] Log = null;
                 public object[] Files = null;
                 public object Data = null;
