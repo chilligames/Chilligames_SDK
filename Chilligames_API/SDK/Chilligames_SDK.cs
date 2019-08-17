@@ -67,6 +67,12 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
     }
 
+    public class Req_status_friend
+    {
+        public string _id;
+        public string _id_other_player;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -294,7 +300,6 @@ namespace Chilligames.SDK
             /// <param name="ERROR"></param>
             public static void Recive_Info_other_User<Schema_other_player>(Req_recive_Info_player req_Recive_Info, Action<Schema_other_player> result_player, Action<ERRORs> ERROR)
             {
-
                 Reicve_data_other_player();
 
                 async void Reicve_data_other_player()
@@ -327,7 +332,6 @@ namespace Chilligames.SDK
 
                 }
             }
-
 
 
             /// <summary>
@@ -456,6 +460,50 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            /// <summary>
+            /// cheack status friend with id
+            /// if callback 0:not friend
+            /// if calllback 1: not accept
+            /// if callback2: your friend
+            /// </summary>
+            /// <param name="req_Status_Friend"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cheack_status_friend(Req_status_friend req_Status_Friend, Action<int> Result, Action<ERRORs> ERRORS)
+            {
+                Cheack();
+
+                async void Cheack()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CSF");
+                    www.SetRequestHeader("_id", req_Status_Friend._id);
+                    www.SetRequestHeader("_id_other_player", req_Status_Friend._id_other_player);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            Result(int.Parse(www.downloadHandler.text));
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
 
             public class Result_quick_register
             {
