@@ -90,7 +90,7 @@ namespace Chilligames.SDK.Model_Client
     {
         public string _id;
         public string _id_other_users;
-        public string Messege_body;
+        public string Message_body;
     }
 }
 
@@ -245,6 +245,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
+                            
                             result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
                             www.Abort();
                             break;
@@ -612,21 +613,22 @@ namespace Chilligames.SDK
             public static void Send_messege_to_player(Req_send_message req_Send_Message, Action result, Action<ERRORs> ERRORS)
             {
                 send_messege();
+                
                 async void send_messege()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "SMTU");
                     www.SetRequestHeader("_id", req_Send_Message._id);
                     www.SetRequestHeader("_id_other_player", req_Send_Message._id_other_users);
-                    www.SetRequestHeader("Message", req_Send_Message.Messege_body);
+                    www.SetRequestHeader("Message", req_Send_Message.Message_body);
                     www.SendWebRequest();
                     while (true)
                     {
                         if (www.isDone)
                         {
+                            result();
                             www.Abort();
                             break;
-
                         }
                         else
                         {
@@ -691,9 +693,9 @@ namespace Chilligames.SDK
 
                     public class Deserilse_Recive
                     {
-                        public object[] message;
-                        public string ID;
-                        public string Last_Message;
+                        public object[] message=null;
+                        public string ID=null;
+                        public string Last_Message=null;
                     }
                 }
             }
