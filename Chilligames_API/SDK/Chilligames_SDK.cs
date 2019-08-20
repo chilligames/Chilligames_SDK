@@ -92,6 +92,12 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_users;
         public string Message_body;
     }
+
+    public class Req_creat_server
+    {
+        public string _id;
+        public object Setting;
+    }
 }
 
 namespace Chilligames.SDK
@@ -245,7 +251,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            
+
                             result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
                             www.Abort();
                             break;
@@ -613,7 +619,7 @@ namespace Chilligames.SDK
             public static void Send_messege_to_player(Req_send_message req_Send_Message, Action result, Action<ERRORs> ERRORS)
             {
                 send_messege();
-                
+
                 async void send_messege()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
@@ -627,6 +633,45 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             result();
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// creat server
+            /// </summary>
+            /// <typeparam name="Setting"></typeparam>
+            /// <param name="Server"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Creat_server(Req_creat_server Req_Server_creat, Action Result, Action<ERRORs> ERRORS)
+            {
+                Creat();
+
+                async void Creat()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CS");
+                    www.SetRequestHeader("_id", Req_Server_creat._id);
+                    www.SetRequestHeader("Setting_Server", ChilligamesJson.SerializeObject(Req_Server_creat.Setting));
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
                             www.Abort();
                             break;
                         }
@@ -693,9 +738,9 @@ namespace Chilligames.SDK
 
                     public class Deserilse_Recive
                     {
-                        public object[] message=null;
-                        public string ID=null;
-                        public string Last_Message=null;
+                        public object[] message = null;
+                        public string ID = null;
+                        public string Last_Message = null;
                     }
                 }
             }
