@@ -95,6 +95,7 @@ namespace Chilligames.SDK.Model_Client
 
     public class Req_creat_server
     {
+        public string Name_server;
         public string _id;
         public object Setting;
     }
@@ -665,6 +666,7 @@ namespace Chilligames.SDK
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CS");
+                    www.SetRequestHeader("Name_server", Req_Server_creat.Name_server);
                     www.SetRequestHeader("_id", Req_Server_creat._id);
                     www.SetRequestHeader("Setting_Server", ChilligamesJson.SerializeObject(Req_Server_creat.Setting));
                     www.SendWebRequest();
@@ -673,6 +675,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            Result();
                             break;
                         }
                         else
@@ -687,6 +690,13 @@ namespace Chilligames.SDK
                     }
                 }
             }
+
+
+            public static void Recive_time_server_UPDATE()
+            {
+
+            }
+
 
             public class Result_quick_register
             {
