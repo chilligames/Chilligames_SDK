@@ -99,6 +99,12 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public object Setting;
     }
+
+    public class Req_recive_servers_User
+    {
+        public string _id;
+        public string Name_server;
+    }
 }
 
 namespace Chilligames.SDK
@@ -692,8 +698,9 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Recive_time_server_UPDATE()
+            public static void Recive_Servers_user<Schema_server>(Req_recive_servers_User req_Recive_Servers, Action<Schema_server> Result, Action<ERRORs> ERRORS)
             {
+
 
             }
 
