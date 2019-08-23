@@ -698,10 +698,44 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Recive_Servers_user<Schema_server>(Req_recive_servers_User req_Recive_Servers, Action<Schema_server> Result, Action<ERRORs> ERRORS)
+            /// <summary>
+            /// data server user recive mikone
+            /// </summary>
+            /// <typeparam name="Schema_server"></typeparam>
+            /// <param name="req_Recive_Servers"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_Servers_user<Schema_server>(Req_recive_servers_User req_Recive_Servers, Action<Schema_server[]> Result, Action<ERRORs> ERRORS)
             {
+                Recive_data();
 
+                async void Recive_data()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RSDU");
+                    www.SetRequestHeader("_id", req_Recive_Servers._id);
+                    www.SetRequestHeader("Name_server", req_Recive_Servers.Name_server);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            Result(ChilligamesJson.DeserializeObject<Schema_server[]>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
 
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
             }
 
 
