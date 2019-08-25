@@ -105,6 +105,11 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string Name_server;
     }
+    public class Req_Exit_server
+    {
+        public string _id;
+        public string _id_server;
+    }
 }
 
 namespace Chilligames.SDK
@@ -734,6 +739,48 @@ namespace Chilligames.SDK
                             }
                             await Task.Delay(1);
                         }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// exit from server
+            /// </summary>
+            /// <param name="Req_Exit_Server"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Exit_server(Req_Exit_server Req_Exit_Server, Action result, Action<ERRORs> ERRORS)
+            {
+                exit();
+
+                async void exit()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "EC");
+                    www.SetRequestHeader("_id", Req_Exit_Server._id);
+                    www.SetRequestHeader("_id_Server", Req_Exit_Server._id_server);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+
+                            break;
+
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
                     }
                 }
             }
