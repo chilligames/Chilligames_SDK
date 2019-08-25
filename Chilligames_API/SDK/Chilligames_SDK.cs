@@ -750,6 +750,13 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// recive data servers
+            /// </summary>
+            /// <typeparam name="Schema_data_server"></typeparam>
+            /// <param name="req_Data_Server"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
             public static void Recive_data_server<Schema_data_server>(Req_data_server req_Data_Server, Action<Schema_data_server> Result, Action<ERRORs> ERRORS)
             {
                 Recive();
@@ -782,6 +789,7 @@ namespace Chilligames.SDK
                     }
                 }
             }
+
 
             /// <summary>
             /// exit from server
