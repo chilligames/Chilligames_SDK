@@ -100,10 +100,10 @@ namespace Chilligames.SDK.Model_Client
         public object Setting;
     }
 
-    public class Req_recive_servers_User
+    public class Req_recive_list_servers_User
     {
         public string _id;
-        public string Name_server;
+        public string Name_app;
     }
     public class Req_Exit_server
     {
@@ -710,23 +710,24 @@ namespace Chilligames.SDK
             /// <param name="req_Recive_Servers"></param>
             /// <param name="Result"></param>
             /// <param name="ERRORS"></param>
-            public static void Recive_Servers_user<Schema_server>(Req_recive_servers_User req_Recive_Servers, Action<Schema_server[]> Result, Action<ERRORs> ERRORS)
+            public static void Recive_List_server_user(Req_recive_list_servers_User req_Recive_Servers, Action<object[]> Result, Action<ERRORs> ERRORS)
             {
                 Recive_data();
 
                 async void Recive_data()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "RSDU");
+                    www.SetRequestHeader("Pipe_line", "RLSU");
                     www.SetRequestHeader("_id", req_Recive_Servers._id);
-                    www.SetRequestHeader("Name_server", req_Recive_Servers.Name_server);
+                    www.SetRequestHeader("Name_App", req_Recive_Servers.Name_app);
                     www.SendWebRequest();
                     while (true)
                     {
                         if (www.isDone)
                         {
                             www.Abort();
-                            Result(ChilligamesJson.DeserializeObject<Schema_server[]>(www.downloadHandler.text));
+                            Result(ChilligamesJson.DeserializeObject<object[]>(www.downloadHandler.text));
+                            
                             break;
                         }
                         else
@@ -735,7 +736,6 @@ namespace Chilligames.SDK
                             {
                                 www.Abort();
                                 break;
-
                             }
                             await Task.Delay(1);
                         }
@@ -806,7 +806,7 @@ namespace Chilligames.SDK
                 public object Notifactions = null;
                 public object Teams = null;
                 public object Wallet = null;
-                public object[] Servers = null;
+                public object Servers = null;
 
             }
 
@@ -842,6 +842,7 @@ namespace Chilligames.SDK
                     }
                 }
             }
+
 
             public class ERRORs
             {
