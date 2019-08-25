@@ -95,7 +95,7 @@ namespace Chilligames.SDK.Model_Client
 
     public class Req_creat_server
     {
-        public string Name_server;
+        public string Name_App;
         public string _id;
         public object Setting;
     }
@@ -105,6 +105,13 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string Name_app;
     }
+
+    public class Req_data_server
+    {
+        public string _id_server;
+        public string Name_app;
+    }
+
     public class Req_Exit_server
     {
         public string _id;
@@ -677,7 +684,7 @@ namespace Chilligames.SDK
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CS");
-                    www.SetRequestHeader("Name_server", Req_Server_creat.Name_server);
+                    www.SetRequestHeader("Name_server", Req_Server_creat.Name_App);
                     www.SetRequestHeader("_id", Req_Server_creat._id);
                     www.SetRequestHeader("Setting_Server", ChilligamesJson.SerializeObject(Req_Server_creat.Setting));
                     www.SendWebRequest();
@@ -727,7 +734,6 @@ namespace Chilligames.SDK
                         {
                             www.Abort();
                             Result(ChilligamesJson.DeserializeObject<object[]>(www.downloadHandler.text));
-                            
                             break;
                         }
                         else
@@ -743,6 +749,39 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            public static void Recive_data_server<Schema_data_server>(Req_data_server req_Data_Server, Action<Schema_data_server> Result, Action<ERRORs> ERRORS)
+            {
+                Recive();
+
+                async void Recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RDS");
+                    www.SetRequestHeader("_id_Server", req_Data_Server._id_server);
+                    www.SetRequestHeader("Name_App", req_Data_Server.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            Result(ChilligamesJson.DeserializeObject<Schema_data_server>(www.downloadHandler.text));
+
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
 
             /// <summary>
             /// exit from server
@@ -849,6 +888,7 @@ namespace Chilligames.SDK
 
 
             }
+
 
 
         }
