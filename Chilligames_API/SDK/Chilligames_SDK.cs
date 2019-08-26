@@ -117,6 +117,13 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string _id_server;
     }
+
+    public class Req_recive_all_server
+    {
+        public string Name_App;
+        public string Count_server;
+
+    }
 }
 
 namespace Chilligames.SDK
@@ -775,6 +782,45 @@ namespace Chilligames.SDK
                             www.Abort();
                             Result(ChilligamesJson.DeserializeObject<Schema_data_server>(www.downloadHandler.text));
 
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// recive servers
+            /// </summary>
+            /// <param name="req_Recive_All_Server"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public void Recive_all_servers(Req_recive_all_server req_Recive_All_Server, Action<object[]> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RAS");
+                    www.SetRequestHeader("Name_App", req_Recive_All_Server.Name_App);
+                    www.SetRequestHeader("Count_servers", req_Recive_All_Server.Count_server);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
                             break;
                         }
                         else
