@@ -116,6 +116,7 @@ namespace Chilligames.SDK.Model_Client
     {
         public string _id;
         public string _id_server;
+        public string Name_App;
     }
 
     public class Req_recive_all_server
@@ -126,6 +127,13 @@ namespace Chilligames.SDK.Model_Client
     }
 
     public class Req_cheack_server_in_profile
+    {
+        public string _id;
+        public string Name_App;
+        public string _id_server;
+    }
+
+    public class Req_enter_to_server
     {
         public string _id;
         public string Name_App;
@@ -698,7 +706,7 @@ namespace Chilligames.SDK
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CS");
-                    www.SetRequestHeader("Name_server", Req_Server_creat.Name_App);
+                    www.SetRequestHeader("Name_App", Req_Server_creat.Name_App);
                     www.SetRequestHeader("_id", Req_Server_creat._id);
                     www.SetRequestHeader("Setting_Server", ChilligamesJson.SerializeObject(Req_Server_creat.Setting));
                     www.SendWebRequest();
@@ -747,7 +755,12 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
-                            Result(ChilligamesJson.DeserializeObject<object[]>(www.downloadHandler.text));
+
+                            if (www.downloadHandler.text != "")
+                            {
+                                Result(ChilligamesJson.DeserializeObject<object[]>(www.downloadHandler.text));
+                            }
+
                             break;
                         }
                         else
@@ -859,9 +872,10 @@ namespace Chilligames.SDK
                 async void exit()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "EC");
+                    www.SetRequestHeader("Pipe_line", "ES");
                     www.SetRequestHeader("_id", Req_Exit_Server._id);
                     www.SetRequestHeader("_id_Server", Req_Exit_Server._id_server);
+                    www.SetRequestHeader("Name_App", Req_Exit_Server.Name_App);
                     www.SendWebRequest();
                     while (true)
                     {
@@ -871,7 +885,6 @@ namespace Chilligames.SDK
                             result();
 
                             break;
-
                         }
                         else
                         {
@@ -929,6 +942,50 @@ namespace Chilligames.SDK
 
                 }
             }
+
+
+            /// <summary>
+            /// enter to server
+            /// </summary>
+            /// <param name="req_Enter_To_Server"></param>
+            /// <param name="result"></param>
+            /// <param name="ERROR"></param>
+            public static void Enter_to_server(Req_enter_to_server req_Enter_To_Server, Action result, Action<ERRORs> ERROR)
+            {
+                enter();
+                async void enter()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "ETS");
+                    www.SetRequestHeader("_id", req_Enter_To_Server._id);
+                    www.SetRequestHeader("Name_App", req_Enter_To_Server.Name_App);
+                    www.SetRequestHeader("_id_Server", req_Enter_To_Server._id_server);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+
 
             public class Result_quick_register
             {
