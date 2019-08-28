@@ -121,8 +121,15 @@ namespace Chilligames.SDK.Model_Client
     public class Req_recive_all_server
     {
         public string Name_App;
-        public string Count_server;
+        public int Count_server;
 
+    }
+
+    public class Req_cheack_server_in_profile
+    {
+        public string _id;
+        public string Name_App;
+        public string _id_server;
     }
 }
 
@@ -804,7 +811,7 @@ namespace Chilligames.SDK
             /// <param name="req_Recive_All_Server"></param>
             /// <param name="result"></param>
             /// <param name="ERRORS"></param>
-            public void Recive_all_servers(Req_recive_all_server req_Recive_All_Server, Action<object[]> result, Action<ERRORs> ERRORS)
+            public static void Recive_all_servers(Req_recive_all_server req_Recive_All_Server, Action<object[]> result, Action<ERRORs> ERRORS)
             {
                 recive();
 
@@ -813,7 +820,8 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "RAS");
                     www.SetRequestHeader("Name_App", req_Recive_All_Server.Name_App);
-                    www.SetRequestHeader("Count_servers", req_Recive_All_Server.Count_server);
+                    www.SetRequestHeader("Count_servers", req_Recive_All_Server.Count_server.ToString()
+                        );
                     www.SendWebRequest();
 
                     while (true)
@@ -821,6 +829,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            result(ChilligamesJson.DeserializeObject<object[]>(www.downloadHandler.text));
                             break;
                         }
                         else
@@ -878,6 +887,48 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            /// <summary>
+            /// if callback 1 finde in profile
+            /// if callback 2 not finde in profile
+            /// </summary>
+            /// <param name="req_Cheack_Server_In_Profile"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cheack_Server_In_Profile(Req_cheack_server_in_profile req_Cheack_Server_In_Profile, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                Cheack();
+                async void Cheack()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CSIP");
+                    www.SetRequestHeader("_id", req_Cheack_Server_In_Profile._id);
+                    www.SetRequestHeader("Name_App", req_Cheack_Server_In_Profile.Name_App);
+                    www.SetRequestHeader("_id_Server", req_Cheack_Server_In_Profile._id_server);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+            }
 
             public class Result_quick_register
             {
