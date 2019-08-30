@@ -1114,11 +1114,10 @@ namespace Chilligames.SDK
                     www.SendWebRequest();
                     while (true)
                     {
-
                         if (www.isDone)
                         {
                             www.Abort();
-
+                            result();
                             break;
                         }
                         else
@@ -1179,7 +1178,7 @@ namespace Chilligames.SDK
                 public string Nick_Name = null;
                 public string Message = null;
                 public string Time = null;
-                public string Report = null;
+                public int? Report = null;
             }
 
             public class ERRORs
