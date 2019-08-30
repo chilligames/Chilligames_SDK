@@ -139,6 +139,25 @@ namespace Chilligames.SDK.Model_Client
         public string Name_App;
         public string _id_server;
     }
+
+    public class Req_send_message_to_chatroom
+    {
+        public string _id;
+        public string Name_App;
+        public string Message;
+    }
+    public class Req_recive_chatroom_messages
+    {
+        public string Name_App;
+    }
+
+    public class Req_report_message
+    {
+        public string _id_message;
+        public string Name_app;
+
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -985,6 +1004,137 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// send message to chatroom public
+            /// </summary>
+            /// <param name="Send_Message_To_Chatroom"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Send_message_to_Chatroom(Req_send_message_to_chatroom Send_Message_To_Chatroom, Action result, Action<ERRORs> ERRORS)
+            {
+                send_message();
+
+
+                async void send_message()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SMTC");
+                    www.SetRequestHeader("_id", Send_Message_To_Chatroom._id);
+                    www.SetRequestHeader("Name_App", Send_Message_To_Chatroom.Name_App);
+                    www.SetRequestHeader("Message", Send_Message_To_Chatroom.Message);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+
+            /// <summary>
+            /// recive chatroom messages
+            /// </summary>
+            /// <typeparam name="Schema_messages"></typeparam>
+            /// <param name="req_Recive_Chatroom"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_Chatroom_messages(Req_recive_chatroom_messages req_Recive_Chatroom, Action<Result_massages_chatroom[]> Result, Action<ERRORs> ERRORS)
+            {
+                recive_chatroom();
+
+                async void recive_chatroom()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RCM");
+                    www.SetRequestHeader("Name_App", req_Recive_Chatroom.Name_App);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            Result(ChilligamesJson.DeserializeObject<Result_massages_chatroom[]>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+
+            /// <summary>
+            /// report message
+            /// </summary>
+            /// <param name="req_Report_Message"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Report_message(Req_report_message req_Report_Message, Action result, Action<ERRORs> ERRORS)
+            {
+                report();
+
+                async void report()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RM");
+                    www.SetRequestHeader("Name_App", req_Report_Message.Name_app);
+                    www.SetRequestHeader("_id_message", req_Report_Message._id_message);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+
+                        if (www.isDone)
+                        {
+                            www.Abort();
+
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+            }
 
 
             public class Result_quick_register
@@ -1021,29 +1171,16 @@ namespace Chilligames.SDK
             }
 
 
-            public class result_recive_Messege //cheack
+            public class Result_massages_chatroom
             {
-                public object Message = null;
-                public object Notifaction = null;
-
-
-
-                public class Deserilse_messeges
-                {
-
-                    public object[] Recive = null;
-                    public object[] Send = null;
-
-
-                    public class Deserilse_Recive
-                    {
-                        public object[] message = null;
-                        public string ID = null;
-                        public string Last_Message = null;
-                    }
-                }
+                public string _id = null;
+                public string Postion = null;
+                public string ID = null;
+                public string Nick_Name = null;
+                public string Message = null;
+                public string Time = null;
+                public string Report = null;
             }
-
 
             public class ERRORs
             {
