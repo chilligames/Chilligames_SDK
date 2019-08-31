@@ -158,6 +158,17 @@ namespace Chilligames.SDK.Model_Client
 
     }
 
+    public class Req_recive_messages
+    {
+        public string _id;
+
+    }
+    public class Req_recive_message_each_user
+    {
+        public string _id;
+        public string _id_other_player;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -1136,6 +1147,58 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// recive all message
+            /// </summary>
+            /// <param name="req_Recive_Messages"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_message_User(Req_recive_messages req_Recive_Messages, Action<Result_message[]> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RMU");
+                    www.SetRequestHeader("_id", req_Recive_Messages._id);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(ChilligamesJson.DeserializeObject<Result_message[]>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+
+            public static void Recive_messege_each_user(Req_recive_message_each_user req_Recive_Message_Each_User)
+            {
+
+
+            }
+
+
+
+
             public class Result_quick_register
             {
                 public string _id;
@@ -1179,6 +1242,16 @@ namespace Chilligames.SDK
                 public string Message = null;
                 public string Time = null;
                 public int? Report = null;
+            }
+
+
+            public class Result_message
+            {
+                public object[] Message = null;
+                public string ID = null;
+                public string Last_Date = null;
+                public int? Status = null;
+
             }
 
             public class ERRORs
