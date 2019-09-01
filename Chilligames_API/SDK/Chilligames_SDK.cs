@@ -1190,10 +1190,38 @@ namespace Chilligames.SDK
 
 
 
-            public static void Recive_messege_each_user(Req_recive_message_each_user req_Recive_Message_Each_User)
+            public static void Recive_messege_each_user(Req_recive_message_each_user req_Recive_Message_Each_User,Action<Result_each_messege[]> Result,Action<ERRORs> ERRORS)
             {
+                recive();
 
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RMEU");
+                    www.SetRequestHeader("_id", req_Recive_Message_Each_User._id);
+                    www.SetRequestHeader("_id_other_player", req_Recive_Message_Each_User._id_other_player);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
 
+                            Result(ChilligamesJson.DeserializeObject<Result_each_messege[]>(www.downloadHandler.text));
+
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
             }
 
 
@@ -1251,7 +1279,13 @@ namespace Chilligames.SDK
                 public string ID = null;
                 public string Last_Date = null;
                 public int? Status = null;
+            }
 
+            public class Result_each_messege
+            {
+                public string PM = null;
+                public string Time = null;
+                public string ID = null;
             }
 
             public class ERRORs
