@@ -175,6 +175,11 @@ namespace Chilligames.SDK.Model_Client
         public string Name_App;
     }
 
+    public class Req_remove_notifactions
+    {
+        public string _id;
+        public string Name_App;
+    }
 }
 
 namespace Chilligames.SDK
@@ -1195,7 +1200,12 @@ namespace Chilligames.SDK
             }
 
 
-
+            /// <summary>
+            /// recive each messege
+            /// </summary>
+            /// <param name="req_Recive_Message_Each_User"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
             public static void Recive_messege_each_user(Req_recive_message_each_user req_Recive_Message_Each_User, Action<Result_each_messege[]> Result, Action<ERRORs> ERRORS)
             {
                 recive();
@@ -1231,6 +1241,12 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// recive notifactions
+            /// </summary>
+            /// <param name="req_Recive_Notifactions"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
             public static void Recive_notifactions(Req_recive_notifactions req_Recive_Notifactions, Action<Result_Notifactions[]> Result, Action<ERRORs> ERRORS)
             {
                 recive();
@@ -1264,6 +1280,46 @@ namespace Chilligames.SDK
 
                 }
             }
+
+
+            /// <summary>
+            /// remove all notifaction app
+            /// </summary>
+            /// <param name="req_Remove_Notifactions"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Remove_Notifaction(Req_remove_notifactions req_Remove_Notifactions, Action result, Action<ERRORs> ERRORS)
+            {
+                Remove();
+
+                async void Remove()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RN");
+                    www.SetRequestHeader("_id", req_Remove_Notifactions._id);
+                    www.SetRequestHeader("Name_App", req_Remove_Notifactions.Name_App);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
 
             public class Result_quick_register
             {
@@ -1329,7 +1385,7 @@ namespace Chilligames.SDK
             public class Result_Notifactions
             {
                 public string Title = null;
-                public string Body = null;
+                public string Body_messege_notifaction = null;
 
             }
 
