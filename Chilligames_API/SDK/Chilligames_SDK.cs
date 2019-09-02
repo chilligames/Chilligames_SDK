@@ -58,7 +58,7 @@ namespace Chilligames.SDK.Model_Client
     public class Req_recive_leader_board
     {
         public string Name_leader_board;
-        public int Count_leader_board;
+        public int Count;
 
     }
 
@@ -122,7 +122,7 @@ namespace Chilligames.SDK.Model_Client
     public class Req_recive_all_server
     {
         public string Name_App;
-        public int Count_server;
+        public int Count;
 
     }
 
@@ -327,7 +327,7 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "RLB");
                     www.SetRequestHeader("Leader_board", req_Recive_Leader.Name_leader_board);
-                    www.SetRequestHeader("Leader_board_count", req_Recive_Leader.Count_leader_board.ToString());
+                    www.SetRequestHeader("Count", req_Recive_Leader.Count.ToString());
                     www.SendWebRequest();
                     while (true)
                     {
@@ -874,8 +874,7 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "RAS");
                     www.SetRequestHeader("Name_App", req_Recive_All_Server.Name_App);
-                    www.SetRequestHeader("Count_servers", req_Recive_All_Server.Count_server.ToString()
-                        );
+                    www.SetRequestHeader("Count", req_Recive_All_Server.Count.ToString());
                     www.SendWebRequest();
 
                     while (true)
