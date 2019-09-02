@@ -1295,7 +1295,7 @@ namespace Chilligames.SDK
                 async void Remove()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "RN");
+                    www.SetRequestHeader("Pipe_line", "RNU");
                     www.SetRequestHeader("_id", req_Remove_Notifactions._id);
                     www.SetRequestHeader("Name_App", req_Remove_Notifactions.Name_App);
                     www.SendWebRequest();
@@ -1385,7 +1385,7 @@ namespace Chilligames.SDK
             public class Result_Notifactions
             {
                 public string Title = null;
-                public string Body_messege_notifaction = null;
+                public string Body = null;
 
             }
 
