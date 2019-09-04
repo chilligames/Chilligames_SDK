@@ -221,15 +221,16 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            if (www.downloadHandler.text == "1")
+                            www.Abort();
+                            if (www.downloadHandler.text=="1")
                             {
                                 Result_login("1");
                             }
-                            else if (www.downloadHandler.text == "0")
+                            else if (www.downloadHandler.text=="0")
                             {
                                 Result_login("0");
                             }
-                            www.Abort();
+
                             break;
                         }
                         else
@@ -246,6 +247,7 @@ namespace Chilligames.SDK
                 }
 
             }
+
 
 
             /// <summary>
@@ -287,6 +289,10 @@ namespace Chilligames.SDK
 
             }
 
+            public static void Recive_info_user(Req_recive_Info_player req_Recive_Info_Player,Action<Result_info_user> result,Action<ERRORs> ERRORS)
+            {
+
+            }
 
             /// <summary>
             /// send Score to leader_board
@@ -412,6 +418,49 @@ namespace Chilligames.SDK
 
 
             /// <summary>
+            /// send data to database 
+            /// </summary>
+            /// <typeparam name="Jdoc"></typeparam>
+            /// <param name="req_send_data"></param>
+            /// <param name="result_send"></param>
+            /// <param name="ERROR"></param>
+            public static void Send_Data_user(Req_send_data req_send_data, Action result_send, Action ERROR)
+            {
+                send_data();
+
+                async void send_data()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SDU");
+                    www.SetRequestHeader("_id", req_send_data._id);
+                    www.SetRequestHeader("Data_user", req_send_data.Data_user);
+                    www.SetRequestHeader("Name_App", req_send_data.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                         
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            await Task.Delay(1);
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+
+            /// <summary>
             /// recive data other player and raw player with schema
             /// </summary>
             /// <typeparam name="Schema_other_player"></typeparam>
@@ -452,49 +501,6 @@ namespace Chilligames.SDK
 
                 }
             }
-
-
-            /// <summary>
-            /// send data to database 
-            /// </summary>
-            /// <typeparam name="Jdoc"></typeparam>
-            /// <param name="req_send_data"></param>
-            /// <param name="result_send"></param>
-            /// <param name="ERROR"></param>
-            public static void Send_Data_user(Req_send_data req_send_data, Action result_send, Action ERROR)
-            {
-                send_data();
-
-                async void send_data()
-                {
-                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "SDU");
-                    www.SetRequestHeader("_id", req_send_data._id);
-                    www.SetRequestHeader("Data_user", req_send_data.Data_user);
-                    www.SetRequestHeader("Name_App", req_send_data.Name_app);
-                    www.SendWebRequest();
-                    while (true)
-                    {
-                        if (www.isDone)
-                        {
-                            print("send_data");
-                            www.Abort();
-                            break;
-                        }
-                        else
-                        {
-                            await Task.Delay(1);
-                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
-                            {
-                                www.Abort();
-                                break;
-                            }
-                        }
-
-                    }
-                }
-            }
-
 
             /// <summary>
             /// recive postion rank player
@@ -1332,7 +1338,7 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Search_Users(Req_search_user req_Search_User, Action not_finde, Action<Result_search_user> result, Action<ERRORs> ERRORS)
+            public static void Search_Users(Req_search_user req_Search_User,Action not_finde, Action<Result_search_user> result, Action<ERRORs> ERRORS)
             {
                 recive();
                 async void recive()
@@ -1370,6 +1376,7 @@ namespace Chilligames.SDK
                 }
             }
 
+
             public class Result_quick_register
             {
                 public string _id;
@@ -1391,6 +1398,15 @@ namespace Chilligames.SDK
                 public object Teams = null;
                 public object Wallet = null;
                 public object Servers = null;
+
+            }
+
+            public class Result_info_user
+            {
+                public string Username = null;
+                public string Email = null;
+                public string Nickname = null;
+                public string status = null;
 
             }
 
@@ -1437,7 +1453,6 @@ namespace Chilligames.SDK
                 public string Body = null;
 
             }
-
 
 
             public class Result_search_user
