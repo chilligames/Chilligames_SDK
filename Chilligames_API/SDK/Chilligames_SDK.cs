@@ -188,6 +188,16 @@ namespace Chilligames.SDK.Model_Client
 
     }
 
+    public class Req_cheack_nickname
+    {
+        public string Nickname;
+    }
+
+    public class Req_cheack_username
+    {
+        public string Username;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -288,6 +298,7 @@ namespace Chilligames.SDK
                 }
 
             }
+
 
             public static void Recive_info_user(Req_recive_Info_player req_Recive_Info_Player, Action<Result_info_user> result, Action<ERRORs> ERRORS)
             {
@@ -614,6 +625,91 @@ namespace Chilligames.SDK
                         }
                     }
                 }
+            }
+
+
+            /// <summary>
+            /// if Call back 1 can Change nickname
+            /// if callback 0 cant change
+            /// </summary>
+            /// <param name="req_Cheack_Nickname"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cheack_nick_name(Req_cheack_nickname req_Cheack_Nickname, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                cheack();
+
+                async void cheack()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CNN");
+                    www.SetRequestHeader("Nickname", req_Cheack_Nickname.Nickname);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+
+                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+
+            /// <summary>
+            /// if callback 1 can change user name
+            /// if callback 0 cant change user name
+            /// </summary>
+            /// <param name="req_Cheack_Username"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cheack_user_name(Req_cheack_username req_Cheack_Username,Action<string> result,Action<ERRORs> ERRORS)
+            {
+                cheack();
+
+                async void cheack()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CUN");
+                    www.SetRequestHeader("Username", req_Cheack_Username.Username);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
             }
 
 
