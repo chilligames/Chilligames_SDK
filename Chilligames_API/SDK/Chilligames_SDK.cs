@@ -180,6 +180,14 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string Name_App;
     }
+
+    public class Req_search_user
+    {
+        public string Nickname;
+        public int count;
+
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -198,7 +206,7 @@ namespace Chilligames.SDK
             /// <param name="Req_login"></param>
             /// <param name="Result_login"></param>
             /// <param name="ERROR"></param>
-            public static void Quick_login(Req_Login Req_login, Action<Result_Login> Result_login, Action<ERRORs> ERROR)
+            public static void Quick_login(Req_Login Req_login, Action<string> Result_login, Action<ERRORs> ERROR)
             {
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                 www.SetRequestHeader("Pipe_line", "QL");
@@ -213,8 +221,14 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            Result_Login User_data = Json.ChilligamesJson.DeserializeObject<Result_Login>(www.downloadHandler.text);
-                            Result_login(User_data);
+                            if (www.downloadHandler.text == "1")
+                            {
+                                Result_login("1");
+                            }
+                            else if (www.downloadHandler.text == "0")
+                            {
+                                Result_login("0");
+                            }
                             www.Abort();
                             break;
                         }
@@ -232,7 +246,6 @@ namespace Chilligames.SDK
                 }
 
             }
-
 
 
             /// <summary>
@@ -333,7 +346,6 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-
                             result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
                             www.Abort();
                             break;
@@ -378,7 +390,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                            result(Json.ChilligamesJson.DeserializeObject<Jdoc>(www.downloadHandler.text));//Cheack
+                            result(ChilligamesJson.DeserializeObject<Jdoc>(www.downloadHandler.text));
 
                             www.Abort();
                             break;
@@ -1320,6 +1332,44 @@ namespace Chilligames.SDK
             }
 
 
+            public static void Search_Users(Req_search_user req_Search_User, Action not_finde, Action<Result_search_user> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SU");
+                    www.SetRequestHeader("Nickname", req_Search_User.Nickname);
+                    www.SetRequestHeader("Count", req_Search_User.count.ToString());
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            try
+                            {
+                                result(ChilligamesJson.DeserializeObject<Result_search_user>(www.downloadHandler.text));
+                            }
+                            catch (Exception)
+                            {
+                                not_finde();
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
             public class Result_quick_register
             {
                 public string _id;
@@ -1386,6 +1436,19 @@ namespace Chilligames.SDK
                 public string Title = null;
                 public string Body = null;
 
+            }
+
+
+
+            public class Result_search_user
+            {
+                public string _id = null;
+                public object Info = null;
+
+                public class Deserilseinfo
+                {
+                    public string Nickname = null;
+                }
             }
 
             public class ERRORs
