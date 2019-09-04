@@ -222,11 +222,11 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
-                            if (www.downloadHandler.text=="1")
+                            if (www.downloadHandler.text == "1")
                             {
                                 Result_login("1");
                             }
-                            else if (www.downloadHandler.text=="0")
+                            else if (www.downloadHandler.text == "0")
                             {
                                 Result_login("0");
                             }
@@ -289,10 +289,40 @@ namespace Chilligames.SDK
 
             }
 
-            public static void Recive_info_user(Req_recive_Info_player req_Recive_Info_Player,Action<Result_info_user> result,Action<ERRORs> ERRORS)
+            public static void Recive_info_user(Req_recive_Info_player req_Recive_Info_Player, Action<Result_info_user> result, Action<ERRORs> ERRORS)
             {
+                Recive_info_user();
 
+                async void Recive_info_user()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RIU");
+                    www.SetRequestHeader("_id", req_Recive_Info_Player._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(ChilligamesJson.DeserializeObject<Result_info_user>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+
+                }
             }
+
 
             /// <summary>
             /// send Score to leader_board
@@ -440,7 +470,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-                         
+
                             www.Abort();
                             break;
                         }
@@ -1338,7 +1368,7 @@ namespace Chilligames.SDK
             }
 
 
-            public static void Search_Users(Req_search_user req_Search_User,Action not_finde, Action<Result_search_user> result, Action<ERRORs> ERRORS)
+            public static void Search_Users(Req_search_user req_Search_User, Action not_finde, Action<Result_search_user> result, Action<ERRORs> ERRORS)
             {
                 recive();
                 async void recive()
@@ -1406,7 +1436,7 @@ namespace Chilligames.SDK
                 public string Username = null;
                 public string Email = null;
                 public string Nickname = null;
-                public string status = null;
+                public string Status = null;
 
             }
 
