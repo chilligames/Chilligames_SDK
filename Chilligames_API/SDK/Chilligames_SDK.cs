@@ -627,7 +627,7 @@ namespace Chilligames.SDK
                 }
             }
 
-
+             
             /// <summary>
             /// if Call back 1 can Change nickname
             /// if callback 0 cant change
