@@ -62,6 +62,14 @@ namespace Chilligames.SDK.Model_Client
 
     }
 
+    public class Req_recive_leaderboard_near_user
+    {
+        public string _id;
+        public string Name_laederboard;
+        public int Count;
+
+    }
+
     public class Req_recive_Info_player
     {
         public string _id;
@@ -415,6 +423,84 @@ namespace Chilligames.SDK
 
 
             /// <summary>
+            /// recive postion rank player
+            /// </summary>
+            /// <param name="req_Recive_Rank"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERROR"></param>
+            public static void Recive_rank_postion(Req_recive_rank_postion req_Recive_Rank, Action<string> Result, Action<ERRORs> ERROR)
+            {
+                recive_rank();
+
+                async void recive_rank()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RRP");
+                    www.SetRequestHeader("_id", req_Recive_Rank._id);
+                    www.SetRequestHeader("Leader_board", req_Recive_Rank.Leader_board_name);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            Result(www.downloadHandler.text);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
+
+            public static void Recive_leader_board_near_user(Req_recive_leaderboard_near_user req_Recive_Leaderboard_Near_User, Action<Result_leader_board[]> Result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RLBNU");
+                    www.SetRequestHeader("_id", req_Recive_Leaderboard_Near_User._id);
+                    www.SetRequestHeader("Leader_board", req_Recive_Leaderboard_Near_User.Name_laederboard);
+                    www.SetRequestHeader("Count", req_Recive_Leaderboard_Near_User.Count.ToString());
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            Result(ChilligamesJson.DeserializeObject<Result_leader_board[]>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+            /// <summary>
             /// recive data user 
             /// </summary>
             /// <typeparam name="Jdoc"></typeparam>
@@ -543,46 +629,6 @@ namespace Chilligames.SDK
                 }
             }
 
-            /// <summary>
-            /// recive postion rank player
-            /// </summary>
-            /// <param name="req_Recive_Rank"></param>
-            /// <param name="Result"></param>
-            /// <param name="ERROR"></param>
-            public static void Recive_rank_postion(Req_recive_rank_postion req_Recive_Rank, Action<string> Result, Action<ERRORs> ERROR)
-            {
-
-                recive_rank();
-
-                async void recive_rank()
-                {
-                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "RRP");
-                    www.SetRequestHeader("_id", req_Recive_Rank._id);
-                    www.SetRequestHeader("Leader_board", req_Recive_Rank.Leader_board_name);
-                    www.SendWebRequest();
-                    while (true)
-                    {
-                        if (www.isDone)
-                        {
-                            Result(www.downloadHandler.text);
-                            www.Abort();
-                            break;
-                        }
-                        else
-                        {
-                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
-                            {
-                                www.Abort();
-                                break;
-                            }
-                            await Task.Delay(1);
-                        }
-
-                    }
-                }
-
-            }
 
 
             /// <summary>
@@ -627,7 +673,7 @@ namespace Chilligames.SDK
                 }
             }
 
-             
+
             /// <summary>
             /// if Call back 1 can Change nickname
             /// if callback 0 cant change
@@ -656,7 +702,7 @@ namespace Chilligames.SDK
                         else
                         {
 
-                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 www.Abort();
                                 break;
@@ -679,7 +725,7 @@ namespace Chilligames.SDK
             /// <param name="req_Cheack_Username"></param>
             /// <param name="result"></param>
             /// <param name="ERRORS"></param>
-            public static void Cheack_user_name(Req_cheack_username req_Cheack_Username,Action<string> result,Action<ERRORs> ERRORS)
+            public static void Cheack_user_name(Req_cheack_username req_Cheack_Username, Action<string> result, Action<ERRORs> ERRORS)
             {
                 cheack();
 
@@ -699,7 +745,7 @@ namespace Chilligames.SDK
                         }
                         else
                         {
-                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 www.Abort();
                                 break;
@@ -1540,8 +1586,7 @@ namespace Chilligames.SDK
             public class Result_leader_board
             {
                 public string _id = null;
-                public string ID = null;
-                public string Nick_name = null;
+                public string Nickname = null;
                 public int? Score = null;
             }
 
