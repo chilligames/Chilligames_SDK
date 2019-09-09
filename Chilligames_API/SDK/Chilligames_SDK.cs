@@ -192,8 +192,6 @@ namespace Chilligames.SDK.Model_Client
     public class Req_search_user
     {
         public string Nickname;
-        public int count;
-
     }
 
     public class Req_cheack_nickname
@@ -1518,22 +1516,22 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "SU");
                     www.SetRequestHeader("Nickname", req_Search_User.Nickname);
-                    www.SetRequestHeader("Count", req_Search_User.count.ToString());
                     www.SendWebRequest();
                     while (true)
                     {
                         if (www.isDone)
                         {
                             www.Abort();
-                            try
-                            {
-                                result(ChilligamesJson.DeserializeObject<Result_search_user>(www.downloadHandler.text));
-                            }
-                            catch (Exception)
+                            if (www.downloadHandler.text == "0")
                             {
                                 not_finde();
+                                break;
                             }
-                            break;
+                            else
+                            {
+                                result(ChilligamesJson.DeserializeObject<Result_search_user>(www.downloadHandler.text));
+                                break;
+                            }
                         }
                         else
                         {
