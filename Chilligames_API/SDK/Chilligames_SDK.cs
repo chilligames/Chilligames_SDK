@@ -204,6 +204,21 @@ namespace Chilligames.SDK.Model_Client
         public string Username;
     }
 
+    public class Req_Insert_coin
+    {
+        public string _id;
+        public int Coin;
+    }
+
+    public class Req_sync_coin_with_server
+    {
+        public string _id;
+        public int Coin;
+    }
+    public class Req_recive_coin
+    {
+        public string _id;
+    }
 }
 
 namespace Chilligames.SDK
@@ -222,7 +237,7 @@ namespace Chilligames.SDK
             /// <param name="Req_login"></param>
             /// <param name="Result_login"></param>
             /// <param name="ERROR"></param>
-            public static void Quick_login(Req_Login Req_login, Action<string> Result_login, Action<ERRORs> ERROR)
+            public static void Quick_login(Req_Login Req_login, Action<string> Result_login, Action<NetworkError> ERROR)
             {
                 UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                 www.SetRequestHeader("Pipe_line", "QL");
@@ -254,6 +269,19 @@ namespace Chilligames.SDK
                             await Task.Delay(1);
                             if (www.isNetworkError || www.isHttpError || www.timeout == 1)
                             {
+
+                                if (www.isNetworkError)
+                                {
+                                    ERROR(NetworkError.WrongConnection);
+                                }
+                                if (www.isHttpError)
+                                {
+                                    ERROR(NetworkError.WrongOperation);
+                                }
+                                if (www.timeout == 1)
+                                {
+                                    ERROR(NetworkError.Timeout);
+                                }
                                 print("Err_not_login_login_break");
                                 www.Abort();
                                 break;
@@ -267,12 +295,15 @@ namespace Chilligames.SDK
 
 
             /// <summary>
-            /// quick register with ID
+            /// quick register 
             /// </summary>
-            /// <param name="Requst_quick_reg"></param>
             /// <param name="result_register"></param>
-            /// <param name="ERROR"></param>
-            public static void Quick_register(Action<Result_quick_register> result_register, Action<ERRORs> ERROR)
+            /// <param name="ERROR">
+            /// ERR 8: http ERR
+            /// ERR 2: Network ERR
+            /// ERR 6: Timeout ERR
+            /// </param>
+            public static void Quick_register(Action<Result_quick_register> result_register, Action<NetworkError> ERROR)
             {
                 quick_register();
 
@@ -294,6 +325,20 @@ namespace Chilligames.SDK
                             await Task.Delay(1);
                             if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
+
+                                if (www.isHttpError)
+                                {
+                                    ERROR(NetworkError.WrongOperation);
+
+                                }
+                                if (www.isNetworkError)
+                                {
+                                    ERROR(NetworkError.WrongConnection);
+                                }
+                                if (www.timeout == 1)
+                                {
+                                    ERROR(NetworkError.Timeout);
+                                }
                                 print("Register_fild_break_register");
                                 www.Abort();
                                 break;
@@ -1532,6 +1577,117 @@ namespace Chilligames.SDK
                                 result(ChilligamesJson.DeserializeObject<Result_search_user>(www.downloadHandler.text));
                                 break;
                             }
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
+            /// coin insert to user
+            /// </summary>
+            /// <param name="req_Insert_Coin"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Coin_Insert(Req_Insert_coin req_Insert_Coin, Action result, Action<ERRORs> ERRORS)
+            {
+                insert();
+
+                async void insert()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CI");
+                    www.SetRequestHeader("_id", req_Insert_Coin._id);
+                    www.SetRequestHeader("Coin", req_Insert_Coin.Coin.ToString());
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// sync coin with server
+            /// </summary>
+            /// <param name="req_Sync_Coin_With_Server"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Sync_coin_with_server(Req_sync_coin_with_server req_Sync_Coin_With_Server, Action result, Action<ERRORs> ERRORS)
+            {
+                sync();
+                async void sync()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SCWS");
+                    www.SetRequestHeader("_id", req_Sync_Coin_With_Server._id);
+                    www.SetRequestHeader("Coin", req_Sync_Coin_With_Server.Coin.ToString());
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
+            /// recive coin
+            /// </summary>
+            /// <param name="req_Recive_Coin"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_Coin(Req_recive_coin req_Recive_Coin, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RC");
+                    www.SetRequestHeader("_id", req_Recive_Coin._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
                         }
                         else
                         {
