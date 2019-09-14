@@ -132,6 +132,20 @@ namespace Chilligames.SDK.Model_Client
         public string Name_App;
         public string _id_server;
     }
+    public class Req_change_server_data_fild
+    {
+        public string _id_server;
+        public string Name_app;
+        public string Pipe_line_data;
+        public string Data_inject;
+    }
+    public class Req_push_data_to_server
+    {
+        public string Name_app;
+        public string _id_server;
+        public string Pipe_line_data;
+        public object Inject_data;
+    }
     public class Req_send_message_to_chatroom
     {
         public string _id;
@@ -1230,6 +1244,142 @@ namespace Chilligames.SDK
 
                 }
 
+            }
+
+
+            /// <summary>
+            /// change data fild server 
+            /// best value for change numeric
+            /// for pipe line data use this pattern  for EX if you need change player in setting count:
+            /// Setting.Player
+            /// 
+            /// [cheack]
+            /// </summary>
+            /// <param name="req_Change_Server_Data_Fild"></param>
+            /// <param name="result"></param>
+            /// <param name="err"></param>
+            public static void Change_data_to_server_fild(Req_change_server_data_fild req_Change_Server_Data_Fild, Action result, Action ERRORS)
+            {
+                change_value();
+
+                async void change_value()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CDTS");
+                    www.SetRequestHeader("Name_app ", req_Change_Server_Data_Fild.Name_app);
+                    www.SetRequestHeader("_id_Server", req_Change_Server_Data_Fild._id_server);
+                    www.SetRequestHeader("Pipe_line_data", req_Change_Server_Data_Fild.Pipe_line_data);
+                    www.SetRequestHeader("Data_inject", req_Change_Server_Data_Fild.Data_inject);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+            /// <summary>
+            /// for pluse data use number EX: 3 , 4 ,5 
+            /// for Minuse data use number EX: -9 ,-4,-90
+            ///for pipe line data use this pattern  for EX if you need change player in setting count:
+            /// Setting.Player
+            /// </summary>
+            /// <param name="req_Change_Server_Data_Fild"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Pluse_or_minuse_value_fild_server(Req_change_server_data_fild req_Change_Server_Data_Fild, Action result, Action ERRORS)
+            {
+                pluse_minuse();
+
+                async void pluse_minuse()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "PDSF");
+                    www.SetRequestHeader("Name_APP", req_Change_Server_Data_Fild.Name_app);
+                    www.SetRequestHeader("_id_Server", req_Change_Server_Data_Fild._id_server);
+                    www.SetRequestHeader("Pipe_line_data", req_Change_Server_Data_Fild.Pipe_line_data);
+                    www.SetRequestHeader("Data_inject", req_Change_Server_Data_Fild.Data_inject);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+
+                }
+            }
+
+
+            /// <summary>
+            /// for push data to arry in data base 
+            /// for pipe line data use this pattern  for EX if you need change player in setting count:
+            /// Setting.Player
+            /// </summary>
+            /// <param name="req_Push_Data_To_Server"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Push_data_to_server_fild(Req_push_data_to_server req_Push_Data_To_Server, Action result, Action ERRORS)
+            {
+                push();
+
+                async void push()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "PDTSF");
+                    www.SetRequestHeader("Name_App", req_Push_Data_To_Server.Name_app);
+                    www.SetRequestHeader("_id_Server", req_Push_Data_To_Server._id_server);
+                    www.SetRequestHeader("Pipe_line_data", req_Push_Data_To_Server.Pipe_line_data);
+                    www.SetRequestHeader("Data_inject", ChilligamesJson.SerializeObject(req_Push_Data_To_Server.Inject_data));
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
             }
 
 
