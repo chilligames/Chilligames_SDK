@@ -43,7 +43,6 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string Leader_board_name;
     }
-
     public class Req_Update_User_Info
     {
         public string _id;
@@ -54,14 +53,12 @@ namespace Chilligames.SDK.Model_Client
         public string status;
 
     }
-
     public class Req_recive_leader_board
     {
         public string Name_leader_board;
         public int Count;
 
     }
-
     public class Req_recive_leaderboard_near_user
     {
         public string _id;
@@ -69,85 +66,72 @@ namespace Chilligames.SDK.Model_Client
         public int Count;
 
     }
-
     public class Req_recive_Info_player
     {
         public string _id;
     }
-
     public class Req_status_friend
     {
         public string _id;
         public string _id_other_player;
     }
-
     public class Req_send_friend_requst
     {
         public string _id;
         public string _id_other_player;
 
     }
-
     public class req_cancel_and_dellet_send_freiend
     {
         public string _id;
         public string _id_other_users;
     }
-
     public class Req_send_message
     {
         public string _id;
         public string _id_other_users;
         public string Message_body;
     }
-
     public class Req_creat_server
     {
         public string Name_App;
         public string _id;
         public object Setting;
     }
-
     public class Req_recive_list_servers_User
     {
         public string _id;
         public string Name_app;
     }
-
     public class Req_data_server
     {
         public string _id_server;
         public string Name_app;
     }
-
     public class Req_Exit_server
     {
         public string _id;
         public string _id_server;
         public string Name_App;
     }
-
     public class Req_recive_all_server
     {
         public string Name_App;
         public int Count;
 
     }
-
     public class Req_cheack_server_in_profile
     {
         public string _id;
         public string Name_App;
         public string _id_server;
     }
-
     public class Req_enter_to_server
     {
         public string _id;
         public string Name_App;
         public string _id_server;
     }
-
     public class Req_send_message_to_chatroom
     {
         public string _id;
@@ -158,14 +142,12 @@ namespace Chilligames.SDK.Model_Client
     {
         public string Name_App;
     }
-
     public class Req_report_message
     {
         public string _id_message;
         public string Name_app;
 
     }
-
     public class Req_recive_messages
     {
         public string _id;
@@ -176,40 +158,33 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string _id_other_player;
     }
-
     public class Req_recive_notifactions
     {
         public string _id;
         public string Name_App;
     }
-
     public class Req_remove_notifactions
     {
         public string _id;
         public string Name_App;
     }
-
     public class Req_search_user
     {
         public string Nickname;
     }
-
     public class Req_cheack_nickname
     {
         public string Nickname;
     }
-
     public class Req_cheack_username
     {
         public string Username;
     }
-
     public class Req_Insert_coin
     {
         public string _id;
         public int Coin;
     }
-
     public class Req_sync_coin_with_server
     {
         public string _id;
