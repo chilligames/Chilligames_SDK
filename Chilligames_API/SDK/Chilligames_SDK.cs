@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using Chilligames.Json;
+using Chilligames.SDK.Model_Client;
 using System;
 using System.Threading.Tasks;
-using Chilligames.SDK.Model_Client;
-using Chilligames.Json;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Chilligames.SDK.Model_Client
 {
@@ -1796,14 +1794,14 @@ namespace Chilligames.SDK
             /// <param name="req_Recive_Coin"></param>
             /// <param name="result"></param>
             /// <param name="ERRORS"></param>
-            public static void Recive_Coin(Req_recive_coin req_Recive_Coin, Action<string> result, Action<ERRORs> ERRORS)
+            public static void Recive_Coin_mony(Req_recive_coin req_Recive_Coin, Action<Result_wallet> result, Action<ERRORs> ERRORS)
             {
                 recive();
 
                 async void recive()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "RC");
+                    www.SetRequestHeader("Pipe_line", "RCMU");
                     www.SetRequestHeader("_id", req_Recive_Coin._id);
                     www.SendWebRequest();
                     while (true)
@@ -1811,7 +1809,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
-                            result(www.downloadHandler.text);
+                            result(ChilligamesJson.DeserializeObject<Result_wallet>(www.downloadHandler.text));
                             break;
                         }
                         else
@@ -1914,6 +1912,12 @@ namespace Chilligames.SDK
                 {
                     public string Nickname = null;
                 }
+            }
+
+            public class Result_wallet
+            {
+                public int? Coin = null;
+                public int? Mony = null;
             }
 
             public class ERRORs
