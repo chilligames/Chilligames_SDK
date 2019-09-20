@@ -213,6 +213,15 @@ namespace Chilligames.SDK.Model_Client
         public int Coin;
         public string ID_entity;
     }
+
+    public class Req_push_offer_to_one
+    {
+        public string _id;
+        public string Name_App;
+        public string Name_Entity;
+        public int Coin;
+        public string _id_entity;
+    }
 }
 
 namespace Chilligames.SDK
@@ -1834,7 +1843,10 @@ namespace Chilligames.SDK
                 }
             }
 
-
+            /// <summary>
+            /// push offer for all player
+            /// </summary>
+            /// <param name="req_Push_Offer_To_All_User"></param>
             public static void Push_Offer_to_all_player(Req_Push_offer_to_all_user req_Push_Offer_To_All_User)
             {
                 Push();
@@ -1852,7 +1864,7 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
-
+                            www.Abort();
                             break;
 
                         }
@@ -1860,6 +1872,7 @@ namespace Chilligames.SDK
                         {
                             if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
+                                www.Abort();
                                 break;
                             }
                             await Task.Delay(1);
@@ -1869,8 +1882,50 @@ namespace Chilligames.SDK
                 }
 
             }
-           
 
+
+            /// <summary>
+            /// push offer for one player
+            /// </summary>
+            /// <param name="req_Push_Offer_To_One"></param>
+            /// <param name=""></param>
+            public static void Push_Offer_to_one(Req_push_offer_to_one req_Push_Offer_To_One, Action )
+            {
+                push_offer();
+
+                async void push_offer()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "POFO");
+                    www.SetRequestHeader("_id", req_Push_Offer_To_One._id);
+                    www.SetRequestHeader("Name_App", req_Push_Offer_To_One.Name_App);
+                    www.SetRequestHeader("Name_Entity", req_Push_Offer_To_One.Name_Entity);
+                    www.SetRequestHeader("Coin", req_Push_Offer_To_One.Coin.ToString());
+                    www.SetRequestHeader("ID_Entity", req_Push_Offer_To_One._id_entity);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+
+            }
 
             public class Result_quick_register
             {
