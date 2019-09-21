@@ -238,7 +238,6 @@ namespace Chilligames.SDK.Model_Client
 
         public enum Mode : int
         {
-
             Coin, Money
         }
 
@@ -1990,6 +1989,7 @@ namespace Chilligames.SDK
 
             }
 
+
             /// <summary>
             /// CONVER coin to money or convert money to coin
             /// Mode => if 0 coit to money
@@ -2006,7 +2006,7 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CMTC");
                     www.SetRequestHeader("_id", req_Convert_Coin_To_Money_Money_To_Coin._id);
-                    www.SetRequestHeader("Mode", req_Convert_Coin_To_Money_Money_To_Coin.Select_mode.ToString());
+                    www.SetRequestHeader("Mode", ((int)req_Convert_Coin_To_Money_Money_To_Coin.Select_mode).ToString());
                     www.SetRequestHeader("Coin", req_Convert_Coin_To_Money_Money_To_Coin.Coin.ToString());
                     www.SendWebRequest();
 
@@ -2015,8 +2015,8 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            Result();
                             break;
-
                         }
                         else
                         {
