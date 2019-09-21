@@ -222,6 +222,27 @@ namespace Chilligames.SDK.Model_Client
         public int Coin;
         public string _id_entity;
     }
+
+    public class Req_recive_offers
+    {
+        public string _id;
+        public string Name_App;
+    }
+
+    public class Req_convert_coin_to_money_money_to_coin
+    {
+        public string _id;
+        public int Coin;
+        public Mode Select_mode = new Mode();
+
+
+        public enum Mode : int
+        {
+
+            Coin, Money
+        }
+
+    }
 }
 
 namespace Chilligames.SDK
@@ -1843,6 +1864,7 @@ namespace Chilligames.SDK
                 }
             }
 
+
             /// <summary>
             /// push offer for all player
             /// </summary>
@@ -1889,7 +1911,7 @@ namespace Chilligames.SDK
             /// </summary>
             /// <param name="req_Push_Offer_To_One"></param>
             /// <param name=""></param>
-            public static void Push_Offer_to_one(Req_push_offer_to_one req_Push_Offer_To_One, Action )
+            public static void Push_Offer_to_one(Req_push_offer_to_one req_Push_Offer_To_One)
             {
                 push_offer();
 
@@ -1905,7 +1927,6 @@ namespace Chilligames.SDK
                     www.SendWebRequest();
                     while (true)
                     {
-
                         if (www.isDone)
                         {
                             www.Abort();
@@ -1926,6 +1947,93 @@ namespace Chilligames.SDK
 
 
             }
+
+
+            /// <summary>
+            /// recive offers
+            /// </summary>
+            /// <param name="req_Recive_Offers"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_offers(Req_recive_offers req_Recive_Offers, Action<Result_offers[]> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RO");
+                    www.SetRequestHeader("_id", req_Recive_Offers._id);
+                    www.SetRequestHeader("Name_App", req_Recive_Offers.Name_App);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(ChilligamesJson.DeserializeObject<Result_offers[]>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
+
+            /// <summary>
+            /// CONVER coin to money or convert money to coin
+            /// Mode => if 0 coit to money
+            /// mode => if 1 money to coin
+            /// </summary>
+            /// <param name="req_Convert_Coin_To_Money_Money_To_Coin"></param>
+            /// <param name="Result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Convert_wallet(Req_convert_coin_to_money_money_to_coin req_Convert_Coin_To_Money_Money_To_Coin, Action Result, Action<ERRORs> ERRORS)
+            {
+                Convert();
+                async void Convert()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CMTC");
+                    www.SetRequestHeader("_id", req_Convert_Coin_To_Money_Money_To_Coin._id);
+                    www.SetRequestHeader("Mode", req_Convert_Coin_To_Money_Money_To_Coin.Select_mode.ToString());
+                    www.SetRequestHeader("Coin", req_Convert_Coin_To_Money_Money_To_Coin.Coin.ToString());
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+            }
+
 
             public class Result_quick_register
             {
@@ -2018,8 +2126,17 @@ namespace Chilligames.SDK
             public class Result_wallet
             {
                 public int? Coin = null;
-                public int? Mony = null;
+                public double? Money = null;
             }
+
+            public class Result_offers
+            {
+                public string ID = null;
+                public string Name_Entity = null;
+                public int? Coin = null;
+
+            }
+
 
             public class ERRORs
             {
