@@ -233,6 +233,12 @@ namespace Chilligames.SDK.Model_Client
         public string Name_App;
     }
 
+    public class Req_remove_offers
+    {
+        public string Name_App;
+        public string ID_entity;
+    }
+
     public class Req_convert_coin_to_money_money_to_coin
     {
         public string _id;
@@ -245,6 +251,7 @@ namespace Chilligames.SDK.Model_Client
             Coin, Money
         }
     }
+
 }
 
 namespace Chilligames.SDK
@@ -1955,6 +1962,7 @@ namespace Chilligames.SDK
             }
 
 
+
             /// <summary>
             /// recive offers
             /// </summary>
@@ -1994,6 +2002,44 @@ namespace Chilligames.SDK
                     }
                 }
 
+            }
+
+
+            /// <summary>
+            /// finde offer and delet for all remove all offer for all users
+            /// </summary>
+            /// <param name="req_Remove_Offers"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Remove_all_offer_match(Req_remove_offers req_Remove_Offers, Action result, Action<ERRORs> ERRORS)
+            {
+                remove();
+                async void remove()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RAOM");
+                    www.SetRequestHeader("Name_App", req_Remove_Offers.Name_App);
+                    www.SetRequestHeader("ID_Entity", req_Remove_Offers.ID_entity);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
             }
 
 
@@ -2063,7 +2109,6 @@ namespace Chilligames.SDK
                 public object Teams = null;
                 public object Wallet = null;
                 public object Servers = null;
-
             }
 
             public class Result_info_user
@@ -2072,7 +2117,6 @@ namespace Chilligames.SDK
                 public string Email = null;
                 public string Nickname = null;
                 public string Status = null;
-
             }
 
 
