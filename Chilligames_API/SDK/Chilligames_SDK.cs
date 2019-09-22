@@ -209,7 +209,9 @@ namespace Chilligames.SDK.Model_Client
     public class Req_Push_offer_to_all_user
     {
         public string Name_App;
+        public string Key;
         public string Name_Entity;
+        public int Count;
         public int Coin;
         public string ID_entity;
     }
@@ -217,8 +219,10 @@ namespace Chilligames.SDK.Model_Client
     public class Req_push_offer_to_one
     {
         public string _id;
+        public string Key;
         public string Name_App;
         public string Name_Entity;
+        public int Count;
         public int Coin;
         public string _id_entity;
     }
@@ -240,7 +244,6 @@ namespace Chilligames.SDK.Model_Client
         {
             Coin, Money
         }
-
     }
 }
 
@@ -1875,9 +1878,11 @@ namespace Chilligames.SDK
                 async void Push()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Key", req_Push_Offer_To_All_User.Key);
                     www.SetRequestHeader("Pipe_line", "POFA");
                     www.SetRequestHeader("Name_App", req_Push_Offer_To_All_User.Name_App);
                     www.SetRequestHeader("Name_Entity", req_Push_Offer_To_All_User.Name_Entity);
+                    www.SetRequestHeader("Count", req_Push_Offer_To_All_User.Count.ToString());
                     www.SetRequestHeader("Coin", req_Push_Offer_To_All_User.Coin.ToString());
                     www.SetRequestHeader("ID_Entity", req_Push_Offer_To_All_User.ID_entity);
                     www.SendWebRequest();
@@ -1919,8 +1924,10 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "POFO");
                     www.SetRequestHeader("_id", req_Push_Offer_To_One._id);
+                    www.SetRequestHeader("Key", req_Push_Offer_To_One.Key);
                     www.SetRequestHeader("Name_App", req_Push_Offer_To_One.Name_App);
                     www.SetRequestHeader("Name_Entity", req_Push_Offer_To_One.Name_Entity);
+                    www.SetRequestHeader("Count", req_Push_Offer_To_One.Count.ToString());
                     www.SetRequestHeader("Coin", req_Push_Offer_To_One.Coin.ToString());
                     www.SetRequestHeader("ID_Entity", req_Push_Offer_To_One._id_entity);
                     www.SendWebRequest();
@@ -2108,7 +2115,6 @@ namespace Chilligames.SDK
             {
                 public string Title = null;
                 public string Body = null;
-
             }
 
 
@@ -2132,7 +2138,9 @@ namespace Chilligames.SDK
             public class Result_offers
             {
                 public string ID = null;
+                public string Key = null;
                 public string Name_Entity = null;
+                public int? Count = null;
                 public int? Coin = null;
 
             }
