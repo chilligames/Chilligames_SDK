@@ -11,6 +11,12 @@ namespace Chilligames.SDK.Model_Client
     {
         public string _id;
     }
+    public class Req_login_with_username_password
+    {
+        public string Username;
+        public string Password;
+    }
+
     public class Req_send_score
     {
         public string Leader_board_name;
@@ -383,6 +389,51 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="req_Login_With_Username_Password"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Login_with_username_Password(Req_login_with_username_password req_Login_With_Username_Password, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                Login();
+
+                async void Login()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "LWUP");
+                    www.SetRequestHeader("Username", req_Login_With_Username_Password.Username);
+                    www.SetRequestHeader("Password", req_Login_With_Username_Password.Password);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            result(www.downloadHandler.text);
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// recive info User
+            /// </summary>
+            /// <param name="req_Recive_Info_Player"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
             public static void Recive_info_user(Req_recive_Info_player req_Recive_Info_Player, Action<Result_info_user> result, Action<ERRORs> ERRORS)
             {
                 Recive_info_user();
@@ -459,6 +510,12 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// recive leader board
+            /// </summary>
+            /// <param name="req_Recive_Leader"></param>
+            /// <param name="result"></param>
+            /// <param name="ERROR"></param>
             public static void Recive_leader_board(Req_recive_leader_board req_Recive_Leader, Action<Result_leader_board[]> result, Action<ERRORs> ERROR)
             {
                 Recive_leader_board();
@@ -601,7 +658,6 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             result(ChilligamesJson.DeserializeObject<Jdoc>(www.downloadHandler.text));
-
                             www.Abort();
                             break;
                         }
