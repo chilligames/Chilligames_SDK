@@ -22,6 +22,18 @@ namespace Chilligames.SDK.Model_Client
         public string Email;
     }
 
+    public class Req_submit_recovery_email
+    {
+        public string Key;
+        public string Email;
+    }
+
+    public class Req_change_password
+    {
+        public string Email;
+        public string New_Password;
+    }
+
     public class Req_send_score
     {
         public string Leader_board_name;
@@ -460,6 +472,80 @@ namespace Chilligames.SDK
                         {
                             www.Abort();
                             result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// if key true callaback 1 
+            /// if key false callback 0
+            /// </summary>
+            /// <param name="req_Submit_Recovery"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Submit_recovery_email(Req_submit_recovery_email req_Submit_Recovery, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                submit();
+
+                async void submit()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "SRE");
+                    www.SetRequestHeader("Email", req_Submit_Recovery.Email);
+                    www.SetRequestHeader("Key", req_Submit_Recovery.Key);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+            }
+
+
+            public static void Change_password(Req_change_password req_Change_Password, Action result, Action<ERRORs> ERRORS)
+            {
+                Change();
+
+                async void Change()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CP");
+                    www.SetRequestHeader("Email", req_Change_Password.Email);
+                    www.SetRequestHeader("Password", req_Change_Password.New_Password);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
                             break;
                         }
                         else
