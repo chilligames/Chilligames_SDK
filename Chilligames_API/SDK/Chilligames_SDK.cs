@@ -17,6 +17,11 @@ namespace Chilligames.SDK.Model_Client
         public string Password;
     }
 
+    public class Req_send_recovery_email
+    {
+        public string Email;
+    }
+
     public class Req_send_score
     {
         public string Leader_board_name;
@@ -390,7 +395,7 @@ namespace Chilligames.SDK
 
 
             /// <summary>
-            /// 
+            /// login with user name password
             /// </summary>
             /// <param name="req_Login_With_Username_Password"></param>
             /// <param name="result"></param>
@@ -423,6 +428,50 @@ namespace Chilligames.SDK
                             }
                             await Task.Delay(1);
                         }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// recovery email user 
+            /// we send recovery code to user 
+            /// if proccess complite callback 1
+            /// if proccess notcomplite callback 0
+            /// </summary>
+            /// <param name="send_Recovery_Email"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recovery_email_send(Req_send_recovery_email send_Recovery_Email, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                Recovery();
+
+                async void Recovery()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+
+                    www.SetRequestHeader("Pipe_line", "RE");
+                    www.SetRequestHeader("Email", send_Recovery_Email.Email);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
                     }
                 }
             }
