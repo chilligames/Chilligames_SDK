@@ -113,6 +113,17 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_users;
         public string Message_body;
     }
+
+    public class Req_cheack_new_message
+    {
+        public string _id;
+    }
+
+    public class Req_mark_messeges_as_read
+    {
+        public string _id;
+    }
+
     public class Req_creat_server
     {
         public string Name_App;
@@ -546,6 +557,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            result();
                             break;
                         }
                         else
@@ -1171,6 +1183,80 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             result();
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// cheack new messages
+            /// </summary>
+            /// <param name="req_Cheack_New_Message"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Cheack_status_new_message(Req_cheack_new_message req_Cheack_New_Message, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                Cheack();
+
+                async void Cheack()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CNM");
+                    www.SetRequestHeader("_id", req_Cheack_New_Message._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
+
+
+            /// <summary>
+            /// mark all messeges as read 
+            /// </summary>
+            /// <param name="req_Mark_Messeges_As_Read"></param>
+            public static void Mark_all_messages_as_read(Req_mark_messeges_as_read req_Mark_Messeges_As_Read)
+            {
+                mark();
+                async void mark()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "MAMAR");
+                    www.SetRequestHeader("_id", req_Mark_Messeges_As_Read._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
                             www.Abort();
                             break;
                         }
