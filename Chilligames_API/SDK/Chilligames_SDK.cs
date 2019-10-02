@@ -286,6 +286,14 @@ namespace Chilligames.SDK.Model_Client
         }
     }
 
+    public class Req_contact_us
+    {
+        public string NameApp;
+        public string Email_admin;
+        public string Messege;
+        public string Data_use;
+    }
+
 }
 
 namespace Chilligames.SDK
@@ -2357,6 +2365,44 @@ namespace Chilligames.SDK
 
                     }
 
+                }
+
+            }
+
+
+            public static void Send_contact_us(Req_contact_us req_Contact_Us, Action result, Action<ERRORs> ERRORS)
+            {
+                send();
+
+                async void send()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "CU");
+                    www.SetRequestHeader("NameApp", req_Contact_Us.NameApp);
+                    www.SetRequestHeader("Email", req_Contact_Us.Email_admin);
+                    www.SetRequestHeader("Message", req_Contact_Us.Messege);
+                    www.SetRequestHeader("Data_user", req_Contact_Us.Data_use);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
                 }
 
             }
