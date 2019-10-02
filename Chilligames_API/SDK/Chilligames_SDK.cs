@@ -294,6 +294,12 @@ namespace Chilligames.SDK.Model_Client
         public string Data_use;
     }
 
+    public class Req_rate_to_game
+    {
+        public string _id;
+        public string Name_app;
+        public string Rate;
+    }
 }
 
 namespace Chilligames.SDK
@@ -2370,6 +2376,12 @@ namespace Chilligames.SDK
             }
 
 
+            /// <summary>
+            /// send message player to admin email
+            /// </summary>
+            /// <param name="req_Contact_Us"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
             public static void Send_contact_us(Req_contact_us req_Contact_Us, Action result, Action<ERRORs> ERRORS)
             {
                 send();
@@ -2378,7 +2390,7 @@ namespace Chilligames.SDK
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CU");
-                    www.SetRequestHeader("NameApp", req_Contact_Us.NameApp);
+                    www.SetRequestHeader("Name_App", req_Contact_Us.NameApp);
                     www.SetRequestHeader("Email", req_Contact_Us.Email_admin);
                     www.SetRequestHeader("Message", req_Contact_Us.Messege);
                     www.SetRequestHeader("Data_user", req_Contact_Us.Data_use);
@@ -2405,6 +2417,46 @@ namespace Chilligames.SDK
                     }
                 }
 
+            }
+
+
+            /// <summary>
+            /// rate to game result in panel admin
+            /// </summary>
+            /// <param name="req_Rate_To_Game"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Rate_to_game(Req_rate_to_game req_Rate_To_Game, Action result, Action<ERRORs> ERRORS)
+            {
+                rate();
+                async void rate()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RTG");
+                    www.SetRequestHeader("_id", req_Rate_To_Game._id);
+                    www.SetRequestHeader("Name_APP", req_Rate_To_Game.Name_app);
+                    www.SetRequestHeader("Rate", req_Rate_To_Game.Rate);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
             }
 
 
