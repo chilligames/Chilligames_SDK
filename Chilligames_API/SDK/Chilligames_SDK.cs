@@ -108,6 +108,12 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
     }
 
+    public class Req_accept_friend_req
+    {
+        public string _id;
+        public string _id_other_player;
+    }
+
     public class req_cancel_and_dellet_send_freiend
     {
         public string _id;
@@ -1056,9 +1062,11 @@ namespace Chilligames.SDK
 
             /// <summary>
             /// cheack status friend with id
-            /// if callback 0:not friend
-            /// if calllback 1: not accept
-            /// if callback2: your friend
+            /// if callback 0: for player req pending
+            /// 
+            /// if calllback 1: for player res accept
+            /// 
+            /// if callback 2 :freind
             /// </summary>
             /// <param name="req_Status_Friend"></param>
             /// <param name="Result"></param>
@@ -1178,12 +1186,52 @@ namespace Chilligames.SDK
 
 
             /// <summary>
+            /// accept friend req 
+            /// in DB all req ==2 
+            /// </summary>
+            /// <param name="req_Accept_Friend_Req"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Accept_friend_req(Req_accept_friend_req req_Accept_Friend_Req, Action result, Action<ERRORs> ERRORS)
+            {
+                Accept();
+                async void Accept()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "AFR");
+                    www.SetRequestHeader("_id", req_Accept_Friend_Req._id);
+                    www.SetRequestHeader("_id_other_player", req_Accept_Friend_Req._id_other_player);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+
+            }
+
+
+            /// <summary>
             /// recive list friend
             /// </summary>
             /// <param name="req_Recive_List_Friend"></param>
             /// <param name="result"></param>
             /// <param name="ERRORS"></param>
-            public static void Recive_list_friend(Req_recive_list_friend req_Recive_List_Friend, Action result, Action<ERRORs> ERRORS)
+            public static void Recive_list_friend(Req_recive_list_friend req_Recive_List_Friend, Action<Result_list_freind> result, Action<ERRORs> ERRORS)
             {
                 recive_list();
 
@@ -1198,6 +1246,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
+                            result(ChilligamesJson.DeserializeObject<Result_list_freind>(www.downloadHandler.text));
                             break;
                         }
                         else
