@@ -102,6 +102,12 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_player;
 
     }
+
+    public class Req_recive_list_friend
+    {
+        public string _id;
+    }
+
     public class req_cancel_and_dellet_send_freiend
     {
         public string _id;
@@ -307,7 +313,7 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
+        protected readonly static string APIs_link = "http://198.143.178.164:3333/APIs";
 
         internal class API_Client
         {
@@ -1168,6 +1174,43 @@ namespace Chilligames.SDK
                     }
                 }
 
+            }
+
+
+            /// <summary>
+            /// recive list friend
+            /// </summary>
+            /// <param name="req_Recive_List_Friend"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_list_friend(Req_recive_list_friend req_Recive_List_Friend, Action result, Action<ERRORs> ERRORS)
+            {
+                recive_list();
+
+                async void recive_list()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RLF");
+                    www.SetRequestHeader("_id", req_Recive_List_Friend._id);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+                    }
+                }
             }
 
 
@@ -2250,7 +2293,6 @@ namespace Chilligames.SDK
             }
 
 
-
             /// <summary>
             /// recive offers
             /// </summary>
@@ -2274,7 +2316,11 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
-                            result(ChilligamesJson.DeserializeObject<Result_offers[]>(www.downloadHandler.text));
+                            if (www.downloadHandler.text.Length > 1)
+                            {
+                                result(ChilligamesJson.DeserializeObject<Result_offers[]>(www.downloadHandler.text));
+                            }
+
                             break;
                         }
                         else
@@ -2491,14 +2537,12 @@ namespace Chilligames.SDK
                 public string Status = null;
             }
 
-
             public class Result_leader_board
             {
                 public string _id = null;
                 public string Nickname = null;
                 public int? Score = null;
             }
-
 
             public class Result_massages_chatroom
             {
@@ -2510,7 +2554,6 @@ namespace Chilligames.SDK
                 public string Time = null;
                 public int? Report = null;
             }
-
 
             public class Result_message
             {
@@ -2532,7 +2575,6 @@ namespace Chilligames.SDK
                 public string Title = null;
                 public string Body = null;
             }
-
 
             public class Result_search_user
             {
@@ -2561,6 +2603,16 @@ namespace Chilligames.SDK
 
             }
 
+            public class Result_list_freind
+            {
+                public object[] Friends = null;
+
+                public class Deserilse_friend
+                {
+                    public string ID = null;
+                    public int? Status = null;
+                }
+            }
 
             public class ERRORs
             {
