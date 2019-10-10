@@ -312,6 +312,15 @@ namespace Chilligames.SDK.Model_Client
         public string Name_app;
         public string Rate;
     }
+
+    public class Req_report_bug
+    {
+        public string Name_app;
+        public string Email_admin;
+        public string Message;
+        public string Data_user;
+        public string Key;
+    }
 }
 
 namespace Chilligames.SDK
@@ -566,7 +575,12 @@ namespace Chilligames.SDK
                 }
             }
 
-
+            /// <summary>
+            /// last step for change password
+            /// </summary>
+            /// <param name="req_Change_Password"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
             public static void Change_password(Req_change_password req_Change_Password, Action result, Action<ERRORs> ERRORS)
             {
                 Change();
@@ -849,8 +863,8 @@ namespace Chilligames.SDK
 
             /// <summary>
             /// send data to database 
+            /// data user Json
             /// </summary>
-            /// <typeparam name="Jdoc"></typeparam>
             /// <param name="req_send_data"></param>
             /// <param name="result_send"></param>
             /// <param name="ERROR"></param>
@@ -1211,7 +1225,7 @@ namespace Chilligames.SDK
                         }
                         else
                         {
-                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 www.Abort();
                                 break;
@@ -2554,6 +2568,42 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            public static void Report_Bug(Req_report_bug req_Report_Bug, Action result, Action<ERRORs> ERRORS)
+            {
+                Report();
+                async void Report()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "BR");
+                    www.SetRequestHeader("Name_App", req_Report_Bug.Name_app);
+                    www.SetRequestHeader("Email", req_Report_Bug.Email_admin);
+                    www.SetRequestHeader("Message", req_Report_Bug.Message) ;
+                    www.SetRequestHeader("Data_user", req_Report_Bug.Data_user);
+                    www.SetRequestHeader("Key", req_Report_Bug.Key);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+            }
 
             public class Result_quick_register
             {
