@@ -16,24 +16,20 @@ namespace Chilligames.SDK.Model_Client
         public string Username;
         public string Password;
     }
-
     public class Req_send_recovery_email
     {
         public string Email;
     }
-
     public class Req_submit_recovery_email
     {
         public string Key;
         public string Email;
     }
-
     public class Req_change_password
     {
         public string Email;
         public string New_Password;
     }
-
     public class Req_send_score
     {
         public string Leader_board_name;
@@ -102,18 +98,15 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_player;
 
     }
-
     public class Req_recive_list_friend
     {
         public string _id;
     }
-
     public class Req_accept_friend_req
     {
         public string _id;
         public string _id_other_player;
     }
-
     public class req_cancel_and_dellet_send_freiend
     {
         public string _id;
@@ -125,17 +118,14 @@ namespace Chilligames.SDK.Model_Client
         public string _id_other_users;
         public string Message_body;
     }
-
     public class Req_cheack_new_message
     {
         public string _id;
     }
-
     public class Req_mark_messeges_as_read
     {
         public string _id;
     }
-
     public class Req_creat_server
     {
         public string Name_App;
@@ -216,6 +206,11 @@ namespace Chilligames.SDK.Model_Client
         public string _id;
         public string _id_other_player;
     }
+    public class Req_delete_message_category
+    {
+        public string _id;
+        public string _id_other_player;
+    }
     public class Req_recive_notifactions
     {
         public string _id;
@@ -261,7 +256,6 @@ namespace Chilligames.SDK.Model_Client
         public int Coin;
         public string ID_entity;
     }
-
     public class Req_push_offer_to_one
     {
         public string _id;
@@ -272,19 +266,16 @@ namespace Chilligames.SDK.Model_Client
         public int Coin;
         public string _id_entity;
     }
-
     public class Req_recive_offers
     {
         public string _id;
         public string Name_App;
     }
-
     public class Req_remove_offers
     {
         public string Name_App;
         public string ID_entity;
     }
-
     public class Req_convert_coin_to_money_money_to_coin
     {
         public string _id;
@@ -297,7 +288,6 @@ namespace Chilligames.SDK.Model_Client
             Coin, Money
         }
     }
-
     public class Req_contact_us
     {
         public string NameApp;
@@ -305,14 +295,12 @@ namespace Chilligames.SDK.Model_Client
         public string Messege;
         public string Data_use;
     }
-
     public class Req_rate_to_game
     {
         public string _id;
         public string Name_app;
         public string Rate;
     }
-
     public class Req_report_bug
     {
         public string Name_app;
@@ -1390,6 +1378,45 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            /// <summary>
+            /// delete category message
+            /// </summary>
+            /// <param name="req_Delete_Message_Category"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Delete_category_message(Req_delete_message_category req_Delete_Message_Category, Action result, Action<ERRORs> ERRORS)
+            {
+                Delete();
+                async void Delete()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "DMU");
+                    www.SetRequestHeader("_id", req_Delete_Message_Category._id);
+                    www.SetRequestHeader("_id_other_player", req_Delete_Message_Category._id_other_player);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+
+                                www.Abort();
+                                break;
+                            }
+
+                            await Task.Delay(1);
+                        }
+                    }
+                }
+            }
 
             /// <summary>
             /// creat server
@@ -2578,7 +2605,7 @@ namespace Chilligames.SDK
                     www.SetRequestHeader("Pipe_line", "BR");
                     www.SetRequestHeader("Name_App", req_Report_Bug.Name_app);
                     www.SetRequestHeader("Email", req_Report_Bug.Email_admin);
-                    www.SetRequestHeader("Message", req_Report_Bug.Message) ;
+                    www.SetRequestHeader("Message", req_Report_Bug.Message);
                     www.SetRequestHeader("Data_user", req_Report_Bug.Data_user);
                     www.SetRequestHeader("Key", req_Report_Bug.Key);
                     www.SendWebRequest();
@@ -2592,7 +2619,7 @@ namespace Chilligames.SDK
                         }
                         else
                         {
-                            if (www.isHttpError||www.isNetworkError||www.timeout==1)
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
                             {
                                 www.Abort();
                                 break;
