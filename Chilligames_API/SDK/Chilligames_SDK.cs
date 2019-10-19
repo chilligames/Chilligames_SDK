@@ -309,6 +309,12 @@ namespace Chilligames.SDK.Model_Client
         public string Data_user;
         public string Key;
     }
+    public class Req_add_purchasses_history
+    {
+        public string _id;
+        public string Name_app;
+        public string data_purchass;
+    }
 }
 
 namespace Chilligames.SDK
@@ -1400,7 +1406,7 @@ namespace Chilligames.SDK
                         if (www.isDone)
                         {
                             www.Abort();
-                            
+
                             break;
                         }
                         else
@@ -2632,11 +2638,55 @@ namespace Chilligames.SDK
                 }
             }
 
+
+            /// <summary>
+            /// add result history to palayer history purchasses\
+            /// 
+            /// </summary>
+            /// <param name="req_Add_Purchasses_History"> data must parse to json string befor send to server</param>
+            /// <param name="result"></param>
+            /// <param name="err"></param>
+            public static void Add_purchasses_history(Req_add_purchasses_history req_Add_Purchasses_History, Action result, Action<ERRORs> err)
+            {
+                add(); 
+
+                 async void add()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "APH");
+                    www.SetRequestHeader("_id", req_Add_Purchasses_History._id);
+                    www.SetRequestHeader("Name_App", req_Add_Purchasses_History.Name_app);
+                    www.SetRequestHeader("Data_inject", req_Add_Purchasses_History.data_purchass);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+
+            }
+
+
             public class Result_quick_register
             {
                 public string _id;
             }
-
 
             public class Result_Login
             {
