@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using Chilligames.SDK.Model_Admin;
 
 namespace Chilligames.SDK.Model_Client
 {
@@ -121,6 +122,7 @@ namespace Chilligames.SDK.Model_Client
     public class Req_cheack_new_message
     {
         public string _id;
+        public string Name_App;
     }
     public class Req_mark_messeges_as_read
     {
@@ -316,7 +318,23 @@ namespace Chilligames.SDK.Model_Client
         public string data_purchass;
     }
 }
+namespace Chilligames.SDK.Model_Admin
+{
+    public class Req_recive_version
+    {
+        public string Name_app;
 
+    }
+    public class Req_recive_link_market
+    {
+        public string Name_app;
+    }
+    public class Req_send_logPlayer
+    {
+        public string _id;
+    }
+
+}
 namespace Chilligames.SDK
 {
 
@@ -1326,6 +1344,7 @@ namespace Chilligames.SDK
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "CNM");
                     www.SetRequestHeader("_id", req_Cheack_New_Message._id);
+                    www.SetRequestHeader("Name_App", req_Cheack_New_Message.Name_App);
                     www.SendWebRequest();
                     while (true)
                     {
@@ -2648,9 +2667,9 @@ namespace Chilligames.SDK
             /// <param name="err"></param>
             public static void Add_purchasses_history(Req_add_purchasses_history req_Add_Purchasses_History, Action result, Action<ERRORs> err)
             {
-                add(); 
+                add();
 
-                 async void add()
+                async void add()
                 {
                     UnityWebRequest www = UnityWebRequest.Get(APIs_link);
                     www.SetRequestHeader("Pipe_line", "APH");
@@ -2790,15 +2809,299 @@ namespace Chilligames.SDK
                 }
             }
 
-            public class ERRORs
-            {
-
-
-            }
 
 
 
         }
+
+        internal class API_Admin
+        {
+
+            /// <summary>
+            /// recive version game for new version as game
+            /// </summary>
+            /// <param name="req_Recive_Version"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_version_game(Req_recive_version req_Recive_Version, Action<string> result, Action<ERRORs> ERRORS)
+            {
+                recive();
+
+                async void recive()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_admin", "RV");
+                    www.SetRequestHeader("Name_App", req_Recive_Version.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(www.downloadHandler.text);
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// recive link markets
+            /// </summary>
+            /// <param name="req_Recive_Link_Market"></param>
+            /// <param name="result"></param>
+            /// <param name="ERRORS"></param>
+            public static void Recive_link_market(Req_recive_link_market req_Recive_Link_Market, Action<result_recive_link_market> result, Action<ERRORs> ERRORS)
+            {
+                recive_link();
+                async void recive_link()
+                {
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_admin", "RLM");
+                    www.SetRequestHeader("Name_App", req_Recive_Link_Market.Name_app);
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            result(ChilligamesJson.DeserializeObject<result_recive_link_market>(www.downloadHandler.text));
+                            break;
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+                }
+            }
+
+
+            /// <summary>
+            /// data must convert to json 
+            /// </summary>
+            /// <param name="send_LogPlayer"></param>
+            public static void Send_log_user(Req_send_logPlayer send_LogPlayer)
+            {
+                send_log();
+
+                async void send_log()
+                {
+                    send_log Data_player;
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_admin", "SLU");
+                    www.SetRequestHeader("_id", send_LogPlayer._id);
+                    www.SetRequestHeader("Data_user", ChilligamesJson.SerializeObject(Data_player));
+                    www.SendWebRequest();
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            break;
+
+                        }
+                        else
+                        {
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+
+                }
+            }
+
+
+
+            public class result_recive_link_market
+            {
+                public string Google_Play = null;
+                public string CafeBazaar = null;
+            }
+        }
+
+
+        public class ERRORs
+        {
+
+
+        }
+
+        struct send_log
+        {
+            public string Time
+            {
+                get
+                {
+                    return DateTime.Now.ToFileTime().ToString();
+                }
+            }
+            public string Platform
+            {
+                get
+                {
+                    return Application.platform.ToString();
+                }
+            }
+            public string Model_divice
+            {
+                get
+                {
+                    return SystemInfo.deviceModel;
+                }
+            }
+            public string Divice_name
+            {
+                get
+                {
+                    return SystemInfo.deviceName;
+                }
+            }
+            public string Graphic
+            {
+                get
+                {
+                    return "VGA_name:" + SystemInfo.graphicsDeviceName + "VGA_Version:" + SystemInfo.graphicsDeviceVersion + "VGA_Size" + SystemInfo.graphicsMemorySize;
+                }
+            }
+            public string Operation
+            {
+                get
+                {
+                    return SystemInfo.operatingSystem;
+                }
+            }
+            public string Proccese
+            {
+                get
+                {
+                    return  SystemInfo.processorType;
+                }
+            }
+            public string Procces_count
+            {
+                get
+                {
+                    return SystemInfo.processorCount.ToString();
+                }
+            }
+            public string procces_Frequency
+            {
+                get
+                {
+                    return SystemInfo.processorFrequency.ToString();
+                }
+            }
+            public string supportsAccelerometer
+            {
+                get
+                {
+                    return SystemInfo.supportsAccelerometer.ToString();
+                }
+            }
+            public string supportsGyroscope
+            {
+                get
+                {
+                    return SystemInfo.supportsGyroscope.ToString();
+                }
+            }
+            public string MemorySize
+            {
+                get
+                {
+                    return SystemInfo.systemMemorySize.ToString();
+                }
+            }
+            public string DiviceType
+            {
+                get
+                {
+                    return SystemInfo.deviceType.ToString();
+                }
+            }
+            public string UnityVersion
+            {
+                get
+                {
+                    return Application.unityVersion;
+                }
+            }
+            public string CompanyName
+            {
+                get
+                {
+                    return Application.companyName;
+                }
+            }
+            public string DataPath
+            {
+                get
+                {
+                    return Application.dataPath;
+                }
+            }
+            public string Installer
+            {
+                get
+                {
+                    return Application.installerName;
+                }
+            }
+            public string PurductName
+            {
+                get
+                {
+                    return Application.productName;
+                }
+            }
+            public string Language
+            {
+                get
+                {
+                    return Application.systemLanguage.ToString();
+                }
+            }
+            public string GameVersion
+            {
+                get
+                {
+                    return Application.version;
+                }
+            }
+            public string Uniq_id
+            {
+                get
+                {
+                    return SystemInfo.deviceUniqueIdentifier;
+                }
+            }
+
+        }
+
 
     }
 
