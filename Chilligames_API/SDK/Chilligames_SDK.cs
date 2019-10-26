@@ -2694,7 +2694,63 @@ namespace Chilligames.SDK
 
             public class Aut
             {
-                public static readonly string Link_Aut = "http://127.0.0.1:3333";
+                public static readonly string Link_Aut = "http://127.0.0.1:3333/APIs/aut";
+
+                /// <summary>
+                /// quick register 
+                /// </summary>
+                /// <param name="result_register"></param>
+                /// <param name="ERROR">
+                /// ERR 8: http ERR
+                /// ERR 2: Network ERR
+                /// ERR 6: Timeout ERR
+                /// </param>
+                public static void Quick_register(Action<Result_quick_register> result_register, Action<NetworkError> ERROR)
+                {
+                    quick_register();
+
+                    async void quick_register()
+                    {
+                        UnityWebRequest www = UnityWebRequest.Put(Link_Aut, "Noting");
+                        www.SetRequestHeader("Pipe_line", "QR");
+                        www.SendWebRequest();
+                        while (true)
+                        {
+                            if (www.isDone)
+                            {
+                                result_register(new Result_quick_register { _id = www.downloadHandler.text });
+                                www.Dispose();
+                                break;
+                            }
+                            else
+                            {
+                                await Task.Delay(1);
+                                if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                                {
+
+                                    if (www.isHttpError)
+                                    {
+                                        ERROR(NetworkError.WrongOperation);
+
+                                    }
+                                    if (www.isNetworkError)
+                                    {
+                                        ERROR(NetworkError.WrongConnection);
+                                    }
+                                    if (www.timeout == 1)
+                                    {
+                                        ERROR(NetworkError.Timeout);
+                                    }
+                                    print("Register_fild_break_register");
+                                    www.Abort();
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+
+                }
 
 
                 /// <summary>
@@ -2757,64 +2813,6 @@ namespace Chilligames.SDK
                     }
 
                 }
-
-
-                /// <summary>
-                /// quick register 
-                /// </summary>
-                /// <param name="result_register"></param>
-                /// <param name="ERROR">
-                /// ERR 8: http ERR
-                /// ERR 2: Network ERR
-                /// ERR 6: Timeout ERR
-                /// </param>
-                public static void Quick_register(Action<Result_quick_register> result_register, Action<NetworkError> ERROR)
-                {
-                    quick_register();
-
-                    async void quick_register()
-                    {
-                        UnityWebRequest www = UnityWebRequest.Put(Link_Aut, "Noting");
-                        www.SetRequestHeader("Pipe_line", "QR");
-                        www.SendWebRequest();
-                        while (true)
-                        {
-                            if (www.isDone)
-                            {
-                                result_register(new Result_quick_register { _id = www.downloadHandler.text });
-                                www.Dispose();
-                                break;
-                            }
-                            else
-                            {
-                                await Task.Delay(1);
-                                if (www.isHttpError || www.isNetworkError || www.timeout == 1)
-                                {
-
-                                    if (www.isHttpError)
-                                    {
-                                        ERROR(NetworkError.WrongOperation);
-
-                                    }
-                                    if (www.isNetworkError)
-                                    {
-                                        ERROR(NetworkError.WrongConnection);
-                                    }
-                                    if (www.timeout == 1)
-                                    {
-                                        ERROR(NetworkError.Timeout);
-                                    }
-                                    print("Register_fild_break_register");
-                                    www.Abort();
-                                    break;
-                                }
-
-                            }
-                        }
-                    }
-
-                }
-
 
 
             }
