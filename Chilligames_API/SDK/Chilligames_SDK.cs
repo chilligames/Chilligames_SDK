@@ -2817,6 +2817,12 @@ namespace Chilligames.SDK
 
             }
 
+            public class Server_manager
+            {
+
+
+
+            }
 
         }
 
