@@ -346,125 +346,6 @@ namespace Chilligames.SDK
         {
 
             /// <summary>
-            /// quick Login just login with Token
-            /// </summary>
-            /// <param name="Req_login"></param>
-            /// <param name="Result_login"></param>
-            /// <param name="ERROR"></param>
-            public static void Quick_login(Req_Login Req_login, Action<string> Result_login, Action<NetworkError> ERROR)
-            {
-                UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                www.SetRequestHeader("Pipe_line", "QL");
-                www.SetRequestHeader("_id", Req_login._id);
-
-                www.SendWebRequest();
-                login();
-
-                async void login()
-                {
-                    while (true)
-                    {
-                        if (www.isDone)
-                        {
-                            www.Abort();
-                            if (www.downloadHandler.text == "1")
-                            {
-                                Result_login("1");
-                            }
-                            else if (www.downloadHandler.text == "0")
-                            {
-                                Result_login("0");
-                            }
-
-                            break;
-                        }
-                        else
-                        {
-                            await Task.Delay(1);
-                            if (www.isNetworkError || www.isHttpError || www.timeout == 1)
-                            {
-
-                                if (www.isNetworkError)
-                                {
-                                    ERROR(NetworkError.WrongConnection);
-                                }
-                                if (www.isHttpError)
-                                {
-                                    ERROR(NetworkError.WrongOperation);
-                                }
-                                if (www.timeout == 1)
-                                {
-                                    ERROR(NetworkError.Timeout);
-                                }
-                                print("Err_not_login_login_break");
-                                www.Abort();
-                                break;
-                            }
-                        }
-                    }
-                }
-
-            }
-
-
-            /// <summary>
-            /// quick register 
-            /// </summary>
-            /// <param name="result_register"></param>
-            /// <param name="ERROR">
-            /// ERR 8: http ERR
-            /// ERR 2: Network ERR
-            /// ERR 6: Timeout ERR
-            /// </param>
-            public static void Quick_register(Action<Result_quick_register> result_register, Action<NetworkError> ERROR)
-            {
-                quick_register();
-
-                async void quick_register()
-                {
-                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
-                    www.SetRequestHeader("Pipe_line", "QR");
-                    www.SendWebRequest();
-                    while (true)
-                    {
-                        if (www.isDone)
-                        {
-                            result_register(new Result_quick_register { _id = www.downloadHandler.text });
-                            www.Dispose();
-                            break;
-                        }
-                        else
-                        {
-                            await Task.Delay(1);
-                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
-                            {
-
-                                if (www.isHttpError)
-                                {
-                                    ERROR(NetworkError.WrongOperation);
-
-                                }
-                                if (www.isNetworkError)
-                                {
-                                    ERROR(NetworkError.WrongConnection);
-                                }
-                                if (www.timeout == 1)
-                                {
-                                    ERROR(NetworkError.Timeout);
-                                }
-                                print("Register_fild_break_register");
-                                www.Abort();
-                                break;
-                            }
-
-                        }
-                    }
-                }
-
-            }
-
-
-            /// <summary>
             /// login with user name password
             /// </summary>
             /// <param name="req_Login_With_Username_Password"></param>
@@ -2811,6 +2692,133 @@ namespace Chilligames.SDK
 
 
 
+            public class Aut
+            {
+                public static readonly string Link_Aut = "http://127.0.0.1:3333";
+
+
+                /// <summary>
+                /// quick Login just login with Token
+                /// </summary>
+                /// <param name="Req_login"></param>
+                /// <param name="Result_login"></param>
+                /// <param name="ERROR"></param>
+                public static void Quick_login(Req_Login Req_login, Action<string> Result_login, Action<NetworkError> ERROR)
+                {
+                    UnityWebRequest www = UnityWebRequest.Put(Link_Aut, "Notigh");
+                    www.SetRequestHeader("Pipe_line", "QL");
+                    www.SetRequestHeader("_id", Req_login._id);
+
+                    www.SendWebRequest();
+                    login();
+
+                    async void login()
+                    {
+                        while (true)
+                        {
+                            if (www.isDone)
+                            {
+                                www.Abort();
+                                if (www.downloadHandler.text == "1")
+                                {
+                                    Result_login("1");
+                                }
+                                else if (www.downloadHandler.text == "0")
+                                {
+                                    Result_login("0");
+                                }
+
+                                break;
+                            }
+                            else
+                            {
+                                await Task.Delay(1);
+                                if (www.isNetworkError || www.isHttpError || www.timeout == 1)
+                                {
+
+                                    if (www.isNetworkError)
+                                    {
+                                        ERROR(NetworkError.WrongConnection);
+                                    }
+                                    if (www.isHttpError)
+                                    {
+                                        ERROR(NetworkError.WrongOperation);
+                                    }
+                                    if (www.timeout == 1)
+                                    {
+                                        ERROR(NetworkError.Timeout);
+                                    }
+                                    print("Err_not_login_login_break");
+                                    www.Abort();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
+                /// <summary>
+                /// quick register 
+                /// </summary>
+                /// <param name="result_register"></param>
+                /// <param name="ERROR">
+                /// ERR 8: http ERR
+                /// ERR 2: Network ERR
+                /// ERR 6: Timeout ERR
+                /// </param>
+                public static void Quick_register(Action<Result_quick_register> result_register, Action<NetworkError> ERROR)
+                {
+                    quick_register();
+
+                    async void quick_register()
+                    {
+                        UnityWebRequest www = UnityWebRequest.Put(Link_Aut, "Noting");
+                        www.SetRequestHeader("Pipe_line", "QR");
+                        www.SendWebRequest();
+                        while (true)
+                        {
+                            if (www.isDone)
+                            {
+                                result_register(new Result_quick_register { _id = www.downloadHandler.text });
+                                www.Dispose();
+                                break;
+                            }
+                            else
+                            {
+                                await Task.Delay(1);
+                                if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                                {
+
+                                    if (www.isHttpError)
+                                    {
+                                        ERROR(NetworkError.WrongOperation);
+
+                                    }
+                                    if (www.isNetworkError)
+                                    {
+                                        ERROR(NetworkError.WrongConnection);
+                                    }
+                                    if (www.timeout == 1)
+                                    {
+                                        ERROR(NetworkError.Timeout);
+                                    }
+                                    print("Register_fild_break_register");
+                                    www.Abort();
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+
+
+
+            }
+
 
         }
 
@@ -2998,7 +3006,7 @@ namespace Chilligames.SDK
             {
                 get
                 {
-                    return  SystemInfo.processorType;
+                    return SystemInfo.processorType;
                 }
             }
             public string Procces_count
