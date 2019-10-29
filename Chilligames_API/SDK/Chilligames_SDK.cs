@@ -12,6 +12,12 @@ namespace Chilligames.SDK.Model_Client
     {
         public string _id;
     }
+    public class Req_register_with_username_pass_email
+    {
+        public string Username;
+        public string Email;
+        public string Password;
+    }
     public class Req_login_with_username_password
     {
         public string Username;
@@ -340,7 +346,7 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        protected readonly static string APIs_link = "http://198.143.178.164:3333/APIs";
+        protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
 
         internal class API_Client
         {
@@ -406,6 +412,47 @@ namespace Chilligames.SDK
 
             }
 
+            public static void Register_with_username_password(Req_register_with_username_pass_email req_Register_With_Username_Pass_Email, Action<string> result, Action<ERRORs> ERRORs)
+            {
+                register();
+                async void register()
+                {
+
+                    UnityWebRequest www = UnityWebRequest.Get(APIs_link);
+                    www.SetRequestHeader("Pipe_line", "RWUPE");
+                    www.SetRequestHeader("Username", req_Register_With_Username_Pass_Email.Username);
+                    www.SetRequestHeader("Email", req_Register_With_Username_Pass_Email.Email);
+                    www.SetRequestHeader("Password", req_Register_With_Username_Pass_Email.Password);
+                    www.SendWebRequest();
+
+                    while (true)
+                    {
+                        if (www.isDone)
+                        {
+                            www.Abort();
+                            if (www.downloadHandler.text.Length > 2)
+                            {
+                                result(www.downloadHandler.text);
+                            }
+
+                            break;
+
+                        }
+                        else
+                        {
+                    print("send");
+                            if (www.isHttpError || www.isNetworkError || www.timeout == 1)
+                            {
+                                www.Abort();
+                                break;
+                            }
+                            await Task.Delay(1);
+                        }
+
+                    }
+
+                }
+            }
 
             /// <summary>
             /// quick register 
@@ -485,7 +532,11 @@ namespace Chilligames.SDK
                     {
                         if (www.isDone)
                         {
+                            if (www.downloadHandler.text.Length>2)
+                            {
                             result(www.downloadHandler.text);
+
+                            }
                             www.Abort();
                             break;
                         }
@@ -2998,7 +3049,7 @@ namespace Chilligames.SDK
             {
                 get
                 {
-                    return  SystemInfo.processorType;
+                    return SystemInfo.processorType;
                 }
             }
             public string Procces_count
