@@ -346,7 +346,7 @@ namespace Chilligames.SDK
 
     public class Chilligames_SDK : MonoBehaviour
     {
-        protected readonly static string APIs_link = "http://127.0.0.1:3333/APIs";
+        protected readonly static string APIs_link = "http://198.143.178.164:3333/APIs";
 
         internal class API_Client
         {
